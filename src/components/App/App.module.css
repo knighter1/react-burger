@@ -1,4 +1,9 @@
 .appCont {
-    width: 1200px;
+    width: 1240px;
+    height: 100%;
     margin: auto;
+}
+
+.main {
+    height: calc(100% - 88px);
 }

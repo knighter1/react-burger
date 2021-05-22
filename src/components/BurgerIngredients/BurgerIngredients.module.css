@@ -1,0 +1,11 @@
+.section {
+    width: 600px;
+    height: 100%;
+    float: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu {
+    display: flex;
+}

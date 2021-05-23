@@ -38,12 +38,7 @@ export class IngredientMenuList extends React.Component<IIngredientMenuListProps
             <>
                 {<span id={`menu_${IngredientTypes[type]}`} className={`${styles.listCategory} text text_type_main-medium pt-2`}>{type}</span>}
                 {
-                    data.map(element => {
-                        if (element._id === "60666c42cc7b410027a1a9b1")
-                            return <IngredientMenuItem key={element._id} data={element} count={2} />
-                            
-                        return <IngredientMenuItem key={element._id} data={element} />
-                    })
+                    data.map(element => <IngredientMenuItem key={element._id} data={element} />)
                 }
             </>
         );

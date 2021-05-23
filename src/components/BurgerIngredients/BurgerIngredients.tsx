@@ -8,10 +8,28 @@ export interface IBurgerIngredientsProps {
     ingredients: IngredientData[];
 }
 
-class BurgerIngredients extends React.Component<IBurgerIngredientsProps>
+interface IBurgerIngredientsState
 {
-    setCurrent()
+    currentType: string;
+}
+
+class BurgerIngredients extends React.Component<IBurgerIngredientsProps, IBurgerIngredientsState>
+{
+    private types: IngredientTypes[];
+
+    constructor(props: IBurgerIngredientsProps)
     {
+        super(props);
+
+        this.state = { currentType: IngredientTypes[IngredientTypes.bun] }
+
+        this.types = [IngredientTypes.bun, IngredientTypes.main, IngredientTypes.sauce];
+    }
+
+    setCurrent(type: string)
+    {
+        this.setState({ currentType: type });
+        document.querySelector('#menu_' + type)?.scrollIntoView();
     }
 
     render()
@@ -20,15 +38,17 @@ class BurgerIngredients extends React.Component<IBurgerIngredientsProps>
             <section className={styles.section}>
                 <div className="text text_type_main-large pt-10 pb-5">Соберите бургер</div>
                 <div className={`${styles.menu} pb-10`}>
-                    <Tab value={IngredientTypes.Buns} active={true} onClick={this.setCurrent}>
-                        {IngredientTypes.Buns}
-                    </Tab>
-                    <Tab value={IngredientTypes.Sauces} active={false} onClick={this.setCurrent}>
-                        {IngredientTypes.Sauces}
-                    </Tab>
-                    <Tab value={IngredientTypes.Toppings} active={false} onClick={this.setCurrent}>
-                        {IngredientTypes.Toppings}
-                    </Tab>
+                    {
+                        this.types.map(type => {
+                            const handler = (type: string) => this.setCurrent(type);
+                            const state: boolean = this.state.currentType === IngredientTypes[type];
+                            return (
+                                <Tab key={type} value={IngredientTypes[type]} active={state} onClick={handler}>
+                                    {type}
+                                </Tab>
+                            )
+                        })
+                    }
                 </div>
                 <IngredientMenuList ingredients={this.props.ingredients} />
             </section>   

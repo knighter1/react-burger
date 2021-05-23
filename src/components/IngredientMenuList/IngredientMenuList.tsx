@@ -9,10 +9,9 @@ export interface IIngredientMenuListProps {
 
 export enum IngredientTypes
 {
-    Buns = "Булки",
-    Sauces = "Соусы",
-    Toppings = "Начинки",
-    Main = "Основное"
+    bun = "Булки" as any,
+    sauce = "Соусы" as any,
+    main = "Начинки" as any
 }
 
 export class IngredientMenuList extends React.Component<IIngredientMenuListProps>
@@ -20,16 +19,14 @@ export class IngredientMenuList extends React.Component<IIngredientMenuListProps
     private bunsList: IngredientData[];
     private saucesList: IngredientData[];
     private mainList: IngredientData[];
-    private topingsList: IngredientData[];
 
     constructor(props: IIngredientMenuListProps)
     {
         super(props);
 
-        this.bunsList = props.ingredients.filter(element => element.type === "bun");
-        this.mainList = props.ingredients.filter(element => element.type === "main");
-        this.saucesList = props.ingredients.filter(element => element.type === "sauce");
-        this.topingsList = props.ingredients.filter(element => element.type === "topings");
+        this.bunsList = props.ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.bun]);
+        this.mainList = props.ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.main]);
+        this.saucesList = props.ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.sauce]);
     }
 
     renderCategory(type: IngredientTypes, data: IngredientData[])
@@ -39,7 +36,7 @@ export class IngredientMenuList extends React.Component<IIngredientMenuListProps
 
         return (
             <>
-                {<span className={`${styles.listCategory} text text_type_main-medium pt-2`}>{type}</span>}
+                {<span id={`menu_${IngredientTypes[type]}`} className={`${styles.listCategory} text text_type_main-medium pt-2`}>{type}</span>}
                 {
                     data.map(element => {
                         if (element._id === "60666c42cc7b410027a1a9b1")
@@ -55,10 +52,9 @@ export class IngredientMenuList extends React.Component<IIngredientMenuListProps
     render()
     {
         let categories = [];
-        categories.push(this.renderCategory(IngredientTypes.Buns, this.bunsList));
-        categories.push(this.renderCategory(IngredientTypes.Main, this.mainList));
-        categories.push(this.renderCategory(IngredientTypes.Sauces, this.saucesList));
-        categories.push(this.renderCategory(IngredientTypes.Toppings, this.topingsList));
+        categories.push(this.renderCategory(IngredientTypes.bun, this.bunsList));
+        categories.push(this.renderCategory(IngredientTypes.main, this.mainList));
+        categories.push(this.renderCategory(IngredientTypes.sauce, this.saucesList));
 
         return (
             

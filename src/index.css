@@ -24,4 +24,5 @@ code {
 ::-webkit-scrollbar-thumb {
     background-color: #8585AD;
     border: 1px solid #2F2F37;
+    border-radius: 4px;
 }

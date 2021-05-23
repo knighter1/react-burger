@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './App.module.css';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
+import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import data from '../../utils/data.json';
 
@@ -21,8 +22,9 @@ class App extends React.Component
         return (
             <div className={styles.appCont}>
                 <AppHeader />
-                <main>
+                <main className={styles.main}>
                     <BurgerIngredients ingredients={this.data} />
+                    <BurgerConstructor items={this.data} />
                 </main>
             </div>
         );

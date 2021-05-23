@@ -5,5 +5,5 @@
 }
 
 .main {
-    height: calc(100% - 88px);
+    height: calc(100% - 88px - 20px);
 }

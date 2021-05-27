@@ -1,0 +1,17 @@
+.placeOrder
+{
+    width: 720px;
+    height: auto;
+    margin-top: calc(50vh - 360px);
+}
+
+.orderId {
+    text-shadow: 2px 2px 25px blue;
+}
+
+.modalCloseBtn {
+    position: absolute;
+    top: 60px;
+    right: 40px;
+    cursor: pointer;
+}

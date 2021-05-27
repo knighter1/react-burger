@@ -4,9 +4,17 @@ import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
+import { Popup } from '../Popup/Popup';
 import data from '../../utils/data.json';
 
 class App extends React.Component
+interface AppState
+{
+    currentItems: IngredientData[];
+    showModal: string
+}
+
+class App extends React.Component<object, AppState>
 {
     public data: IngredientData[];
 
@@ -15,6 +23,19 @@ class App extends React.Component
         super(props);
 
         this.data = data;
+
+        this.state = {
+            showModal: "place-order"
+        }
+    }
+    onCloseModal(): void
+    {
+        this.setState(prevState => {
+            return { 
+                ...prevState,
+                showModal: ""
+            }
+        });
     }
 
     render()
@@ -26,6 +47,7 @@ class App extends React.Component
                     <BurgerIngredients ingredients={this.data} />
                     <BurgerConstructor items={this.data} />
                 </main>
+                {this.state.showModal !== "" && <Popup type={this.state.showModal} close={() => this.onCloseModal()} />}
             </div>
         );
     }

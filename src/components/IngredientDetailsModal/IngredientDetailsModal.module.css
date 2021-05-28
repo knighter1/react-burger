@@ -1,0 +1,34 @@
+.container
+{
+    width: 720px;
+    height: auto;
+    margin-top: calc(50vh - 258px);
+}
+
+.title {
+    text-align: left;
+}
+
+.modalCloseBtn {
+    position: absolute;
+    top: 60px;
+    right: 40px;
+    cursor: pointer;
+}
+
+.characteristics
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.charItem {
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: 110px;
+    list-style-type: none;
+    margin: 0 10px 0 10px;
+    padding: 0;
+}

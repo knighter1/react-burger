@@ -16,6 +16,15 @@ code {
     monospace;
 }
 
+.modal-сontent {
+    position: relative;
+    margin: 0 auto;
+    background-color: #1c1c21;
+    overflow: auto;
+    text-align: center;
+    border-radius: 40px;
+}
+
 ::-webkit-scrollbar {
     width: 8px;
     background-color: #2F2F37;

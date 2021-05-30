@@ -1,3 +1,4 @@
 .list {
     overflow-y: scroll;
+    scrollbar-width: thin;
 }

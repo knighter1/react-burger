@@ -1,14 +1,14 @@
-import styles from './PlaceOrderModal.module.css';
+import styles from './OrderDetails.module.css';
 import orderDoneImg from '../../images/order_done.png';
 import modalCloseBtnImg from '../../images/modal_close_btn.png';
 
-interface IPlaceOrderModalProps
+interface IOrderDetailsProps
 {
     orderId: string,
     closeHandle: Function
 }
 
-export const PlaceOrderModal = ({ orderId, closeHandle }: IPlaceOrderModalProps) =>
+export const OrderDetails = ({ orderId, closeHandle }: IOrderDetailsProps) =>
 {
     return (
         <div className={`${styles.placeOrder} modal-сontent`}>

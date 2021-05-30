@@ -4,7 +4,7 @@ import styles from './BurgerConstructor.module.css';
 import IngredientsList from '../IngredientsList/IngredientsList';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import IngredientsListItem from '../IngredientsListItem/IngredientsListItem';
-import { Modals } from '../Popup/Popup';
+import { Modals } from '../Modal/Modal';
 
 interface IBurgerConstructorProps
 {

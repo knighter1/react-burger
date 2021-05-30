@@ -4,13 +4,13 @@ import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
-import { Popup, Modals, IModal } from '../Popup/Popup';
+import { Modal, Modals, IModal } from '../Modal/Modal';
 import data from '../../utils/data.json';
 
 const App = () => {
     
     const [showModal, setShowModal] = useState<IModal>({ type:Modals.None });
-    const [currentItems, setCurrentItems] = useState<IngredientData[]>(data.slice(0, 3));
+    const [currentItems, setCurrentItems] = useState<IngredientData[]>(data.slice(0, 7));
 
     const onAddItem = (item: IngredientData): void => {
         setCurrentItems([...currentItems, item]);
@@ -28,7 +28,7 @@ const App = () => {
                 <BurgerIngredients ingredients={data} onAddItemHandler={(item: IngredientData) => onAddItem(item)} />
                 <BurgerConstructor items={currentItems} showModal={(modalType: Modals) => onShowModal(modalType)} />
             </main>
-            {showModal.type !== Modals.None && <Popup type={showModal.type} closeHandle={() => onCloseModal()} modalData={showModal.modalData} />}
+            {showModal.type !== Modals.None && <Modal type={showModal.type} closeHandle={() => onCloseModal()} modalData={showModal.modalData} />}
         </div>
     );
 }

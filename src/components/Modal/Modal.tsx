@@ -1,6 +1,6 @@
-import { PlaceOrderModal } from '../PlaceOrderModal/PlaceOrderModal';
-import { IngredientDetailsModal } from '../IngredientDetailsModal/IngredientDetailsModal';
-import styles from './Popup.module.css'
+import { OrderDetails } from '../OrderDetails/OrderDetails';
+import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
+import styles from './Modal.module.css'
 
 export enum Modals
 {
@@ -14,11 +14,11 @@ export interface IModal {
     modalData?: any,
 }
 
-interface PopupProps extends IModal {
+interface IClosableModal extends IModal {
     closeHandle: Function
 }
 
-export const Popup = ({ type, modalData, closeHandle }: PopupProps): JSX.Element =>
+export const Modal = ({ type, modalData, closeHandle }: IClosableModal): JSX.Element =>
 {
     let popup: JSX.Element = <div />;
 
@@ -26,11 +26,11 @@ export const Popup = ({ type, modalData, closeHandle }: PopupProps): JSX.Element
     {
         case Modals.PlaceOrder:
             modalData = "034536";
-            popup = <PlaceOrderModal orderId={modalData} closeHandle={closeHandle} />;
+            popup = <OrderDetails orderId={modalData} closeHandle={closeHandle} />;
         break;
 
         case Modals.IngredientDetails:
-            popup = <IngredientDetailsModal ingredientData={modalData} closeHandle={closeHandle} />;
+            popup = <IngredientDetails ingredientData={modalData} closeHandle={closeHandle} />;
         break;
     }
 

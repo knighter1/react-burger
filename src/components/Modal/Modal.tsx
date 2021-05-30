@@ -1,6 +1,5 @@
 import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
-import styles from './Modal.module.css'
 
 export enum Modals
 {
@@ -14,17 +13,17 @@ export interface IModal {
     modalData?: any,
 }
 
-interface IClosableModal extends IModal {
+export interface IClosableModal extends IModal {
     closeHandle: Function
 }
 
-export const Modal = ({ type, modalData, closeHandle }: IClosableModal): JSX.Element =>
+export const Modal = ({ type, modalData, closeHandle }: IClosableModal) =>
 {
     let popup: JSX.Element = <div />;
 
     switch (type)
     {
-        case Modals.PlaceOrder:
+        case Modals.OrderDetails:
             modalData = "034536";
             popup = <OrderDetails orderId={modalData} closeHandle={closeHandle} />;
         break;
@@ -35,8 +34,8 @@ export const Modal = ({ type, modalData, closeHandle }: IClosableModal): JSX.Ele
     }
 
     return (
-        <div className={styles.modal}>
+        <>
             {popup}
-        </div>
+        </>
     )
 }

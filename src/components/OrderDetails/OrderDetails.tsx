@@ -4,11 +4,11 @@ import modalCloseBtnImg from '../../images/modal_close_btn.png';
 
 interface IOrderDetailsProps
 {
-    orderId: string,
-    closeHandle: Function
+    orderId: string;
+    closeHandle: Function;
 }
 
-export const OrderDetails = ({ orderId, closeHandle }: IOrderDetailsProps) =>
+export const OrderDetails = ({ orderId, closeHandle }: IOrderDetailsProps): JSX.Element =>
 {
     return (
         <div className={`${styles.orderDetail} modal-сontent`}>

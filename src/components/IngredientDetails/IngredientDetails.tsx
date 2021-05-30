@@ -1,14 +1,14 @@
 import styles from './IngredientDetails.module.css';
-import modalCloseBtnImg from '../../images/modal_close_btn.png';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
+import modalCloseBtnImg from '../../images/modal_close_btn.png';
 
 interface IIngredientDetailsProps
 {
-    ingredientData: IngredientData,
-    closeHandle: Function
+    ingredientData: IngredientData;
+    closeHandle: Function;
 }
 
-export const IngredientDetails = ({ ingredientData, closeHandle }: IIngredientDetailsProps) => {
+export const IngredientDetails = ({ ingredientData, closeHandle }: IIngredientDetailsProps): JSX.Element => {
 
     const characteristic = (charName: string, charValue: number) => (
         <ul className={`${styles.charItem}`}>

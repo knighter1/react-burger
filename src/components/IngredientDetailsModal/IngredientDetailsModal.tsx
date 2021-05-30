@@ -22,17 +22,17 @@ export const IngredientDetailsModal = ({ ingredientData, closeHandle }: IIngredi
             <div className={`${styles.title} text text_type_main-large ml-10 mt-10 mr-10 pt-2`}>
                 Детали ингредиента
             </div>
-            <img src={ingredientData.image_large} />
+            <img src={ingredientData.image_large} alt={ingredientData.name} />
             <div className={`text text_type_main-medium mt-4 mb-8`}>
                 {ingredientData.name}
             </div>
-            <img className={styles.modalCloseBtn} src={modalCloseBtnImg} onClick={(e) => closeHandle()} />
             <div className={`${styles.characteristics} mb-15`}>
                 {characteristic('Калории,ккал', ingredientData.calories)}
                 {characteristic('Белки, г', ingredientData.proteins)}
                 {characteristic('Жиры, г', ingredientData.fat)}
                 {characteristic('Углеводы, г', ingredientData.carbohydrates)}
             </div>
+            <img className={styles.modalCloseBtn} src={modalCloseBtnImg} onClick={(e) => closeHandle() } alt="Закрыть" />
         </div>
     );
 }

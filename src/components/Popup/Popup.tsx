@@ -9,27 +9,30 @@ export enum Modals
     IngredientDetails = "ingredient-details",
 }
 
-interface PopupProps {
+export interface IModal {
     type: Modals,
-    object?: any,
+    modalData?: any,
+}
+
+interface PopupProps extends IModal {
     closeHandle: Function
 }
 
-export const Popup = ({ type, object, closeHandle }: PopupProps): JSX.Element => {
-    
+export const Popup = ({ type, modalData, closeHandle }: PopupProps): JSX.Element =>
+{
     let popup: JSX.Element = <div />;
+
     switch (type)
     {
         case Modals.PlaceOrder:
-            popup = <PlaceOrderModal orderId={"034536"} closeHandle={closeHandle} />;
+            modalData = "034536";
+            popup = <PlaceOrderModal orderId={modalData} closeHandle={closeHandle} />;
         break;
 
         case Modals.IngredientDetails:
-            popup = <IngredientDetailsModal ingredientData={object.ingredientData} closeHandle={closeHandle} />;
+            popup = <IngredientDetailsModal ingredientData={modalData} closeHandle={closeHandle} />;
         break;
     }
-
-    console.log(type);
 
     return (
         <div className={styles.modal}>

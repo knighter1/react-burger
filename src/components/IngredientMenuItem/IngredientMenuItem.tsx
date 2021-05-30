@@ -1,63 +1,52 @@
-import React from 'react';
+import { useState } from 'react';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './IngredientMenuItem.module.css';
 
 export interface IngredientData
 {
     _id: string;
-    type: string;
     name: string;
+    type: string;
+    proteins: number;
+    fat: number;
+    carbohydrates: number;
+    calories: number;
     price: number;
     image: string;
-    image_large: string;
     image_mobile: string;
+    image_large: string;
+    __v: number    
 }
 
 interface IIngredientMenuItemProps
 {
     data: IngredientData;
-    count?: number;
+    onAddItemHandler: (item: IngredientData) => void;
 }
 
-interface IIngredientMenuItemState
+export const IngredientMenuItem = ({ data, onAddItemHandler }: IIngredientMenuItemProps) =>
 {
-    count: number;
-}
+    const [count, setCount] = useState(0);
 
-export class IngredientMenuItem extends React.Component<IIngredientMenuItemProps, IIngredientMenuItemState>
-{
-    private data: IngredientData;
-
-    constructor(props: IIngredientMenuItemProps)
+    const onItemClick = () =>
     {
-        super(props);
-
-        this.data = props.data;
-
-        this.state = { count: props.count ? props.count : 0 }
+        setCount(count + 1);
+        onAddItemHandler(data);
     }
 
-    onItemClick()
-    {
-        this.setState(prevState => ( {count: prevState.count + 1 }));
-    }
+    const handler = () => { onItemClick() };
 
-    render()
-    {
-        const handler = () => { this.onItemClick() };
+    return (
+        <div className={`${styles.menuItem} mt-6 mb-8 ml-4 mr-2`}
+            onClick={handler} >
+            {count > 0 && <Counter count={count} size="default" />}
 
-        return (
-            <div className={`${styles.menuItem} mt-6 mb-8 ml-4 mr-2`}
-                onClick={handler} >
-                {this.state.count > 0 && <Counter count={this.state.count} size="default" />}
-   
-                <img className="ml-4 mr-4" src={this.data.image} alt={this.data.name} />
-                <div className={`mt-1 mb-1" ${styles.priceBlock}`}>
-                    <span className={`text text_type_digits-default pr-2 ${styles.price}`}>{this.data.price}</span>
-                    <CurrencyIcon type="primary" />
-                </div>
-                <span className="text_type_main-default">{this.data.name}</span>
+            <img className="ml-4 mr-4" src={data.image} alt={data.name} />
+            <div className={`mt-1 mb-1" ${styles.priceBlock}`}>
+                <span className={`text text_type_digits-default pr-2 ${styles.price}`}>{data.price}</span>
+                <CurrencyIcon type="primary" />
             </div>
-        );
-    }
+            <span className="text_type_main-default">{data.name}</span>
+        </div>
+    )
 }

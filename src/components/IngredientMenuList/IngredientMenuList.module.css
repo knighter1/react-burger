@@ -7,3 +7,9 @@
 .listCategory {
     width: 100%;
 }
+
+.categoryBlock {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}

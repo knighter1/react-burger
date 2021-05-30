@@ -42,7 +42,7 @@ const BurgerConstructor = ({items, showModal}: IBurgerConstructorProps) =>
                 <span className="text text_type_digits-medium mr-2">{totalOrderCost}</span>
                 <CurrencyIcon type="primary" />
                 <div className={`ml-10 ${styles.buttonWrapper}`}>
-                    <Button type="primary" size="large" onClick={() => showModal(Modals.PlaceOrder)}>
+                    <Button type="primary" size="large" onClick={() => showModal(Modals.OrderDetails)}>
                         Оформить заказ
                     </Button>
                 </div>

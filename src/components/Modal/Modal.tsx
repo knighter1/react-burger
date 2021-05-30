@@ -5,7 +5,7 @@ import styles from './Modal.module.css'
 export enum Modals
 {
     None = "none",
-    PlaceOrder = "place-order",
+    OrderDetails = "order-details",
     IngredientDetails = "ingredient-details",
 }
 

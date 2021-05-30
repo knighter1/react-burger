@@ -32,7 +32,7 @@ export const IngredientDetails = ({ ingredientData, closeHandle }: IIngredientDe
                 {characteristic('Жиры, г', ingredientData.fat)}
                 {characteristic('Углеводы, г', ingredientData.carbohydrates)}
             </div>
-            <img className={styles.modalCloseBtn} src={modalCloseBtnImg} onClick={(e) => closeHandle() } alt="Закрыть" />
+            <img className='modal-close-btn' src={modalCloseBtnImg} onClick={(e) => closeHandle() } alt="Закрыть" />
         </div>
     );
 }

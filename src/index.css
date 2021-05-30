@@ -23,6 +23,15 @@ code {
     overflow: auto;
     text-align: center;
     border-radius: 40px;
+    width: 720px;
+    height: auto;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 60px;
+    right: 40px;
+    cursor: pointer;
 }
 
 ::-webkit-scrollbar {

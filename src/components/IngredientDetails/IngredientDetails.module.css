@@ -1,19 +1,10 @@
 .container
 {
-    width: 720px;
-    height: auto;
     margin-top: calc(50vh - 258px);
 }
 
 .title {
     text-align: left;
-}
-
-.modalCloseBtn {
-    position: absolute;
-    top: 60px;
-    right: 40px;
-    cursor: pointer;
 }
 
 .characteristics

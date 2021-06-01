@@ -14,8 +14,6 @@ interface IBurgerConstructorProps
 
 const BurgerConstructor = ({items, showModal}: IBurgerConstructorProps) =>
 {
-    console.log("BurgerConstructor: ", items);
-
     const [currentItems, setItems] = useState(items);
 
     const onRemoveItem = (id: string): void => setItems(currentItems.filter(element => element._id !== id));

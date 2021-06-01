@@ -1,0 +1,17 @@
+.menuItem {
+    position: relative;
+    width: 272px;
+    max-width: 272px;
+    text-align: center;
+}
+
+.priceBlock {
+    display: table;
+    margin: auto; 
+}
+
+.price {
+    display: block;
+    position: relative;
+    float: left;
+}

@@ -1,0 +1,8 @@
+.orderDetail
+{
+    margin-top: calc(50vh - 360px);
+}
+
+.orderId {
+    text-shadow: 2px 2px 25px blue;
+}

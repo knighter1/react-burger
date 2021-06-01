@@ -1,0 +1,19 @@
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.sideRow {
+    display: flex;
+    flex-direction: row;
+    width: 40%;
+}
+
+.left {  
+    justify-content: flex-start;
+}
+
+.right {  
+    justify-content: flex-end;
+}

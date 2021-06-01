@@ -1,6 +1,7 @@
 import styles from './Modal.module.css';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
+import modalCloseBtnImg from '../../images/modal_close_btn.png';
 
 export enum Modals
 {
@@ -26,17 +27,18 @@ export const Modal = ({ type, modalData, closeHandle }: IClosableModal) =>
     {
         case Modals.OrderDetails:
             modalData = "034536";
-            popup = <OrderDetails orderId={modalData} closeHandle={closeHandle} />;
+            popup = <OrderDetails orderId={modalData} />;
         break;
 
         case Modals.IngredientDetails:
-            popup = <IngredientDetails ingredientData={modalData} closeHandle={closeHandle} />;
+            popup = <IngredientDetails ingredientData={modalData} />;
         break;
     }
 
     return (
         <div className={styles.modalContainer} onClick={(event) => event.stopPropagation()}>
             {popup}
+            <img className='modal-close-btn' src={modalCloseBtnImg} onClick={(e) => closeHandle() } alt="Закрыть" />
         </div>
     )
 }

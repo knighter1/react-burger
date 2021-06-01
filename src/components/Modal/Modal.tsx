@@ -1,3 +1,4 @@
+import styles from './Modal.module.css';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 
@@ -34,8 +35,8 @@ export const Modal = ({ type, modalData, closeHandle }: IClosableModal) =>
     }
 
     return (
-        <>
+        <div className={styles.modalContainer} onClick={(event) => event.stopPropagation()}>
             {popup}
-        </>
+        </div>
     )
 }

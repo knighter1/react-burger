@@ -11,7 +11,7 @@ const App = () => {
 
     const INGREDIENTS_ENDPOINT: string = 'https://norma.nomoreparties.space/api/ingredients';
     
-    const [showModal, setShowModal] = useState<IModal>({ type:Modals.None });
+    const [showModal, setShowModal] = useState<IModal>({ type: Modals.None });
     const [currentItems, setCurrentItems] = useState<IngredientData[]>([]);
     const [ingredientsData, setIngredientsData] = useState<IngredientData[]>([]);
 
@@ -21,6 +21,16 @@ const App = () => {
         .then(responseObj => { setIngredientsData(responseObj.data); setCurrentItems([responseObj.data[0], responseObj.data[1], responseObj.data[2]]) })
         .catch(error => console.error(`Ingredients data receiving error: ${error}`));
     }, []);
+
+    useEffect(() => {
+        const escapeKeyDownHandler = (event: KeyboardEvent) => {
+            if (event.key === 'Escape' && showModal.type !== Modals.None)
+                onShowModal(Modals.None);
+        }
+
+        document.addEventListener('keydown', escapeKeyDownHandler);
+        return () => document.removeEventListener("keydown", escapeKeyDownHandler);
+    }, [showModal.type]);
 
     const onAddItem = (item: IngredientData): void => {
         setCurrentItems([...currentItems, item]);

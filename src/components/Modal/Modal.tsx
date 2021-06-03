@@ -26,7 +26,6 @@ export const Modal = ({ type, modalData, closeHandle }: IClosableModal) =>
     switch (type)
     {
         case Modals.OrderDetails:
-            modalData = "034536";
             popup = <OrderDetails orderId={modalData} />;
         break;
 
@@ -38,7 +37,7 @@ export const Modal = ({ type, modalData, closeHandle }: IClosableModal) =>
     return (
         <div className={styles.modalContainer} onClick={(event) => event.stopPropagation()}>
             {popup}
-            <img className='modal-close-btn' src={modalCloseBtnImg} onClick={(e) => closeHandle() } alt="Закрыть" />
+            <img className='modal-close-btn' src={modalCloseBtnImg} onClick={() => closeHandle() } alt="Закрыть" />
         </div>
     )
 }

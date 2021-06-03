@@ -5,16 +5,17 @@ import IngredientsList from '../IngredientsList/IngredientsList';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import IngredientsListItem from '../IngredientsListItem/IngredientsListItem';
 import { Modals } from '../Modal/Modal';
+import { ModalOverlay } from "../ModalOverlay/ModalOverlay";
 
 interface IBurgerConstructorProps
 {
     items: IngredientData[];
-    showModal: Function;
 }
 
-const BurgerConstructor = ({items, showModal}: IBurgerConstructorProps) =>
+const BurgerConstructor = ({items}: IBurgerConstructorProps) =>
 {
     const [currentItems, setItems] = useState(items);
+    const [modalState, setModalState] = useState(false);
 
     const onRemoveItem = (id: string): void => setItems(currentItems.filter(element => element._id !== id));
 
@@ -29,23 +30,26 @@ const BurgerConstructor = ({items, showModal}: IBurgerConstructorProps) =>
     const innerItems = currentItems.filter((item, index) => index !== 0 && index !== lastIndex);
 
     return (
-        <section className={`${styles.section} ml-10`}>
-            <div className={`${styles.scrollableList} pt-25`}>
-                <IngredientsListItem type="top" data={first} />
-                {currentItems.length && <IngredientsList items={innerItems} onRemoveItemHandle={(id: string) => onRemoveItem(id)} />}
-                <IngredientsListItem type="bottom" data={last} />
-            </div>
-
-            <div className={`mt-10 mr-4 ${styles.commitOrderWrapper}`}>
-                <span className="text text_type_digits-medium mr-2">{totalOrderCost}</span>
-                <CurrencyIcon type="primary" />
-                <div className={`ml-10 ${styles.buttonWrapper}`}>
-                    <Button type="primary" size="large" onClick={() => showModal(Modals.OrderDetails)}>
-                        Оформить заказ
-                    </Button>
+        <>
+            <section className={`${styles.section} ml-10`}>
+                <div className={`${styles.scrollableList} pt-25`}>
+                    <IngredientsListItem type="top" data={first} />
+                    {currentItems.length && <IngredientsList items={innerItems} onRemoveItemHandle={(id: string) => onRemoveItem(id)} />}
+                    <IngredientsListItem type="bottom" data={last} />
                 </div>
-            </div>
-        </section>
+
+                <div className={`mt-10 mr-4 ${styles.commitOrderWrapper}`}>
+                    <span className="text text_type_digits-medium mr-2">{totalOrderCost}</span>
+                    <CurrencyIcon type="primary" />
+                    <div className={`ml-10 ${styles.buttonWrapper}`}>
+                        <Button type="primary" size="large" onClick={() => setModalState(true)}>
+                            Оформить заказ
+                        </Button>
+                    </div>
+                </div>
+            </section>
+            {modalState && <ModalOverlay type={Modals.OrderDetails} closeHandle={() => setModalState(false)} modalData={"034536"} />}
+        </>
     )
 }
 

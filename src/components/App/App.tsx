@@ -4,14 +4,11 @@ import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
-import { ModalOverlay } from '../ModalOverlay/ModalOverlay';
-import { Modals, IModal } from '../Modal/Modal';
 
 const App = () => {
 
     const INGREDIENTS_ENDPOINT: string = 'https://norma.nomoreparties.space/api/ingredients';
     
-    const [showModal, setShowModal] = useState<IModal>({ type: Modals.None });
     const [currentItems, setCurrentItems] = useState<IngredientData[]>([]);
     const [ingredientsData, setIngredientsData] = useState<IngredientData[]>([]);
 
@@ -22,33 +19,17 @@ const App = () => {
         .catch(error => console.error(`Ingredients data receiving error: ${error}`));
     }, []);
 
-    useEffect(() => {
-        const escapeKeyDownHandler = (event: KeyboardEvent) => {
-            if (event.key === 'Escape' && showModal.type !== Modals.None)
-                onShowModal(Modals.None);
-        }
-
-        document.addEventListener('keydown', escapeKeyDownHandler);
-        return () => document.removeEventListener("keydown", escapeKeyDownHandler);
-    }, [showModal.type]);
-
     const onAddItem = (item: IngredientData): void => {
         setCurrentItems([...currentItems, item]);
-        setShowModal({ type: Modals.IngredientDetails, modalData: item });
     };
-        
-    const onShowModal = (modalType: Modals, modalData?: object): void => setShowModal({ type: modalType, modalData: modalData });
-
-    const onCloseModal = (): void => onShowModal(Modals.None);
 
     return (
         <div className={styles.appCont}>
             <AppHeader />
             <main className={styles.main}>
                 {ingredientsData.length && <BurgerIngredients ingredients={ingredientsData} onAddItemHandler={(item: IngredientData) => onAddItem(item)} />}
-                {currentItems.length && <BurgerConstructor items={currentItems} showModal={(modalType: Modals) => onShowModal(modalType)} />}
+                {currentItems.length && <BurgerConstructor items={currentItems} />}
             </main>
-            {showModal.type !== Modals.None && <ModalOverlay type={showModal.type} closeHandle={() => onCloseModal()} modalData={showModal.modalData} />}
         </div>
     );
 }

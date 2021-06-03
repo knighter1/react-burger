@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import styles from './IngredientsListItem.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
+import { Modals } from '../Modal/Modal';
+import { ModalOverlay } from "../ModalOverlay/ModalOverlay";
 
 interface IConstructorElement {
     type?: 'top' | 'bottom';
@@ -20,6 +23,8 @@ interface IIngredientsListItemProps
 
 const IngredientsListItem = ({ data, type, onRemoveItemHandle }: IIngredientsListItemProps) =>
 {
+    const [modalState, setModalState] = useState(false);
+
     const getElementProps = (item: IngredientData) =>
     {
         const elementProps: IConstructorElement = {
@@ -41,14 +46,17 @@ const IngredientsListItem = ({ data, type, onRemoveItemHandle }: IIngredientsLis
     elementPaddingStyle += !elementProps.isLocked ? "mb-2 mt-2" : "";
     
     return (
-        <div className={styles.item}>
-            <div className={buttonPaddingStyle}>
-                {!elementProps.isLocked && <DragIcon type="primary" />}
+        <>
+            <div className={styles.item}>
+                <div className={buttonPaddingStyle}>
+                    {!elementProps.isLocked && <DragIcon type="primary" />}
+                </div>
+                <div className={`${elementPaddingStyle} ${styles.element}`} onClick={() => setModalState(true)}>
+                    <ConstructorElement {...elementProps} />
+                </div>
             </div>
-            <div className={`${elementPaddingStyle} ${styles.element}`}>
-                <ConstructorElement {...elementProps} />
-            </div>
-        </div>
+            {modalState && <ModalOverlay type={Modals.IngredientDetails} closeHandle={() => setModalState(false)} modalData={data} />}
+        </>
     );
 }
 

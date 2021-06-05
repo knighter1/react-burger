@@ -20,7 +20,7 @@ const App = () => {
             }
             return Promise.reject(`Status ${response.status}`);
         })
-        .then(responseObj => { setIngredientsData(responseObj.data); setCurrentItems([responseObj.data[0], responseObj.data[1], responseObj.data[2]]) })
+        .then(responseObj => { setIngredientsData(responseObj.data); setCurrentItems([responseObj.data[0], responseObj.data[2], responseObj.data[3]]) })
         .catch(error => console.error(`Ingredients data receiving error: ${error}`));
     }, []);
 

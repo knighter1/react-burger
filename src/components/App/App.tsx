@@ -14,7 +14,12 @@ const App = () => {
 
     useEffect(() => {
         fetch(INGREDIENTS_ENDPOINT)
-        .then(response => response.json())
+        .then(response => {
+            if (response.ok) {
+              return response.json();
+            }
+            return Promise.reject(`Status ${response.status}`);
+        })
         .then(responseObj => { setIngredientsData(responseObj.data); setCurrentItems([responseObj.data[0], responseObj.data[1], responseObj.data[2]]) })
         .catch(error => console.error(`Ingredients data receiving error: ${error}`));
     }, []);

@@ -18,8 +18,8 @@ export enum IngredientTypes
 export const IngredientMenuList = ({ ingredients, onAddItemHandler }: IIngredientMenuListProps) =>
 {
     const bunsList: IngredientData[] = ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.bun]);
-    const saucesList: IngredientData[] = ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.main]);
-    const mainList: IngredientData[] = ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.sauce]);
+    const mainList: IngredientData[] = ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.main]);
+    const saucesList: IngredientData[] = ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.sauce]);
 
     const renderCategory = (type: IngredientTypes, data: IngredientData[]) =>
     {
@@ -38,8 +38,8 @@ export const IngredientMenuList = ({ ingredients, onAddItemHandler }: IIngredien
 
     let categories = [
         renderCategory(IngredientTypes.bun, bunsList),
-        renderCategory(IngredientTypes.main, mainList),
-        renderCategory(IngredientTypes.sauce, saucesList)
+        renderCategory(IngredientTypes.sauce, saucesList),
+        renderCategory(IngredientTypes.main, mainList)
     ];
 
     return (

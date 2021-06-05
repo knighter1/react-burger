@@ -2,8 +2,7 @@ import { useState } from 'react';
 import styles from './IngredientsListItem.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
-import { Modals } from '../Modal/Modal';
-import { ModalOverlay } from "../ModalOverlay/ModalOverlay";
+import { Modals, Modal } from '../Modal/Modal';
 
 interface IConstructorElement {
     type?: 'top' | 'bottom';
@@ -55,7 +54,7 @@ const IngredientsListItem = ({ data, type, onRemoveItemHandle }: IIngredientsLis
                     <ConstructorElement {...elementProps} />
                 </div>
             </div>
-            {modalState && <ModalOverlay type={Modals.IngredientDetails} closeHandle={() => setModalState(false)} modalData={data} />}
+            {modalState && <Modal type={Modals.IngredientDetails} closeHandle={() => setModalState(false)} modalData={data} />}
         </>
     );
 }

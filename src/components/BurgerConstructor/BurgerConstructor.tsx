@@ -4,8 +4,7 @@ import styles from './BurgerConstructor.module.css';
 import IngredientsList from '../IngredientsList/IngredientsList';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import IngredientsListItem from '../IngredientsListItem/IngredientsListItem';
-import { Modals } from '../Modal/Modal';
-import { ModalOverlay } from "../ModalOverlay/ModalOverlay";
+import { Modals, Modal } from '../Modal/Modal';
 
 interface IBurgerConstructorProps
 {
@@ -48,7 +47,7 @@ const BurgerConstructor = ({items}: IBurgerConstructorProps) =>
                     </div>
                 </div>
             </section>
-            {modalState && <ModalOverlay type={Modals.OrderDetails} closeHandle={() => setModalState(false)} modalData={"034536"} />}
+            {modalState && <Modal type={Modals.OrderDetails} closeHandle={() => setModalState(false)} modalData={"034536"} />}
         </>
     )
 }

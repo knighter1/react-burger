@@ -34,9 +34,9 @@ const App = () => {
             <AppHeader />
             <main className={styles.main}>
                 <DataContext.Provider value={{ingredients: ingredientsData }}>
-                    {ingredientsData.length && <BurgerIngredients onAddItemHandler={(item: IngredientData) => onAddItem(item)} />}
+                    {ingredientsData.length > 0 && <BurgerIngredients onAddItemHandler={(item: IngredientData) => onAddItem(item)} />}
                 </DataContext.Provider>
-                {currentItems.length && <BurgerConstructor items={currentItems} />}
+                {currentItems.length > 0 && <BurgerConstructor items={currentItems} />}
             </main>
         </div>
     );

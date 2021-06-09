@@ -4,6 +4,7 @@ import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
+import { DataContext } from '../../services/dataContext';
 
 const App = () => {
 
@@ -20,7 +21,7 @@ const App = () => {
             }
             return Promise.reject(`Status ${response.status}`);
         })
-        .then(responseObj => { setIngredientsData(responseObj.data); setCurrentItems([responseObj.data[0], responseObj.data[2], responseObj.data[3]]) })
+        .then(responseObj => { setIngredientsData(responseObj.data); setCurrentItems([responseObj.data[0], responseObj.data[2], responseObj.data[4]]) })
         .catch(error => console.error(`Ingredients data receiving error: ${error}`));
     }, []);
 
@@ -32,7 +33,9 @@ const App = () => {
         <div className={styles.appCont}>
             <AppHeader />
             <main className={styles.main}>
-                {ingredientsData.length && <BurgerIngredients ingredients={ingredientsData} onAddItemHandler={(item: IngredientData) => onAddItem(item)} />}
+                <DataContext.Provider value={{ingredients: ingredientsData }}>
+                    {ingredientsData.length && <BurgerIngredients onAddItemHandler={(item: IngredientData) => onAddItem(item)} />}
+                </DataContext.Provider>
                 {currentItems.length && <BurgerConstructor items={currentItems} />}
             </main>
         </div>

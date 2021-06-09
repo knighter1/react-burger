@@ -6,11 +6,10 @@ import styles from './BurgerIngredients.module.css';
 
 export interface IBurgerIngredientsProps
 {
-    ingredients: IngredientData[];
     onAddItemHandler: (item: IngredientData) => void
 }
 
-const BurgerIngredients = ( {ingredients, onAddItemHandler }: IBurgerIngredientsProps) =>
+const BurgerIngredients = ( { onAddItemHandler }: IBurgerIngredientsProps) =>
 {
     const [currentType, setCurrentType] = useState(IngredientTypes[IngredientTypes.bun]);
     const types: IngredientTypes[] = [IngredientTypes.bun, IngredientTypes.sauce, IngredientTypes.main];
@@ -37,7 +36,7 @@ const BurgerIngredients = ( {ingredients, onAddItemHandler }: IBurgerIngredients
                     })
                 }
             </div>
-            <IngredientMenuList ingredients={ingredients} onAddItemHandler={onAddItemHandler} />
+            <IngredientMenuList onAddItemHandler={onAddItemHandler} />
         </section>   
     )
 }

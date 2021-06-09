@@ -43,8 +43,16 @@ const BurgerConstructor = ({items}: IBurgerConstructorProps) =>
     const [components, setComponents] =  useState<IComponents>({sortedItems: [], innerItems: []});
 
     useEffect(() => {
-        const first = currentItems.find(element => element.type === IngredientTypes[IngredientTypes.bun]);
-        const last = first;
+        const first = Object.assign({}, currentItems.find(element => element.type === IngredientTypes[IngredientTypes.bun]));
+        let last;
+
+        if (first)
+        {
+            last = Object.assign({}, first);
+            first.name += ' (верх)';
+            last.name += ' (низ)';
+        }
+        
         const innerItems = currentItems.filter((element) => element.type !== IngredientTypes[IngredientTypes.bun]);
         let sortedItems: IngredientData[] = [...innerItems];
 

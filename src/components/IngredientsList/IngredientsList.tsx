@@ -10,8 +10,6 @@ interface IIngredientsListProps
 
 const IngredientsList = ({ items, onRemoveItemHandle }: IIngredientsListProps) =>
 {
-    console.log("IngredientsList: ", items);
-
     return (
         <div className={`${styles.list} pl-4 pr-2`}>
             {

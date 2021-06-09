@@ -1,14 +1,12 @@
 import styles from './OrderDetails.module.css';
 import orderDoneImg from '../../images/order_done.png';
-import modalCloseBtnImg from '../../images/modal_close_btn.png';
 
 interface IOrderDetailsProps
 {
     orderId: string;
-    closeHandle: Function;
 }
 
-export const OrderDetails = ({ orderId, closeHandle }: IOrderDetailsProps): JSX.Element =>
+export const OrderDetails = ({ orderId }: IOrderDetailsProps): JSX.Element =>
 {
     return (
         <div className={`${styles.orderDetail} modal-сontent`}>
@@ -19,7 +17,6 @@ export const OrderDetails = ({ orderId, closeHandle }: IOrderDetailsProps): JSX.
             <img className="mt-15" src={orderDoneImg} alt="Заказ размещен" />
             <div className="text text_type_main-default mt-15">Ваш заказ начали готовить</div>
             <div className="text text_type_main-default text_color_inactive mt-2 mb-30">Дождитесь готовности на орбитальной станции</div>
-            <img className='modal-close-btn' src={modalCloseBtnImg} onClick={(e) => closeHandle() } alt="Закрыть" />
         </div>
     );
 }

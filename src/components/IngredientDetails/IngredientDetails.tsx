@@ -1,14 +1,12 @@
 import styles from './IngredientDetails.module.css';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
-import modalCloseBtnImg from '../../images/modal_close_btn.png';
 
 interface IIngredientDetailsProps
 {
     ingredientData: IngredientData;
-    closeHandle: Function;
 }
 
-export const IngredientDetails = ({ ingredientData, closeHandle }: IIngredientDetailsProps): JSX.Element => {
+export const IngredientDetails = ({ ingredientData }: IIngredientDetailsProps): JSX.Element => {
 
     const characteristic = (charName: string, charValue: number) => (
         <ul className={`${styles.charItem}`}>
@@ -32,7 +30,6 @@ export const IngredientDetails = ({ ingredientData, closeHandle }: IIngredientDe
                 {characteristic('Жиры, г', ingredientData.fat)}
                 {characteristic('Углеводы, г', ingredientData.carbohydrates)}
             </div>
-            <img className='modal-close-btn' src={modalCloseBtnImg} onClick={(e) => closeHandle() } alt="Закрыть" />
         </div>
     );
 }

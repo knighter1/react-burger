@@ -13,7 +13,7 @@ export interface IBurgerIngredientsProps
 const BurgerIngredients = ( {ingredients, onAddItemHandler }: IBurgerIngredientsProps) =>
 {
     const [currentType, setCurrentType] = useState(IngredientTypes[IngredientTypes.bun]);
-    const types: IngredientTypes[] = [IngredientTypes.bun, IngredientTypes.main, IngredientTypes.sauce];
+    const types: IngredientTypes[] = [IngredientTypes.bun, IngredientTypes.sauce, IngredientTypes.main];
 
     const setCurrent = (type: string): void =>
     {

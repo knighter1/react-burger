@@ -4,8 +4,9 @@ import styles from './BurgerConstructor.module.css';
 import IngredientsList from '../IngredientsList/IngredientsList';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import IngredientsListItem from '../IngredientsListItem/IngredientsListItem';
-import { Modals, Modal } from '../Modal/Modal';
+import { Modal } from '../Modal/Modal';
 import { IngredientTypes } from '../IngredientMenuList/IngredientMenuList';
+import { OrderDetails } from '../OrderDetails/OrderDetails';
 
 interface IBurgerConstructorProps
 {
@@ -113,7 +114,7 @@ const BurgerConstructor = ({items}: IBurgerConstructorProps) =>
                     </div>
                 </div>
             </section>
-            {modalState && <Modal type={Modals.OrderDetails} closeHandle={() => setModalState(false)} modalData={orderNumber} />}
+            {modalState && <Modal closeHandle={() => setModalState(false)}><OrderDetails orderId={orderNumber.toString()} /></Modal>}
         </>
     )
 }

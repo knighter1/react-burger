@@ -21,7 +21,7 @@ const App = () => {
             }
             return Promise.reject(`Status ${response.status}`);
         })
-        .then(responseObj => { setIngredientsData(responseObj.data); setCurrentItems([responseObj.data[0], responseObj.data[2], responseObj.data[4]]) })
+        .then(responseObj => { setIngredientsData(responseObj.data); setCurrentItems([responseObj.data[0], responseObj.data[3], responseObj.data[4]]) })
         .catch(error => console.error(`Ingredients data receiving error: ${error}`));
     }, []);
 

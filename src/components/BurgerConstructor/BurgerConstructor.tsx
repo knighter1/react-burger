@@ -62,8 +62,6 @@ const BurgerConstructor = ({items}: IBurgerConstructorProps) =>
         setComponents({first: first, sortedItems: sortedItems, innerItems: innerItems, last: last });
     }, [currentItems]);
 
-    console.log(components);
-
     const [modalState, setModalState] = useState(false);
     const [orderNumber, setOrderNumber] =  useState(0);
 
@@ -71,7 +69,7 @@ const BurgerConstructor = ({items}: IBurgerConstructorProps) =>
         orderCostDispatch(components.sortedItems);
     }, [components.sortedItems]);
 
-    const onRemoveItem = (id: string): void => setCurrentItems(components.sortedItems.filter(element => element._id !== id));
+    const onRemoveItem = (id: string): void => setCurrentItems(currentItems.filter(element => element._id !== id));
 
     const placeOrder = () => {
         

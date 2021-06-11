@@ -30,15 +30,15 @@ const App = () => {
     };
 
     return (
-        <div className={styles.appCont}>
-            <AppHeader />
-            <main className={styles.main}>
-                <DataContext.Provider value={{ingredients: ingredientsData }}>
+        <DataContext.Provider value={{ingredients: ingredientsData }}>
+            <div className={styles.appCont}>
+                <AppHeader />
+                <main className={styles.main}>
                     {ingredientsData.length > 0 && <BurgerIngredients onAddItemHandler={(item: IngredientData) => onAddItem(item)} />}
-                </DataContext.Provider>
-                {currentItems.length > 0 && <BurgerConstructor items={currentItems} />}
-            </main>
-        </div>
+                    {currentItems.length > 0 && <BurgerConstructor items={currentItems} />}
+                </main>
+            </div>
+        </DataContext.Provider>
     );
 }
 

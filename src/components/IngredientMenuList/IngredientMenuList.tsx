@@ -39,7 +39,7 @@ export const IngredientMenuList = ({ onAddItemHandler }: IIngredientMenuListProp
         );
     }
 
-    let categories = [
+    const categories = [
         renderCategory(IngredientTypes.bun, bunsList),
         renderCategory(IngredientTypes.sauce, saucesList),
         renderCategory(IngredientTypes.main, mainList)

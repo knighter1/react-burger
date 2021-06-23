@@ -1,8 +1,8 @@
-import { useContext } from 'react';
 import { IngredientMenuItem } from '../IngredientMenuItem/IngredientMenuItem';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import styles from './IngredientMenuList.module.css';
-import { DataContext } from '../../services/dataContext';
+import { useSelector } from 'react-redux';
+import { IStore } from '../../index';
 
 export interface IIngredientMenuListProps
 {
@@ -18,11 +18,11 @@ export enum IngredientTypes
 
 export const IngredientMenuList = ({ onAddItemHandler }: IIngredientMenuListProps) =>
 {
-    const { ingredients } = useContext(DataContext);
+    const ingredients: IngredientData[] = useSelector((store: IStore) => store.ingredientsLib) as IngredientData[];
 
-    const bunsList: IngredientData[] = ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.bun]);
-    const mainList: IngredientData[] = ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.main]);
-    const saucesList: IngredientData[] = ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.sauce]);
+    const bunsList: IngredientData[] = ingredients ? ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.bun]) : [];
+    const mainList: IngredientData[] = ingredients ? ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.main]) : [];
+    const saucesList: IngredientData[] = ingredients ? ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.sauce]) : [];
 
     const renderCategory = (type: IngredientTypes, data: IngredientData[]) =>
     {

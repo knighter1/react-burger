@@ -4,7 +4,8 @@ import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
-import { DataContext } from '../../services/dataContext';
+import { useDispatch } from 'react-redux';
+import { GET_INGREDIENTS_LIB } from '../../services/actions/api';
 
 const App = () => {
 
@@ -12,6 +13,8 @@ const App = () => {
     
     const [currentItems, setCurrentItems] = useState<IngredientData[]>([]);
     const [ingredientsData, setIngredientsData] = useState<IngredientData[]>([]);
+
+    const dispatch = useDispatch();
 
     useEffect(() => {
         fetch(INGREDIENTS_ENDPOINT)
@@ -21,7 +24,11 @@ const App = () => {
             }
             return Promise.reject(`Status ${response.status}`);
         })
-        .then(responseObj => { setIngredientsData(responseObj.data); setCurrentItems([responseObj.data[0], responseObj.data[3], responseObj.data[4]]) })
+        .then(responseObj => {
+            //setIngredientsData(responseObj.data);
+            dispatch({ type: GET_INGREDIENTS_LIB, data: responseObj.data });
+            setCurrentItems([responseObj.data[0], responseObj.data[3], responseObj.data[4]])
+        })
         .catch(error => console.error(`Ingredients data receiving error: ${error}`));
     }, []);
 
@@ -30,15 +37,13 @@ const App = () => {
     };
 
     return (
-        <DataContext.Provider value={{ingredients: ingredientsData }}>
-            <div className={styles.appCont}>
-                <AppHeader />
-                <main className={styles.main}>
-                    {ingredientsData.length > 0 && <BurgerIngredients onAddItemHandler={(item: IngredientData) => onAddItem(item)} />}
-                    {currentItems.length > 0 && <BurgerConstructor items={currentItems} />}
-                </main>
-            </div>
-        </DataContext.Provider>
+        <div className={styles.appCont}>
+            <AppHeader />
+            <main className={styles.main}>
+                <BurgerIngredients onAddItemHandler={(item: IngredientData) => onAddItem(item)} />
+                {currentItems.length > 0 && <BurgerConstructor items={currentItems} />}
+            </main>
+        </div>
     );
 }
 

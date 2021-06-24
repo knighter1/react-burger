@@ -44,13 +44,17 @@ const BurgerConstructor = () =>
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const first = Object.assign({}, currentItems.bun);
-        const last = Object.assign({}, currentItems.bun);
 
-        first.name += ' (верх)';
-        last.name += ' (низ)';
+        if (currentItems.bun)
+        {
+            const first = Object.assign({}, currentItems.bun);
+            const last = Object.assign({}, currentItems.bun);
 
-        setBuns({ first: first, last: last });
+            first.name += ' (верх)';
+            last.name += ' (низ)';
+
+            setBuns({ first: first, last: last });
+        }
         
     }, [currentItems]);
 

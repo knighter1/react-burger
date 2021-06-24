@@ -44,7 +44,7 @@ export const IngredientMenuList: React.FC<IIngredientMenuListProps> = ({changeTy
         else if (inViewMain) {
             changeTypeHandler(IngredientTypes[IngredientTypes.main]);
         }
-    }, [inViewBuns, inViewMain, inViewSauces]);
+    }, [inViewBuns, inViewMain, inViewSauces, changeTypeHandler]);
 
     const renderCategory = (type: IngredientTypes, data: IngredientData[], elementRef: any) =>
     {

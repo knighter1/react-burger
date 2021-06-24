@@ -72,10 +72,12 @@ const BurgerConstructor = () =>
         return items;
     }
 
+    const [orderCost, orderCostDispatch] = useReducer(orderCostReducer, {value: 0}, undefined);
+
     useEffect(() => {
         const items = getFullIngredients();
         orderCostDispatch(items);
-    }, [currentItems]);
+    }, [currentItems, orderCostDispatch/*, getFullIngredients*/]);
 
     const placeOrder = () => {
         
@@ -105,8 +107,6 @@ const BurgerConstructor = () =>
             dispatch({ type: ADD_ITEM, item: ingredientData });
         },
     });
-
-    const [orderCost, orderCostDispatch] = useReducer(orderCostReducer, {value: 0}, undefined);
 
     return (
         <>

@@ -10,6 +10,7 @@ import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { useDispatch, useSelector } from "react-redux";
 import { IStore } from '../../index';
 import { REMOVE_ITEM } from "../../services/actions/constructor";
+import { SET_ORDER_ID } from "../../services/actions/order";
 
 interface IComponents
 {
@@ -64,7 +65,6 @@ const BurgerConstructor = () =>
     }, [currentItems]);
 
     const [modalState, setModalState] = useState(false);
-    const [orderNumber, setOrderNumber] =  useState(0);
 
     useEffect(() => {
         orderCostDispatch(components.sortedItems);
@@ -82,14 +82,17 @@ const BurgerConstructor = () =>
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({ingredients: ingredients})
-          })
+        })
         .then(response => {
             if (response.ok) {
               return response.json();
             }
             return Promise.reject(`Status ${response.status}`);
         })
-        .then(responseObj => { setModalState(true); setOrderNumber(responseObj.order.number); })
+        .then(responseObj => {
+            dispatch({ type: SET_ORDER_ID, orderId: responseObj.order.number });
+            setModalState(true); 
+        })
         .catch(error => console.error(`Order placing error: ${error}`));
     }
 
@@ -114,7 +117,7 @@ const BurgerConstructor = () =>
                     </div>
                 </div>
             </section>
-            {modalState && <Modal closeHandle={() => setModalState(false)}><OrderDetails orderId={orderNumber.toString()} /></Modal>}
+            {modalState && <Modal closeHandle={() => setModalState(false)}><OrderDetails /></Modal>}
         </>
     )
 }

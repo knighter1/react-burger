@@ -1,4 +1,4 @@
-import { GET_ITEMS, ADD_ITEM, REMOVE_ITEM, REORDER_ITEM } from '../actions/constructor';
+import { ADD_ITEM, REMOVE_ITEM, REORDER_ITEM } from '../actions/constructor';
 import { IngredientData } from '../../components/IngredientMenuItem/IngredientMenuItem';
 
 export interface IConstructorState {
@@ -15,9 +15,6 @@ export const constructorReducer = (state: IConstructorState = constructorInitSta
 {
     switch (action.type)
     {
-        case GET_ITEMS:
-            return state;
-
         case ADD_ITEM:
         {
             const items = state.items ? [...state.items] : [];

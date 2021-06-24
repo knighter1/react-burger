@@ -4,11 +4,6 @@ import styles from './IngredientMenuList.module.css';
 import { useSelector } from 'react-redux';
 import { IStore } from '../../index';
 
-export interface IIngredientMenuListProps
-{
-    onAddItemHandler: (item: IngredientData) => void;
-}
-
 export enum IngredientTypes
 {
     bun = "Булки" as any,
@@ -16,7 +11,7 @@ export enum IngredientTypes
     main = "Начинки" as any
 }
 
-export const IngredientMenuList = ({ onAddItemHandler }: IIngredientMenuListProps) =>
+export const IngredientMenuList = () =>
 {
     const ingredients: IngredientData[] = useSelector((store: IStore) => store.ingredientsLib) as IngredientData[];
 
@@ -33,7 +28,7 @@ export const IngredientMenuList = ({ onAddItemHandler }: IIngredientMenuListProp
             <div key={IngredientTypes[type]} className={styles.categoryBlock}>
                 <span id={`menu_${IngredientTypes[type]}`} className={`${styles.listCategory} text text_type_main-medium pt-2`}>{type}</span>
                 {
-                    data.map(element => <IngredientMenuItem key={element._id} data={element} onAddItemHandler={onAddItemHandler} />)
+                    data.map(element => <IngredientMenuItem key={element._id} data={element} />)
                 }
             </div>
         );

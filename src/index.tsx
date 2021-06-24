@@ -6,8 +6,9 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { compose, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { rootReducer } from './services/reducers/root-reducer';
+import { rootReducer } from './services/reducers/index';
 import { IngredientData } from './components/IngredientMenuItem/IngredientMenuItem';
+import { IConstructorState } from './services/reducers/constructor';
 
 declare global {
     interface Window {
@@ -20,9 +21,9 @@ const enhancer = composeEnhancers(applyMiddleware(thunk));
 
 export interface IStore {
     ingredientsLib: IngredientData[],
-    ingredients: IngredientData[],
+    constructor: IConstructorState/*,
     currentIngredient: object | null,
-    order: number | null
+    order: number | null*/
 }
 
 const store = createStore(rootReducer, enhancer);

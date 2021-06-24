@@ -1,15 +1,9 @@
 import { useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { IngredientMenuList, IngredientTypes } from '../IngredientMenuList/IngredientMenuList';
-import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import styles from './BurgerIngredients.module.css';
 
-export interface IBurgerIngredientsProps
-{
-    onAddItemHandler: (item: IngredientData) => void
-}
-
-const BurgerIngredients = ( { onAddItemHandler }: IBurgerIngredientsProps) =>
+const BurgerIngredients = () =>
 {
     const [currentType, setCurrentType] = useState(IngredientTypes[IngredientTypes.bun]);
     const types: IngredientTypes[] = [IngredientTypes.bun, IngredientTypes.sauce, IngredientTypes.main];
@@ -36,7 +30,7 @@ const BurgerIngredients = ( { onAddItemHandler }: IBurgerIngredientsProps) =>
                     })
                 }
             </div>
-            <IngredientMenuList onAddItemHandler={onAddItemHandler} />
+            <IngredientMenuList />
         </section>   
     )
 }

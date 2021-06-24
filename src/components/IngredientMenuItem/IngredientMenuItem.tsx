@@ -3,6 +3,8 @@ import styles from './IngredientMenuItem.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Modal } from '../Modal/Modal';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
+import { useDispatch } from 'react-redux';
+import { ADD_ITEM } from '../../services/actions/constructor';
 
 export interface IngredientData
 {
@@ -23,18 +25,19 @@ export interface IngredientData
 interface IIngredientMenuItemProps
 {
     data: IngredientData;
-    onAddItemHandler: (item: IngredientData) => void;
 }
 
-export const IngredientMenuItem = ({ data, onAddItemHandler }: IIngredientMenuItemProps) =>
+export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps) =>
 {
     const [count, setCount] = useState(0);
     const [modalState, setModalState] = useState(false);
 
+    const dispatch = useDispatch();
+
     const onItemClick = () =>
     {
         setCount(count + 1);
-        onAddItemHandler(data);
+        dispatch({ type: ADD_ITEM, item: data });
         setModalState(true);
     }
 

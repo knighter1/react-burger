@@ -14,7 +14,7 @@ const IngredientsList = ({ items, onRemoveItemHandle }: IIngredientsListProps) =
         <div className={`${styles.list} pl-4 pr-2`}>
             {
                 items.map((item) => {
-                    return <IngredientsListItem key={item._id} data={item} onRemoveItemHandle={(id: string) => onRemoveItemHandle(id)} />
+                    return <IngredientsListItem key={item._id} data={item} />
                 })
             }
         </div>

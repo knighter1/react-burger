@@ -4,6 +4,8 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import { Modal } from '../Modal/Modal';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
+import { REMOVE_ITEM } from '../../services/actions/constructor';
+import { useDispatch } from 'react-redux';
 
 interface IConstructorElement {
     type?: 'top' | 'bottom';
@@ -18,12 +20,13 @@ interface IIngredientsListItemProps
 {
     data: IngredientData;
     type?: "top" | "bottom";
-    onRemoveItemHandle?: (id: string) => void
 }
 
-const IngredientsListItem = ({ data, type, onRemoveItemHandle }: IIngredientsListItemProps) =>
+const IngredientsListItem = ({ data, type }: IIngredientsListItemProps) =>
 {
     const [modalState, setModalState] = useState(false);
+
+    const dispatch = useDispatch();
 
     const getElementProps = (item: IngredientData) =>
     {
@@ -33,7 +36,8 @@ const IngredientsListItem = ({ data, type, onRemoveItemHandle }: IIngredientsLis
             thumbnail: item.image_mobile,
             type: type,
             isLocked: type ? true : false,
-            handleClose: onRemoveItemHandle ? onRemoveItemHandle.bind(this, item._id) : undefined
+            //handleClose: !type ? () => dispatch({ type: REMOVE_ITEM, item: item._id }) : undefined
+            handleClose: () => dispatch({ type: REMOVE_ITEM, item: item })
         };
 
         return elementProps;
@@ -51,7 +55,7 @@ const IngredientsListItem = ({ data, type, onRemoveItemHandle }: IIngredientsLis
                 <div className={buttonPaddingStyle}>
                     {!elementProps.isLocked && <DragIcon type="primary" />}
                 </div>
-                <div className={`${elementPaddingStyle} ${styles.element}`} onClick={() => setModalState(true)}>
+                <div className={`${elementPaddingStyle} ${styles.element}`}>
                     <ConstructorElement {...elementProps} />
                 </div>
             </div>

@@ -7,11 +7,9 @@ import IngredientsListItem from '../IngredientsListItem/IngredientsListItem';
 import { Modal } from '../Modal/Modal';
 import { IngredientTypes } from '../IngredientMenuList/IngredientMenuList';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
-
-interface IBurgerConstructorProps
-{
-    items: IngredientData[];
-}
+import { useDispatch, useSelector } from "react-redux";
+import { IStore } from '../../index';
+import { REMOVE_ITEM } from "../../services/actions/constructor";
 
 interface IComponents
 {
@@ -35,16 +33,18 @@ function orderCostReducer(state: IOrderCost, items: IngredientData[]): IOrderCos
     return {value: value};
 }
 
-const BurgerConstructor = ({items}: IBurgerConstructorProps) =>
+const BurgerConstructor = () =>
 {
     const PLACE_ORDER_ENDPOINT: string = 'https://norma.nomoreparties.space/api/orders';
 
-    const [currentItems, setCurrentItems] = useState(items);
-
     const [components, setComponents] =  useState<IComponents>({sortedItems: [], innerItems: []});
 
+    const currentItems = useSelector((store: IStore) => store.constructor.items);
+
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        const first = Object.assign({}, currentItems.find(element => element.type === IngredientTypes[IngredientTypes.bun]));
+        const first = currentItems ? Object.assign({}, currentItems.find(element => element.type === IngredientTypes[IngredientTypes.bun])) : undefined;
         let last;
 
         if (first)
@@ -54,7 +54,7 @@ const BurgerConstructor = ({items}: IBurgerConstructorProps) =>
             last.name += ' (низ)';
         }
         
-        const innerItems = currentItems.filter((element) => element.type !== IngredientTypes[IngredientTypes.bun]);
+        const innerItems = currentItems ? currentItems.filter((element) => element.type !== IngredientTypes[IngredientTypes.bun]) : [];
         let sortedItems: IngredientData[] = [...innerItems];
 
         if (first) sortedItems = [first, ...sortedItems];
@@ -70,7 +70,7 @@ const BurgerConstructor = ({items}: IBurgerConstructorProps) =>
         orderCostDispatch(components.sortedItems);
     }, [components.sortedItems]);
 
-    const onRemoveItem = (id: string): void => setCurrentItems(currentItems.filter(element => element._id !== id));
+    const onRemoveItem = (id: string) => dispatch({ type: REMOVE_ITEM, data: id });
 
     const placeOrder = () => {
         

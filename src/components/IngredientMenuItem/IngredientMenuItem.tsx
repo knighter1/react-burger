@@ -3,10 +3,11 @@ import styles from './IngredientMenuItem.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Modal } from '../Modal/Modal';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ADD_ITEM } from '../../services/actions/constructor';
 import { SET_INGREDIENT } from '../../services/actions/ingredient';
 import { useDrag } from 'react-dnd';
+import { IStore } from '../..';
 
 export interface IngredientData
 {
@@ -31,14 +32,12 @@ interface IIngredientMenuItemProps
 
 export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps) =>
 {
-    const [count, setCount] = useState(0);
     const [modalState, setModalState] = useState(false);
 
     const dispatch = useDispatch();
 
     const onItemClick = () =>
     {
-        setCount(count + 1);
         dispatch({ type: ADD_ITEM, item: data });
         dispatch({ type: SET_INGREDIENT, ingredientData: data });
         setModalState(true);
@@ -54,7 +53,18 @@ export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps) =>
 
     const handler = () => onItemClick();
 
-    const className = `${styles.menuItem} mt-6 mb-8 ml-4 mr-2 ${isDrag ? styles.isDrag : ''}`; 
+    const className = `${styles.menuItem} mt-6 mb-8 ml-4 mr-2 ${isDrag ? styles.isDrag : ''}`;
+
+    const count = useSelector((store: IStore) => {
+        
+        const items: IngredientData[] = store.constructor.items
+        let countResult: number = items ? items.filter(item => item._id === data._id).length : 0;
+
+        if (data.type === 'bun')
+            countResult *= 2;
+
+        return countResult;
+    });
 
     return (
         <>

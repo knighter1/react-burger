@@ -28,13 +28,21 @@ export const constructorReducer = (state: IConstructorState = constructorInitSta
 
         case REMOVE_ITEM:
         {
-            let items = [...state.items];
+            const items = [...state.items];
             items.splice(action.index, 1);
             return {...state, items: items };
         }
 
         case REORDER_ITEM:
-            return state;
+        {
+            const items = [...state.items];
+            const data = action.item;
+            
+            items.splice(action.prevIndex, 1);
+            items.splice(action.newIndex, 0, data);
+
+            return {...state, items: items };
+        }
 
         default:
             return state;

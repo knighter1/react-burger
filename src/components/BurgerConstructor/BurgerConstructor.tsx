@@ -5,7 +5,6 @@ import IngredientsList from '../IngredientsList/IngredientsList';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import IngredientsListItem from '../IngredientsListItem/IngredientsListItem';
 import { Modal } from '../Modal/Modal';
-import { IngredientTypes } from '../IngredientMenuList/IngredientMenuList';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { useDispatch, useSelector } from "react-redux";
 import { IStore } from '../../index';

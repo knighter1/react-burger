@@ -60,8 +60,8 @@ export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps) =>
         const items: IngredientData[] = store.constructor.items
         let countResult: number = items ? items.filter(item => item._id === data._id).length : 0;
 
-        if (data.type === 'bun')
-            countResult *= 2;
+        if (data === store.constructor.bun)
+            countResult = 2;
 
         return countResult;
     });

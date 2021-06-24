@@ -26,9 +26,9 @@ const App = () => {
         .then(responseObj => {
             dispatch({ type: GET_INGREDIENTS_LIB, data: responseObj.data });
             
-            dispatch({ type: ADD_ITEM, item: responseObj.data[0] });
-            dispatch({ type: ADD_ITEM, item: responseObj.data[3] });
             dispatch({ type: ADD_ITEM, item: responseObj.data[4] });
+            dispatch({ type: ADD_ITEM, item: responseObj.data[3] });
+            dispatch({ type: ADD_ITEM, item: responseObj.data[0] });
         })
         .catch(error => console.error(`Ingredients data receiving error: ${error}`));
     }, [dispatch]);

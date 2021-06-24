@@ -13,7 +13,7 @@ const IngredientsList = ({ items }: IIngredientsListProps) =>
         <div className={`${styles.list} pl-4 pr-2`}>
             {
                 items.map((item, index) => {
-                    return <IngredientsListItem key={item._id + index.toString()} data={item} />
+                    return <IngredientsListItem key={item._id + index.toString()} data={item} index={index} />
                 })
             }
         </div>

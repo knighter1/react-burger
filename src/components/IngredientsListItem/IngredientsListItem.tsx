@@ -19,10 +19,11 @@ interface IConstructorElement {
 interface IIngredientsListItemProps
 {
     data: IngredientData;
+    index: number;
     type?: "top" | "bottom";
 }
 
-const IngredientsListItem = ({ data, type }: IIngredientsListItemProps) =>
+const IngredientsListItem = ({ data, index, type }: IIngredientsListItemProps) =>
 {
     const [modalState, setModalState] = useState(false);
 
@@ -36,7 +37,7 @@ const IngredientsListItem = ({ data, type }: IIngredientsListItemProps) =>
             thumbnail: item.image_mobile,
             type: type,
             isLocked: type ? true : false,
-            handleClose: () => dispatch({ type: REMOVE_ITEM, item: item })
+            handleClose: () => dispatch({ type: REMOVE_ITEM, index: index })
         };
 
         return elementProps;

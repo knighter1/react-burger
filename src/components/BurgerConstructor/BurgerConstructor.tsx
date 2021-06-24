@@ -12,13 +12,12 @@ import { IStore } from '../../index';
 import { ADD_ITEM } from "../../services/actions/constructor";
 import { SET_ORDER_ID } from "../../services/actions/order";
 import { useDrop } from "react-dnd";
+import { IConstructorState } from "../../services/reducers/constructor";
 
-interface IComponents
+interface IBuns
 {
-    first?: IngredientData,
-    sortedItems: IngredientData[],
-    innerItems: IngredientData[],
-    last?: IngredientData
+    first?: IngredientData | null,
+    last?: IngredientData | null;
 }
 
 interface IOrderCost
@@ -39,48 +38,50 @@ const BurgerConstructor = () =>
 {
     const PLACE_ORDER_ENDPOINT: string = 'https://norma.nomoreparties.space/api/orders';
 
-    const [components, setComponents] =  useState<IComponents>({sortedItems: [], innerItems: []});
+    const [buns, setBuns] =  useState<IBuns>({ first: null, last: null });
 
-    const currentItems = useSelector((store: IStore) => store.constructor.items);
+    const currentItems: IConstructorState = useSelector((store: IStore) => store.constructor);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const first = currentItems ? Object.assign({}, currentItems.find(element => element.type === IngredientTypes[IngredientTypes.bun])) : undefined;
-        let last;
+        const first = Object.assign({}, currentItems.bun);
+        const last = Object.assign({}, currentItems.bun);
 
-        if (first)
-        {
-            last = Object.assign({}, first);
-            first.name += ' (верх)';
-            last.name += ' (низ)';
-        }
+        first.name += ' (верх)';
+        last.name += ' (низ)';
+
+        setBuns({ first: first, last: last });
         
-        const innerItems = currentItems ? currentItems.filter((element) => element.type !== IngredientTypes[IngredientTypes.bun]) : [];
-        let sortedItems: IngredientData[] = [...innerItems];
-
-        if (first) sortedItems = [first, ...sortedItems];
-        last && sortedItems.push(last);
-
-        setComponents({first: first, sortedItems: sortedItems, innerItems: innerItems, last: last });
     }, [currentItems]);
 
     const [modalState, setModalState] = useState(false);
 
+    const getFullIngredients = () => {
+        const items = [];
+        
+        if (currentItems.items)
+            items.push(...currentItems.items);
+
+        if (currentItems.bun)
+            items.push(currentItems.bun, currentItems.bun);
+
+        return items;
+    }
+
     useEffect(() => {
-        orderCostDispatch(components.sortedItems);
-    }, [components.sortedItems]);
-    
+        const items = getFullIngredients();
+        orderCostDispatch(items);
+    }, [currentItems]);
+
     const placeOrder = () => {
         
-        const ingredients = components.sortedItems.map(item => item._id);
-
         fetch(PLACE_ORDER_ENDPOINT, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ingredients: ingredients})
+            body: JSON.stringify({ingredients: getFullIngredients()})
         })
         .then(response => {
             if (response.ok) {
@@ -108,9 +109,9 @@ const BurgerConstructor = () =>
         <>
             <section className={`${styles.section} ml-10`}>
                 <div className={`${styles.scrollableList} pt-25`} ref={dropTarget}>
-                    {components.first && <IngredientsListItem type="top" data={components.first} />}
-                    {components.innerItems.length > 0 && <IngredientsList items={components.innerItems} />}
-                    {components.last && <IngredientsListItem type="bottom" data={components.last} />}
+                    {buns.first && <IngredientsListItem type="top" data={buns.first} index={-1} />}
+                    {currentItems.items && currentItems.items.length > 0 && <IngredientsList items={currentItems.items} />}
+                    {buns.last && <IngredientsListItem type="bottom" data={buns.last} index={-1} />}
                 </div>
 
                 <div className={`mt-10 mr-4 ${styles.commitOrderWrapper}`}>

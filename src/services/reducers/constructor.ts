@@ -3,10 +3,12 @@ import { IngredientData } from '../../components/IngredientMenuItem/IngredientMe
 
 export interface IConstructorState {
     items: IngredientData[];
+    bun: IngredientData | null;
 }
 
 const constructorInitState: IConstructorState = {
-    items: []
+    items: [],
+    bun: null
 };
 
 export const constructorReducer = (state: IConstructorState = constructorInitState, action: any) =>
@@ -18,18 +20,19 @@ export const constructorReducer = (state: IConstructorState = constructorInitSta
 
         case ADD_ITEM:
         {
-            let items = state.items ? [...state.items] : [];
-
+            const items = state.items ? [...state.items] : [];
             const item: IngredientData = action.item;
-            if (item.type === 'bun')
-                items = items.filter(item => item.type !== 'bun');
 
+            if (item.type === 'bun')
+                return {items: [...items], bun: item };
+            
             return {...state, items: [...items, action.item] };
         }
 
         case REMOVE_ITEM:
         {
-            const items = state.items.filter(item => item !== action.item);
+            let items = [...state.items];
+            items.splice(action.index, 1);
             return {...state, items: items };
         }
 

@@ -8,7 +8,7 @@ const BurgerIngredients = () =>
     const [currentType, setCurrentType] = useState(IngredientTypes[IngredientTypes.bun]);
     const types: IngredientTypes[] = [IngredientTypes.bun, IngredientTypes.sauce, IngredientTypes.main];
 
-    const setCurrent = (type: string): void =>
+    const setCurrentTab = (type: string): void =>
     {
         setCurrentType(type);
         document.querySelector('#menu_' + type)?.scrollIntoView({ behavior: 'smooth' });
@@ -20,7 +20,7 @@ const BurgerIngredients = () =>
             <div className={`${styles.menu} pb-10`}>
                 {
                     types.map(type => {
-                        const handler = (type: string) => setCurrent(type);
+                        const handler = (type: string) => setCurrentTab(type);
                         const state: boolean = currentType === IngredientTypes[type];
                         return (
                             <Tab key={type} value={IngredientTypes[type]} active={state} onClick={handler}>
@@ -30,7 +30,7 @@ const BurgerIngredients = () =>
                     })
                 }
             </div>
-            <IngredientMenuList />
+            <IngredientMenuList changeTypeHandler={(type: string) => setCurrentType(type)} />
         </section>   
     )
 }

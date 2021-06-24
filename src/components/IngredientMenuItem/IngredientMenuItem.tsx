@@ -5,6 +5,7 @@ import { Modal } from '../Modal/Modal';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 import { useDispatch } from 'react-redux';
 import { ADD_ITEM } from '../../services/actions/constructor';
+import { SET_INGREDIENT } from '../../services/actions/ingredient';
 
 export interface IngredientData
 {
@@ -38,6 +39,7 @@ export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps) =>
     {
         setCount(count + 1);
         dispatch({ type: ADD_ITEM, item: data });
+        dispatch({ type: SET_INGREDIENT, ingredientData: data });
         setModalState(true);
     }
 
@@ -56,7 +58,7 @@ export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps) =>
                 </div>
                 <span className="text_type_main-default">{data.name}</span>
             </div>
-            {modalState && <Modal closeHandle={() => setModalState(false)}><IngredientDetails ingredientData={data} /></Modal>}
+            {modalState && <Modal closeHandle={() => setModalState(false)}><IngredientDetails /></Modal>}
         </>
     )
 }

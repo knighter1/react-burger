@@ -21,8 +21,8 @@ const enhancer = composeEnhancers(applyMiddleware(thunk));
 
 export interface IStore {
     ingredientsLib: IngredientData[],
-    constructor: IConstructorState/*,
-    currentIngredient: object | null,*/
+    constructor: IConstructorState,
+    ingredient: IngredientData | null,
     order: number | null
 }
 

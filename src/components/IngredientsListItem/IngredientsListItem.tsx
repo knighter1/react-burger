@@ -59,7 +59,7 @@ const IngredientsListItem = ({ data, type }: IIngredientsListItemProps) =>
                     <ConstructorElement {...elementProps} />
                 </div>
             </div>
-            {modalState && <Modal closeHandle={() => setModalState(false)}><IngredientDetails ingredientData={data} /></Modal>}
+            {modalState && <Modal closeHandle={() => setModalState(false)}><IngredientDetails /></Modal>}
         </>
     );
 }

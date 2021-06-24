@@ -6,6 +6,7 @@ import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 import { useDispatch } from 'react-redux';
 import { ADD_ITEM } from '../../services/actions/constructor';
 import { SET_INGREDIENT } from '../../services/actions/ingredient';
+import { useDrag } from 'react-dnd';
 
 export interface IngredientData
 {
@@ -43,12 +44,21 @@ export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps) =>
         setModalState(true);
     }
 
+    const [{isDrag}, dragRef] = useDrag({
+        type: "ingredients",
+        item: data,
+        collect: monitor => ({
+            isDrag: monitor.isDragging()
+        })
+    });
+
     const handler = () => onItemClick();
 
     return (
         <>
             <div className={`${styles.menuItem} mt-6 mb-8 ml-4 mr-2`}
-                onClick={handler} >
+                onClick={handler}
+                ref={dragRef} >
                 {count > 0 && <Counter count={count} size="default" />}
 
                 <img className="ml-4 mr-4" src={data.image} alt={data.name} />

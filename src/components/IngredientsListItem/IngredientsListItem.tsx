@@ -36,7 +36,6 @@ const IngredientsListItem = ({ data, type }: IIngredientsListItemProps) =>
             thumbnail: item.image_mobile,
             type: type,
             isLocked: type ? true : false,
-            //handleClose: !type ? () => dispatch({ type: REMOVE_ITEM, item: item._id }) : undefined
             handleClose: () => dispatch({ type: REMOVE_ITEM, item: item })
         };
 

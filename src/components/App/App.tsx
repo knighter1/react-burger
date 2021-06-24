@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import styles from './App.module.css';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
@@ -35,8 +37,10 @@ const App = () => {
         <div className={styles.appCont}>
             <AppHeader />
             <main className={styles.main}>
-                <BurgerIngredients />
-                <BurgerConstructor />
+                <DndProvider backend={HTML5Backend}>
+                    <BurgerIngredients />
+                    <BurgerConstructor />
+                </DndProvider>
             </main>
         </div>
     );

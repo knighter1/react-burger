@@ -9,8 +9,9 @@ import { IngredientTypes } from '../IngredientMenuList/IngredientMenuList';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { useDispatch, useSelector } from "react-redux";
 import { IStore } from '../../index';
-import { REMOVE_ITEM } from "../../services/actions/constructor";
+import { ADD_ITEM } from "../../services/actions/constructor";
 import { SET_ORDER_ID } from "../../services/actions/order";
+import { useDrop } from "react-dnd";
 
 interface IComponents
 {
@@ -69,9 +70,7 @@ const BurgerConstructor = () =>
     useEffect(() => {
         orderCostDispatch(components.sortedItems);
     }, [components.sortedItems]);
-
-    const onRemoveItem = (id: string) => dispatch({ type: REMOVE_ITEM, data: id });
-
+    
     const placeOrder = () => {
         
         const ingredients = components.sortedItems.map(item => item._id);
@@ -96,14 +95,21 @@ const BurgerConstructor = () =>
         .catch(error => console.error(`Order placing error: ${error}`));
     }
 
+    const [, dropTarget] = useDrop({
+        accept: "ingredients",
+        drop(ingredientData) {
+            dispatch({ type: ADD_ITEM, item: ingredientData });
+        },
+    });
+
     const [orderCost, orderCostDispatch] = useReducer(orderCostReducer, {value: 0}, undefined);
 
     return (
         <>
             <section className={`${styles.section} ml-10`}>
-                <div className={`${styles.scrollableList} pt-25`}>
+                <div className={`${styles.scrollableList} pt-25`} ref={dropTarget}>
                     {components.first && <IngredientsListItem type="top" data={components.first} />}
-                    {components.innerItems.length > 0 && <IngredientsList items={components.innerItems} onRemoveItemHandle={(id: string) => onRemoveItem(id)} />}
+                    {components.innerItems.length > 0 && <IngredientsList items={components.innerItems} />}
                     {components.last && <IngredientsListItem type="bottom" data={components.last} />}
                 </div>
 

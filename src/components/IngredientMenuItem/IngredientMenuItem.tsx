@@ -54,9 +54,11 @@ export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps) =>
 
     const handler = () => onItemClick();
 
+    const className = `${styles.menuItem} mt-6 mb-8 ml-4 mr-2 ${isDrag ? styles.isDrag : ''}`; 
+
     return (
         <>
-            <div className={`${styles.menuItem} mt-6 mb-8 ml-4 mr-2`}
+            <div className={className}
                 onClick={handler}
                 ref={dragRef} >
                 {count > 0 && <Counter count={count} size="default" />}

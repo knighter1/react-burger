@@ -81,6 +81,9 @@ const BurgerConstructor = () =>
 
     const placeOrder = () => {
         
+        if (!(currentItems.items && currentItems.items.length) && !currentItems.bun)
+            return;
+
         dispatch({ type: PLACE_ORDER_REQUEST });
         fetch(PLACE_ORDER_ENDPOINT, {
             method: 'POST',

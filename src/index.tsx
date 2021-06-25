@@ -9,6 +9,7 @@ import thunk from 'redux-thunk';
 import { rootReducer } from './services/reducers/index';
 import { IngredientData } from './components/IngredientMenuItem/IngredientMenuItem';
 import { IConstructorState } from './services/reducers/constructor';
+import { IApiState } from './services/reducers/api';
 
 declare global {
     interface Window {
@@ -20,7 +21,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 
 export interface IStore {
-    ingredientsLib: IngredientData[],
+    ingredientsLib: IApiState,
     constructor: IConstructorState,
     ingredient: IngredientData | null,
     order: number | null

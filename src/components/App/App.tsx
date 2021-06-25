@@ -6,7 +6,7 @@ import AppHeader from '../AppHeader/AppHeader';
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import { useDispatch } from 'react-redux';
-import { GET_INGREDIENTS_LIB } from '../../services/actions/api';
+import { GET_INGREDIENTS_LIB_REQUEST, GET_INGREDIENTS_LIB_SUCCESS, GET_INGREDIENTS_LIB_ERROR } from '../../services/actions/api';
 //import { ADD_ITEM } from '../../services/actions/constructor';
 
 const App = () => {
@@ -16,6 +16,7 @@ const App = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        dispatch({ type: GET_INGREDIENTS_LIB_REQUEST });
         fetch(INGREDIENTS_ENDPOINT)
         .then(response => {
             if (response.ok) {
@@ -24,14 +25,18 @@ const App = () => {
             return Promise.reject(`Status ${response.status}`);
         })
         .then(responseObj => {
-            dispatch({ type: GET_INGREDIENTS_LIB, data: responseObj.data });
+            dispatch({ type: GET_INGREDIENTS_LIB_SUCCESS, data: responseObj.data });
             
             /*dispatch({ type: ADD_ITEM, item: responseObj.data[4] });
             dispatch({ type: ADD_ITEM, item: responseObj.data[3] });
             dispatch({ type: ADD_ITEM, item: responseObj.data[0] });
             dispatch({ type: ADD_ITEM, item: responseObj.data[5] });*/
         })
-        .catch(error => console.error(`Ingredients data receiving error: ${error}`));
+        .catch(error => 
+            {
+                console.error(`Ingredients data receiving error: ${error}`);
+                dispatch({ type: GET_INGREDIENTS_LIB_ERROR });
+            });
     }, [dispatch]);
 
     return (

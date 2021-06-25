@@ -24,17 +24,17 @@ export interface IngredientData
 interface IIngredientMenuItemProps
 {
     data: IngredientData;
-    setModalState: Function
+    onClickHandler: Function
 }
 
-export const IngredientMenuItem = ({ data, setModalState }: IIngredientMenuItemProps) =>
+export const IngredientMenuItem = ({ data, onClickHandler }: IIngredientMenuItemProps) =>
 {
     const dispatch = useDispatch();
 
     const onItemClick = () =>
     {
         dispatch({ type: SET_INGREDIENT, ingredientData: data });
-        setModalState(true);
+        onClickHandler(true);
     }
 
     const [{isDrag}, dragRef] = useDrag({

@@ -60,7 +60,7 @@ export const IngredientMenuList: React.FC<IIngredientMenuListProps> = ({changeTy
             <div key={IngredientTypes[type]} className={styles.categoryBlock} ref={elementRef}>
                 <span id={`menu_${IngredientTypes[type]}`} className={`${styles.listCategory} text text_type_main-medium pt-2`}>{type}</span>
                 {
-                    data.map(element => <IngredientMenuItem key={element._id} data={element} setModalState={setModalState} />)
+                    data.map(element => <IngredientMenuItem key={element._id} data={element} onClickHandler={setModalState} />)
                 }
             </div>
         );

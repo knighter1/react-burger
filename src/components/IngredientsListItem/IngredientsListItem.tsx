@@ -1,9 +1,7 @@
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 import styles from './IngredientsListItem.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
-import { Modal } from '../Modal/Modal';
-import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 import { REMOVE_ITEM, REORDER_ITEM } from '../../services/actions/constructor';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
@@ -22,12 +20,11 @@ interface IIngredientsListItemProps
     data: IngredientData;
     index: number;
     type?: "top" | "bottom";
+    onClickHandler: Function
 }
 
-const IngredientsListItem = ({ data, index, type }: IIngredientsListItemProps) =>
+const IngredientsListItem = ({ data, index, type, onClickHandler }: IIngredientsListItemProps) =>
 {
-    const [modalState, setModalState] = useState(false);
-
     const dispatch = useDispatch();
 
     const elementRef = useRef(null);
@@ -77,11 +74,10 @@ const IngredientsListItem = ({ data, index, type }: IIngredientsListItemProps) =
                 <div className={buttonPaddingStyle} >
                     {!elementProps.isLocked && <DragIcon type="primary" />}
                 </div>
-                <div className={`${elementPaddingStyle} ${styles.element}`}>
+                <div className={`${elementPaddingStyle} ${styles.element}`} onClick={() => onClickHandler(data)}>
                     <ConstructorElement {...elementProps} />
                 </div>
             </div>
-            {modalState && <Modal closeHandle={() => setModalState(false)}><IngredientDetails /></Modal>}
         </>
     );
 }

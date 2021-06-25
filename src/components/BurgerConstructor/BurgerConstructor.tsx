@@ -6,12 +6,14 @@ import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import IngredientsListItem from '../IngredientsListItem/IngredientsListItem';
 import { Modal } from '../Modal/Modal';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
+import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 import { useDispatch, useSelector } from "react-redux";
 import { IStore } from '../../index';
 import { ADD_ITEM } from "../../services/actions/constructor";
 import { PLACE_ORDER_REQUEST, PLACE_ORDER_SUCCESS, PLACE_ORDER_ERROR } from "../../services/actions/order";
 import { useDrop } from "react-dnd";
 import { IConstructorState } from "../../services/reducers/constructor";
+import { SET_INGREDIENT } from "../../services/actions/ingredient";
 
 interface IBuns
 {
@@ -44,7 +46,8 @@ const BurgerConstructor = () =>
         
     }, [currentItems]);
 
-    const [modalState, setModalState] = useState(false);
+    const [ingredientsModalState, setIngredientsModalState] = useState(false);
+    const [orderModalState, setOrderModalState] = useState(false);
 
     const getFullIngredients = () => {
         const items = [];
@@ -79,7 +82,7 @@ const BurgerConstructor = () =>
         })
         .then(responseObj => {
             dispatch({ type: PLACE_ORDER_SUCCESS, orderId: responseObj.order.number });
-            setModalState(true); 
+            setOrderModalState(true); 
         })
         .catch(error => {
             dispatch({ type: PLACE_ORDER_ERROR });
@@ -94,13 +97,19 @@ const BurgerConstructor = () =>
         },
     });
 
+    const onIngredientClick = (data: IngredientData) =>
+    {
+        dispatch({ type: SET_INGREDIENT, ingredientData: data });
+        setIngredientsModalState(true);
+    }
+
     return (
         <>
             <section className={`${styles.section} ml-10`}>
                 <div className={`${styles.scrollableList} pt-25`} ref={dropTarget}>
-                    {buns.first && <IngredientsListItem type="top" data={buns.first} index={-1} />}
-                    {currentItems.items && currentItems.items.length > 0 && <IngredientsList items={currentItems.items} />}
-                    {buns.last && <IngredientsListItem type="bottom" data={buns.last} index={-1} />}
+                    {buns.first && <IngredientsListItem type="top" data={buns.first} index={-1} onClickHandler={(data: IngredientData) => onIngredientClick(data)} /> }
+                    {currentItems.items && currentItems.items.length > 0 && <IngredientsList items={currentItems.items} onClickHandler={(data: IngredientData) => onIngredientClick(data)} />}
+                    {buns.last && <IngredientsListItem type="bottom" data={buns.last} index={-1} onClickHandler={(data: IngredientData) => onIngredientClick(data)} />}
                 </div>
 
                 <div className={`mt-10 mr-4 ${styles.commitOrderWrapper}`}>
@@ -113,7 +122,8 @@ const BurgerConstructor = () =>
                     </div>
                 </div>
             </section>
-            {modalState && <Modal closeHandle={() => setModalState(false)}><OrderDetails /></Modal>}
+            {orderModalState && <Modal closeHandle={() => setOrderModalState(false)}><OrderDetails /></Modal>}
+            {ingredientsModalState && <Modal closeHandle={() => setIngredientsModalState(false)}><IngredientDetails /></Modal>}
         </>
     )
 }

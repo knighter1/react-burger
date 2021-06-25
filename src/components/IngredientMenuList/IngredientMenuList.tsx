@@ -1,10 +1,11 @@
+import { useContext } from 'react';
 import { IngredientMenuItem } from '../IngredientMenuItem/IngredientMenuItem';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import styles from './IngredientMenuList.module.css';
+import { DataContext } from '../../services/dataContext';
 
 export interface IIngredientMenuListProps
 {
-    ingredients: IngredientData[];
     onAddItemHandler: (item: IngredientData) => void;
 }
 
@@ -15,8 +16,10 @@ export enum IngredientTypes
     main = "Начинки" as any
 }
 
-export const IngredientMenuList = ({ ingredients, onAddItemHandler }: IIngredientMenuListProps) =>
+export const IngredientMenuList = ({ onAddItemHandler }: IIngredientMenuListProps) =>
 {
+    const { ingredients } = useContext(DataContext);
+
     const bunsList: IngredientData[] = ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.bun]);
     const mainList: IngredientData[] = ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.main]);
     const saucesList: IngredientData[] = ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.sauce]);
@@ -36,7 +39,7 @@ export const IngredientMenuList = ({ ingredients, onAddItemHandler }: IIngredien
         );
     }
 
-    let categories = [
+    const categories = [
         renderCategory(IngredientTypes.bun, bunsList),
         renderCategory(IngredientTypes.sauce, saucesList),
         renderCategory(IngredientTypes.main, mainList)

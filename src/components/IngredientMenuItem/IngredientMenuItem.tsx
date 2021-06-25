@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import styles from './IngredientMenuItem.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Modals, Modal } from '../Modal/Modal';
+import { Modal } from '../Modal/Modal';
+import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 
 export interface IngredientData
 {
@@ -52,7 +53,7 @@ export const IngredientMenuItem = ({ data, onAddItemHandler }: IIngredientMenuIt
                 </div>
                 <span className="text_type_main-default">{data.name}</span>
             </div>
-            {modalState && <Modal type={Modals.IngredientDetails} closeHandle={() => setModalState(false)} modalData={data} />}
+            {modalState && <Modal closeHandle={() => setModalState(false)}><IngredientDetails ingredientData={data} /></Modal>}
         </>
     )
 }

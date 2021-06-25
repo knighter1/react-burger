@@ -4,12 +4,26 @@ import { IngredientData } from '../../components/IngredientMenuItem/IngredientMe
 export interface IConstructorState {
     items: IngredientData[];
     bun: IngredientData | null;
+    cost: number;
 }
 
 const constructorInitState: IConstructorState = {
     items: [],
-    bun: null
+    bun: null,
+    cost: 0
 };
+
+const orderCostReducer = (items: IngredientData[], bun: IngredientData | null): number =>
+{
+    let costValue: number = items.reduce((acc: number, item: IngredientData) => {
+        return acc + item.price;
+    }, 0);
+
+    if (bun)
+        costValue += 2 * bun.price;
+
+    return costValue;
+}
 
 export const constructorReducer = (state: IConstructorState = constructorInitState, action: any) =>
 {
@@ -21,16 +35,16 @@ export const constructorReducer = (state: IConstructorState = constructorInitSta
             const item: IngredientData = action.item;
 
             if (item.type === 'bun')
-                return {items: [...items], bun: item };
+                return {items: [...items], bun: item, cost: orderCostReducer(items, item) };
             
-            return {...state, items: [...items, action.item] };
+            return {...state, items: [...items, action.item], cost: orderCostReducer([...items, action.item], state.bun) };
         }
 
         case REMOVE_ITEM:
         {
             const items = [...state.items];
             items.splice(action.index, 1);
-            return {...state, items: items };
+            return {...state, items: items, cost: orderCostReducer(items, state.bun) };
         }
 
         case REORDER_ITEM:

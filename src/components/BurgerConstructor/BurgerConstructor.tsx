@@ -1,4 +1,4 @@
-import { useState, useEffect, useReducer } from "react";
+import { useState, useEffect } from "react";
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerConstructor.module.css';
 import IngredientsList from '../IngredientsList/IngredientsList';
@@ -17,20 +17,6 @@ interface IBuns
 {
     first?: IngredientData | null,
     last?: IngredientData | null;
-}
-
-interface IOrderCost
-{
-    value: number;
-}
-
-function orderCostReducer(state: IOrderCost, items: IngredientData[]): IOrderCost
-{
-    const value: number = items.reduce((acc, item) => {
-        return acc + item.price;
-    }, 0);
-
-    return {value: value};
 }
 
 const BurgerConstructor = () =>
@@ -71,13 +57,6 @@ const BurgerConstructor = () =>
 
         return items;
     }
-
-    const [orderCost, orderCostDispatch] = useReducer(orderCostReducer, {value: 0}, undefined);
-
-    useEffect(() => {
-        const items = getFullIngredients();
-        orderCostDispatch(items);
-    }, [currentItems, orderCostDispatch/*, getFullIngredients*/]);
 
     const placeOrder = () => {
         
@@ -125,7 +104,7 @@ const BurgerConstructor = () =>
                 </div>
 
                 <div className={`mt-10 mr-4 ${styles.commitOrderWrapper}`}>
-                    <span className="text text_type_digits-medium mr-2">{orderCost.value}</span>
+                    <span className="text text_type_digits-medium mr-2">{currentItems.cost ? currentItems.cost : 0}</span>
                     <CurrencyIcon type="primary" />
                     <div className={`ml-10 ${styles.buttonWrapper}`}>
                         <Button type="primary" size="large" onClick={() => placeOrder()}>

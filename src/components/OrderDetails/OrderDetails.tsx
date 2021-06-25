@@ -5,7 +5,7 @@ import { IStore } from '../..';
 
 export const OrderDetails = (): JSX.Element =>
 {
-    const orderId = useSelector((store: IStore) => store.order);
+    const orderId: number = useSelector((store: IStore) => store.order.orderId);
 
     return (
         <div className={`${styles.orderDetail} modal-сontent`}>

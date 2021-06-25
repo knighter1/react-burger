@@ -9,7 +9,7 @@ import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { useDispatch, useSelector } from "react-redux";
 import { IStore } from '../../index';
 import { ADD_ITEM } from "../../services/actions/constructor";
-import { SET_ORDER_ID } from "../../services/actions/order";
+import { PLACE_ORDER_REQUEST, PLACE_ORDER_SUCCESS, PLACE_ORDER_ERROR } from "../../services/actions/order";
 import { useDrop } from "react-dnd";
 import { IConstructorState } from "../../services/reducers/constructor";
 
@@ -81,6 +81,7 @@ const BurgerConstructor = () =>
 
     const placeOrder = () => {
         
+        dispatch({ type: PLACE_ORDER_REQUEST });
         fetch(PLACE_ORDER_ENDPOINT, {
             method: 'POST',
             headers: {
@@ -95,10 +96,13 @@ const BurgerConstructor = () =>
             return Promise.reject(`Status ${response.status}`);
         })
         .then(responseObj => {
-            dispatch({ type: SET_ORDER_ID, orderId: responseObj.order.number });
+            dispatch({ type: PLACE_ORDER_SUCCESS, orderId: responseObj.order.number });
             setModalState(true); 
         })
-        .catch(error => console.error(`Order placing error: ${error}`));
+        .catch(error => {
+            dispatch({ type: PLACE_ORDER_ERROR });
+            console.error(`Order placing error: ${error}`)
+        });
     }
 
     const [, dropTarget] = useDrop({

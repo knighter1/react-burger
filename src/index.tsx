@@ -10,6 +10,7 @@ import { rootReducer } from './services/reducers/index';
 import { IngredientData } from './components/IngredientMenuItem/IngredientMenuItem';
 import { IConstructorState } from './services/reducers/constructor';
 import { IApiState } from './services/reducers/api';
+import { IOrderState } from './services/reducers/order';
 
 declare global {
     interface Window {
@@ -24,7 +25,7 @@ export interface IStore {
     ingredientsLib: IApiState,
     constructor: IConstructorState,
     ingredient: IngredientData | null,
-    order: number | null
+    order: IOrderState
 }
 
 const store = createStore(rootReducer, enhancer);

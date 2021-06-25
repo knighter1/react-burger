@@ -1,8 +1,5 @@
-import { useState } from 'react';
 import styles from './IngredientMenuItem.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Modal } from '../Modal/Modal';
-import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_INGREDIENT } from '../../services/actions/ingredient';
 import { useDrag } from 'react-dnd';
@@ -27,12 +24,11 @@ export interface IngredientData
 interface IIngredientMenuItemProps
 {
     data: IngredientData;
+    setModalState: Function
 }
 
-export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps) =>
+export const IngredientMenuItem = ({ data, setModalState }: IIngredientMenuItemProps) =>
 {
-    const [modalState, setModalState] = useState(false);
-
     const dispatch = useDispatch();
 
     const onItemClick = () =>
@@ -48,8 +44,6 @@ export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps) =>
             isDrag: monitor.isDragging()
         })
     });
-
-    const handler = () => onItemClick();
 
     const className = `${styles.menuItem} mt-6 mb-8 ml-4 mr-2 ${isDrag ? styles.isDrag : ''}`;
 
@@ -67,7 +61,7 @@ export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps) =>
     return (
         <>
             <div className={className}
-                onClick={handler}
+                onClick={onItemClick}
                 ref={dragRef} >
                 {count > 0 && <Counter count={count} size="default" />}
 
@@ -78,7 +72,6 @@ export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps) =>
                 </div>
                 <span className="text_type_main-default">{data.name}</span>
             </div>
-            {modalState && <Modal closeHandle={() => setModalState(false)}><IngredientDetails /></Modal>}
         </>
     )
 }

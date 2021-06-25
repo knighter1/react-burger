@@ -4,7 +4,6 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import { Modal } from '../Modal/Modal';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_ITEM } from '../../services/actions/constructor';
 import { SET_INGREDIENT } from '../../services/actions/ingredient';
 import { useDrag } from 'react-dnd';
 import { IStore } from '../..';
@@ -38,7 +37,6 @@ export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps) =>
 
     const onItemClick = () =>
     {
-        dispatch({ type: ADD_ITEM, item: data });
         dispatch({ type: SET_INGREDIENT, ingredientData: data });
         setModalState(true);
     }

@@ -74,7 +74,7 @@ export const IngredientMenuList: React.FC<IIngredientMenuListProps> = ({changeTy
 
     return (
         <div className={styles.list}>
-            { categories.map(category => category) }
+            { categories }
             {modalState && <Modal closeHandle={() => setModalState(false)}><IngredientDetails /></Modal>}
         </div>
     );

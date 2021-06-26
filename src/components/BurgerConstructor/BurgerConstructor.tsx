@@ -103,13 +103,15 @@ const BurgerConstructor = () =>
         setIngredientsModalState(true);
     }
 
+    const ingredientClickHandler = (data: IngredientData) => onIngredientClick(data);
+
     return (
         <>
             <section className={`${styles.section} ml-10`}>
                 <div className={`${styles.scrollableList} pt-25`} ref={dropTarget}>
-                    {buns.first && <IngredientsListItem type="top" data={buns.first} index={-1} onClickHandler={(data: IngredientData) => onIngredientClick(data)} /> }
-                    {currentItems.items && currentItems.items.length > 0 && <IngredientsList items={currentItems.items} onClickHandler={(data: IngredientData) => onIngredientClick(data)} />}
-                    {buns.last && <IngredientsListItem type="bottom" data={buns.last} index={-1} onClickHandler={(data: IngredientData) => onIngredientClick(data)} />}
+                    {buns.first && <IngredientsListItem type="top" data={buns.first} index={-1} onClickHandler={ingredientClickHandler} /> }
+                    {currentItems.items && currentItems.items.length > 0 && <IngredientsList items={currentItems.items} onClickHandler={ingredientClickHandler} />}
+                    {buns.last && <IngredientsListItem type="bottom" data={buns.last} index={-1} onClickHandler={ingredientClickHandler} />}
                 </div>
 
                 <div className={`mt-10 mr-4 ${styles.commitOrderWrapper}`}>

@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useRef } from 'react';
 import styles from './IngredientsListItem.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
-import { Modal } from '../Modal/Modal';
-import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
+import { REMOVE_ITEM, REORDER_ITEM } from '../../services/actions/constructor';
+import { useDispatch } from 'react-redux';
+import { useDrag, useDrop } from 'react-dnd';
 
 interface IConstructorElement {
     type?: 'top' | 'bottom';
@@ -11,19 +12,22 @@ interface IConstructorElement {
     text: string;
     thumbnail: string;
     price: number;
-    handleClose?: () => void;
+    handleClose?: any
 };
 
 interface IIngredientsListItemProps
 {
     data: IngredientData;
+    index: number;
     type?: "top" | "bottom";
-    onRemoveItemHandle?: (id: string) => void
+    onClickHandler: Function
 }
 
-const IngredientsListItem = ({ data, type, onRemoveItemHandle }: IIngredientsListItemProps) =>
+const IngredientsListItem = ({ data, index, type, onClickHandler }: IIngredientsListItemProps) =>
 {
-    const [modalState, setModalState] = useState(false);
+    const dispatch = useDispatch();
+
+    const elementRef = useRef(null);
 
     const getElementProps = (item: IngredientData) =>
     {
@@ -33,11 +37,31 @@ const IngredientsListItem = ({ data, type, onRemoveItemHandle }: IIngredientsLis
             thumbnail: item.image_mobile,
             type: type,
             isLocked: type ? true : false,
-            handleClose: onRemoveItemHandle ? onRemoveItemHandle.bind(this, item._id) : undefined
+            handleClose: (event: Event) => {
+                event.stopPropagation();
+                dispatch({ type: REMOVE_ITEM, index: index })
+            }
         };
 
         return elementProps;
     }
+
+    const [{isDrag}, dragRef] = useDrag({
+        type: !type ? "reorder" : "",
+        item: { data: data, prevIndex: index },
+        collect: monitor => ({
+            isDrag: monitor.isDragging()
+        })
+    });
+
+    const [, dropRef] = useDrop({
+        accept: "reorder",
+        drop(item: any) {
+            dispatch({ type: REORDER_ITEM, newIndex: index, item: item.data, prevIndex: item.prevIndex });
+        },
+    });
+
+    dragRef(dropRef(elementRef));
 
     const elementProps = getElementProps(data);
 
@@ -45,17 +69,18 @@ const IngredientsListItem = ({ data, type, onRemoveItemHandle }: IIngredientsLis
     let elementPaddingStyle = elementProps.isLocked ? "pr-4" : "";
     elementPaddingStyle += !elementProps.isLocked ? "mb-2 mt-2" : "";
     
+    const className = `${styles.item} ${isDrag ? styles.isDrag : ""}`;
+
     return (
         <>
-            <div className={styles.item}>
-                <div className={buttonPaddingStyle}>
+            <div className={className} ref={elementRef} >
+                <div className={buttonPaddingStyle} >
                     {!elementProps.isLocked && <DragIcon type="primary" />}
                 </div>
-                <div className={`${elementPaddingStyle} ${styles.element}`} onClick={() => setModalState(true)}>
+                <div className={`${elementPaddingStyle} ${styles.element}`} onClick={() => onClickHandler(data)}>
                     <ConstructorElement {...elementProps} />
                 </div>
             </div>
-            {modalState && <Modal closeHandle={() => setModalState(false)}><IngredientDetails ingredientData={data} /></Modal>}
         </>
     );
 }

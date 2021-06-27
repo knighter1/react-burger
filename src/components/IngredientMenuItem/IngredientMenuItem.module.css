@@ -5,6 +5,10 @@
     text-align: center;
 }
 
+.isDrag {
+    background-color: #222222;
+}
+
 .priceBlock {
     display: table;
     margin: auto; 

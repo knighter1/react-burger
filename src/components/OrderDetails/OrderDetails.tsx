@@ -1,13 +1,12 @@
 import styles from './OrderDetails.module.css';
 import orderDoneImg from '../../images/order_done.png';
+import { useSelector } from 'react-redux';
+import { IStore } from '../..';
 
-interface IOrderDetailsProps
+export const OrderDetails = (): JSX.Element =>
 {
-    orderId: string;
-}
+    const orderId: number = useSelector((store: IStore) => store.order.orderId);
 
-export const OrderDetails = ({ orderId }: IOrderDetailsProps): JSX.Element =>
-{
     return (
         <div className={`${styles.orderDetail} modal-сontent`}>
             <div className={`${styles.orderId} text text_type_digits-large pt-30`}>

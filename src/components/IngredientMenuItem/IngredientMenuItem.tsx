@@ -1,8 +1,9 @@
-import { useState } from 'react';
 import styles from './IngredientMenuItem.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Modal } from '../Modal/Modal';
-import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
+import { useDispatch, useSelector } from 'react-redux';
+import { SET_INGREDIENT } from '../../services/actions/ingredient';
+import { useDrag } from 'react-dnd';
+import { IStore } from '../..';
 
 export interface IngredientData
 {
@@ -23,27 +24,45 @@ export interface IngredientData
 interface IIngredientMenuItemProps
 {
     data: IngredientData;
-    onAddItemHandler: (item: IngredientData) => void;
+    onClickHandler: Function
 }
 
-export const IngredientMenuItem = ({ data, onAddItemHandler }: IIngredientMenuItemProps) =>
+export const IngredientMenuItem = ({ data, onClickHandler }: IIngredientMenuItemProps) =>
 {
-    const [count, setCount] = useState(0);
-    const [modalState, setModalState] = useState(false);
+    const dispatch = useDispatch();
 
     const onItemClick = () =>
     {
-        setCount(count + 1);
-        onAddItemHandler(data);
-        setModalState(true);
+        dispatch({ type: SET_INGREDIENT, ingredientData: data });
+        onClickHandler(true);
     }
 
-    const handler = () => onItemClick();
+    const [{isDrag}, dragRef] = useDrag({
+        type: "ingredients",
+        item: data,
+        collect: monitor => ({
+            isDrag: monitor.isDragging()
+        })
+    });
+
+    const className = `${styles.menuItem} mt-6 mb-8 ml-4 mr-2 ${isDrag ? styles.isDrag : ''}`;
+
+    const count = useSelector((store: IStore) => {
+        
+        const items: IngredientData[] = store.constructor.items
+        let countResult: number = items ? items.filter(item => item._id === data._id).length : 0;
+
+        if (data === store.constructor.bun)
+            countResult = 2;
+
+        return countResult;
+    });
 
     return (
         <>
-            <div className={`${styles.menuItem} mt-6 mb-8 ml-4 mr-2`}
-                onClick={handler} >
+            <div className={className}
+                onClick={onItemClick}
+                ref={dragRef} >
                 {count > 0 && <Counter count={count} size="default" />}
 
                 <img className="ml-4 mr-4" src={data.image} alt={data.name} />
@@ -53,7 +72,6 @@ export const IngredientMenuItem = ({ data, onAddItemHandler }: IIngredientMenuIt
                 </div>
                 <span className="text_type_main-default">{data.name}</span>
             </div>
-            {modalState && <Modal closeHandle={() => setModalState(false)}><IngredientDetails ingredientData={data} /></Modal>}
         </>
     )
 }

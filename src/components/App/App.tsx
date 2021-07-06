@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import styles from './App.module.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import AppHeader from '../AppHeader/AppHeader';
@@ -7,7 +8,7 @@ import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import { useDispatch } from 'react-redux';
 import { GET_INGREDIENTS_LIB_REQUEST, GET_INGREDIENTS_LIB_SUCCESS, GET_INGREDIENTS_LIB_ERROR } from '../../services/actions/api';
-//import { ADD_ITEM } from '../../services/actions/constructor';
+import SignInPage from '../../pages/SignIn/SignIn';
 
 const App = () => {
 
@@ -26,11 +27,6 @@ const App = () => {
         })
         .then(responseObj => {
             dispatch({ type: GET_INGREDIENTS_LIB_SUCCESS, data: responseObj.data });
-            
-            /*dispatch({ type: ADD_ITEM, item: responseObj.data[4] });
-            dispatch({ type: ADD_ITEM, item: responseObj.data[3] });
-            dispatch({ type: ADD_ITEM, item: responseObj.data[0] });
-            dispatch({ type: ADD_ITEM, item: responseObj.data[5] });*/
         })
         .catch(error => 
             {
@@ -42,12 +38,19 @@ const App = () => {
     return (
         <div className={styles.appCont}>
             <AppHeader />
-            <main className={styles.main}>
-                <DndProvider backend={HTML5Backend}>
-                    <BurgerIngredients />
-                    <BurgerConstructor />
-                </DndProvider>
-            </main>
+            <Router>
+                <Route path="/" exact={true}>
+                    <main className={styles.main}>
+                        <DndProvider backend={HTML5Backend}>
+                            <BurgerIngredients />
+                            <BurgerConstructor />
+                        </DndProvider>
+                    </main>
+                </Route>
+                <Route path="/login" exact={true}>
+                    <SignInPage />
+                </Route>
+            </Router>
         </div>
     );
 }

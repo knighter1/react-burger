@@ -3,7 +3,7 @@ import './ForgotPassword.css';
 import ForgotPasswordForm from '../../components/ForgotPasswordForm/ForgotPasswordForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
 
-const ForgotPassword = () =>
+const ForgotPasswordPage = () =>
 {
     return (
         <div className={"page-cont"}>
@@ -20,4 +20,4 @@ const ForgotPassword = () =>
     )
 }
 
-export default ForgotPassword;
+export default ForgotPasswordPage;

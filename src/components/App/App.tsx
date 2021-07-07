@@ -11,6 +11,7 @@ import { GET_INGREDIENTS_LIB_REQUEST, GET_INGREDIENTS_LIB_SUCCESS, GET_INGREDIEN
 import SignInPage from '../../pages/SignIn/SignIn';
 import RegisterPage from '../../pages/Register/Register';
 import ForgotPasswordPage from '../../pages/ForgotPassword/ForgotPassword';
+import ResetPasswordPage from '../../pages/ResetPassword/ResetPassword';
 
 const App = () => {
 
@@ -57,6 +58,9 @@ const App = () => {
                 </Route>
                 <Route path="/forgot-password" exact={true}>
                     <ForgotPasswordPage />
+                </Route>
+                <Route path="/reset-password" exact={true}>
+                    <ResetPasswordPage />
                 </Route>
             </Router>
         </div>

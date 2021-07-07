@@ -9,6 +9,7 @@ import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import { useDispatch } from 'react-redux';
 import { GET_INGREDIENTS_LIB_REQUEST, GET_INGREDIENTS_LIB_SUCCESS, GET_INGREDIENTS_LIB_ERROR } from '../../services/actions/api';
 import SignInPage from '../../pages/SignIn/SignIn';
+import RegisterPage from '../../pages/Register/Register';
 
 const App = () => {
 
@@ -49,6 +50,9 @@ const App = () => {
                 </Route>
                 <Route path="/login" exact={true}>
                     <SignInPage />
+                </Route>
+                <Route path="/register" exact={true}>
+                    <RegisterPage />
                 </Route>
             </Router>
         </div>

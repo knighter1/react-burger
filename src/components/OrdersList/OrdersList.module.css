@@ -1,0 +1,9 @@
+.section {
+    width: 600px;
+    height: 100%;
+    float: left;
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid red;
+}

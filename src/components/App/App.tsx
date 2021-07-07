@@ -9,6 +9,7 @@ import SignInPage from '../../pages/SignIn/SignIn';
 import RegisterPage from '../../pages/Register/Register';
 import ForgotPasswordPage from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPasswordPage from '../../pages/ResetPassword/ResetPassword';
+import OrdersFeedPage from '../../pages/OrdersFeed/OrdersFeed';
 
 const App = () => {
 
@@ -53,6 +54,9 @@ const App = () => {
                 </Route>
                 <Route path="/reset-password" exact={true}>
                     <ResetPasswordPage />
+                </Route>
+                <Route path="/orders-feed" exact={true}>
+                    <OrdersFeedPage />
                 </Route>
             </Router>
         </div>

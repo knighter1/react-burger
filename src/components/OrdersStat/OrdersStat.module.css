@@ -1,0 +1,7 @@
+.section {
+    width: 600px;
+    height: 100%;
+    float: left;
+
+    border: 1px solid green;
+}

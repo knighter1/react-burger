@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { GET_INGREDIENTS_LIB_REQUEST, GET_INGREDIENTS_LIB_SUCCESS, GET_INGREDIENTS_LIB_ERROR } from '../../services/actions/api';
 import SignInPage from '../../pages/SignIn/SignIn';
 import RegisterPage from '../../pages/Register/Register';
+import ForgotPasswordPage from '../../pages/ForgotPassword/ForgotPassword';
 
 const App = () => {
 
@@ -53,6 +54,9 @@ const App = () => {
                 </Route>
                 <Route path="/register" exact={true}>
                     <RegisterPage />
+                </Route>
+                <Route path="/forgot-password" exact={true}>
+                    <ForgotPasswordPage />
                 </Route>
             </Router>
         </div>

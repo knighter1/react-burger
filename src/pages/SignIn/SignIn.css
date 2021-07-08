@@ -1,4 +1,4 @@
-.page-cont {
+.signin-cont {
     width: 480px;
     margin: auto;
     height: calc(100% - 90px);
@@ -7,6 +7,6 @@
     align-items: center;
 }
 
-.page-cont .input_size_default {
+.signin-cont .input_size_default {
     width: 480px;
 }

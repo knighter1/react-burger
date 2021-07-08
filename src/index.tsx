@@ -14,6 +14,7 @@ import { IOrderState } from './services/reducers/order';
 import { IInitResetPasswordState } from './services/reducers/initResetPassword';
 import { IResetPasswordState } from './services/reducers/resetPassword';
 import { ISignInState } from './services/reducers/signin';
+import { IRegisterState } from './services/reducers/register';
 
 declare global {
     interface Window {
@@ -32,6 +33,7 @@ export interface IStore {
     initResetPassword: IInitResetPasswordState,
     resetPassword: IResetPasswordState,
     signIn: ISignInState,
+    register: IRegisterState,
 }
 
 const store = createStore(rootReducer, enhancer);

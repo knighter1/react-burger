@@ -3,10 +3,14 @@ import { apiReducer } from './api';
 import { constructorReducer } from './constructor';
 import { orderReducer } from './order';
 import { ingredientReducer } from './ingredient';
+import { initResetPasswordReducer } from './initResetPassword';
+import { resetPasswordReducer } from './resetPassword';
 
 export const rootReducer = combineReducers({
     ingredientsLib: apiReducer,
     constructor: constructorReducer,
     ingredient: ingredientReducer,
-    order: orderReducer
+    order: orderReducer,
+    initResetPassword: initResetPasswordReducer,
+    resetPassword: resetPasswordReducer
 });

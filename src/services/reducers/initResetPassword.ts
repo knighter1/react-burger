@@ -1,6 +1,6 @@
-import { RESET_PASSWORD_REQUEST, RESET_PASSWORD_ERROR, RESET_PASSWORD_SUCCESS } from '../actions/auth';
+import { INIT_RESET_PASSWORD_REQUEST, INIT_RESET_PASSWORD_ERROR, INIT_RESET_PASSWORD_SUCCESS } from '../actions/auth';
 
-export interface IResetPasswordState
+export interface IInitResetPasswordState
 {
     success: boolean;
     message: string;
@@ -9,7 +9,7 @@ export interface IResetPasswordState
     isRequest: boolean;
 }
 
-const initState: IResetPasswordState = {
+const initState: IInitResetPasswordState = {
     success: false,
     message: '',
 
@@ -17,17 +17,17 @@ const initState: IResetPasswordState = {
     isRequest: false
 }
 
-export const resetPasswordReducer = (state = initState, action: any): IResetPasswordState =>
+export const initResetPasswordReducer = (state = initState, action: any): IInitResetPasswordState =>
 {
     switch (action.type)
     {
-        case RESET_PASSWORD_REQUEST:
+        case INIT_RESET_PASSWORD_REQUEST:
             return { ...state, isError: false, isRequest: true };
 
-        case RESET_PASSWORD_SUCCESS:
+        case INIT_RESET_PASSWORD_SUCCESS:
             return { success: action.success, message: action.message, isError: false, isRequest: false };
 
-        case RESET_PASSWORD_ERROR:
+        case INIT_RESET_PASSWORD_ERROR:
             return { success: false, message: '', isError: true, isRequest: false };
 
         default:

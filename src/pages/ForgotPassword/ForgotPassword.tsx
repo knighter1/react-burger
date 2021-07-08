@@ -3,6 +3,7 @@ import './ForgotPassword.css';
 import ForgotPasswordForm from '../../components/ForgotPasswordForm/ForgotPasswordForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { INIT_RESET_PASSWORD_REQUEST, INIT_RESET_PASSWORD_ERROR, INIT_RESET_PASSWORD_SUCCESS } from '../../services/actions/auth';
 
 const ForgotPasswordPage = () =>
@@ -11,7 +12,7 @@ const ForgotPasswordPage = () =>
 
     const dispatch = useDispatch();
 
-    const resetPassword = (email: string) => {
+    const initResetPassword = (email: string) => {
 
         dispatch({ type: INIT_RESET_PASSWORD_REQUEST });
         fetch(END_POINT, {
@@ -19,7 +20,7 @@ const ForgotPasswordPage = () =>
             headers: {
               'Content-Type': 'application/json'
             },
-            body: JSON.stringify({email: email})
+            body: JSON.stringify({ email: email })
         })
         .then(response => {
             if (response.ok) {
@@ -40,11 +41,15 @@ const ForgotPasswordPage = () =>
     return (
         <div className={"page-cont"}>
             <div>
-                <ForgotPasswordForm handler={(email: string) => resetPassword(email)} />
+                <ForgotPasswordForm handler={(email: string) => initResetPassword(email)} />
                 <div className={styles.links}>
                     <div className={styles.linksRow}>
                         <span className={'text text_type_main-default text_color_inactive'}>Вспомнили пароль?</span>
-                        <span className={`text text_type_main-default ${styles.blueLink}`}>Войти</span>
+                        <Link to='/login'>
+                            <span className={`text text_type_main-default ${styles.blueLink}`}>
+                                Войти
+                            </span>
+                        </Link>
                     </div>
                 </div>
             </div>

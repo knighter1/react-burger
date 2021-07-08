@@ -11,6 +11,8 @@ import { IngredientData } from './components/IngredientMenuItem/IngredientMenuIt
 import { IConstructorState } from './services/reducers/constructor';
 import { IApiState } from './services/reducers/api';
 import { IOrderState } from './services/reducers/order';
+import { IInitResetPasswordState } from './services/reducers/initResetPassword';
+import { IResetPasswordState } from './services/reducers/resetPassword';
 
 declare global {
     interface Window {
@@ -25,7 +27,9 @@ export interface IStore {
     ingredientsLib: IApiState,
     constructor: IConstructorState,
     ingredient: IngredientData | null,
-    order: IOrderState
+    order: IOrderState,
+    initResetPassword: IInitResetPasswordState,
+    resetPassword: IResetPasswordState
 }
 
 const store = createStore(rootReducer, enhancer);

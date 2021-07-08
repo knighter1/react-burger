@@ -11,6 +11,7 @@ import ForgotPasswordPage from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPasswordPage from '../../pages/ResetPassword/ResetPassword';
 import OrdersFeedPage from '../../pages/OrdersFeed/OrdersFeed';
 import ProfilePage from '../../pages/Profile/Profile';
+import ProfileOrdersPage from '../../pages/ProfileOrders/ProfileOrders';
 
 const App = () => {
 
@@ -59,8 +60,11 @@ const App = () => {
                 <Route path="/orders-feed" exact={true}>
                     <OrdersFeedPage />
                 </Route>
-                <Route>
+                <Route path='/profile' exact={true}>
                     <ProfilePage />
+                </Route>
+                <Route path='/profile/orders' exact={true}>
+                    <ProfileOrdersPage />
                 </Route>
             </Router>
         </div>

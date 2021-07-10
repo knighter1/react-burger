@@ -4,6 +4,10 @@
     float: left;
     display: flex;
     flex-direction: column;
+}
 
-    border: 1px solid red;
+.itemsCont {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
 }

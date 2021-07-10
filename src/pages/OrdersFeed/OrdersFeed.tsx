@@ -7,10 +7,8 @@ const OrdersFeedPage = () =>
 {
     return (
         <div className={styles.page}>
-            <div>
-                <OrdersList />
-                <OrdersStat />
-            </div>
+            <OrdersList />
+            <OrdersStat />
         </div>
     )
 }

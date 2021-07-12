@@ -85,9 +85,12 @@ export function useProvideAuth()
         })
         .catch(error => {
             dispatch({ type: GET_USER_ERROR });
-            console.error(`Get user info error: ${error}`)
+            console.error('Get user info error:', error)
         });
     }
+
+    if (user === undefined)
+        getUser();
 
     return {
         user,

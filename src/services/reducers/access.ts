@@ -9,7 +9,7 @@ export interface IAccessState
     user: {
         email: string;
         name: string;
-    } | null;
+    } | null | undefined;
 
     isError: boolean;
     isRequest: boolean;
@@ -18,7 +18,7 @@ export interface IAccessState
 const initState: IAccessState = {
     success: false,
 
-    user: null,
+    user: undefined,
 
     isError: false,
     isRequest: false
@@ -46,6 +46,9 @@ export const accessReducer = (state = initState, action: any): IAccessState =>
             return { ...state, isError: true, isRequest: false };
 
         case LOGOUT_SUCCESS:
+            setCookie('accessToken', '');
+            setCookie('refreshToken', '');
+
             return { ...action, isError: false, isRequest: false, user: null };
 
         case GET_USER_SUCCESS:

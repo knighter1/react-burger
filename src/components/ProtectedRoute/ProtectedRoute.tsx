@@ -16,15 +16,12 @@ export const ProtectedRoute = ({ path, exact, children, ...rest }: IProtectedRou
 
     const init = async () => {
         user = await getUser();
-        console.log("ProtectedRoute.init.user: ", user);
         setUserLoaded(true);
     };
 
     useEffect(() => {
         init();
     }, []);
-
-    console.log("ProtectedRoute.user: ", user);
 
     if (!isUserLoaded)
         return null;

@@ -1,4 +1,4 @@
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import styles from './Register.module.css'
 import './Register.css';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
@@ -6,6 +6,7 @@ import '@ya.praktikum/react-developer-burger-ui-components'
 import { useDispatch } from 'react-redux';
 import { REGISTER_REQUEST, REGISTER_ERROR, REGISTER_SUCCESS } from '../../services/actions/auth';
 import { setCookie } from '../../utils/cookie';
+import { useAuth } from '../../services/auth';
 
 const RegisterPage = () =>
 {
@@ -43,9 +44,21 @@ const RegisterPage = () =>
         });
     }
 
+    const { user }: any = useAuth();
+
+    if (user) {
+        return (
+            <Redirect
+                to={{
+                    pathname: '/'
+                }}
+            />
+        );
+    }
+
     return (
         <div className={"page-cont"}>
-            <div>
+            <div className={styles.center}>
                 <RegisterForm handler={(email: string, password: string, name: string) => register(email, password, name)} />
                 <div className={styles.links}>
                     <div className={styles.linksRow}>

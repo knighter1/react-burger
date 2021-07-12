@@ -3,8 +3,13 @@ import './ResetPassword.css';
 import ResetPasswordForm from '../../components/ResetPasswordForm/ResetPasswordForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import { RESET_PASSWORD_REQUEST, RESET_PASSWORD_ERROR, RESET_PASSWORD_SUCCESS } from '../../services/actions/auth';
+import { useAuth } from '../../services/auth';
+
+interface stateType {
+    from: { pathname: string }
+}
 
 const ResetPasswordPage = () =>
 {
@@ -38,9 +43,22 @@ const ResetPasswordPage = () =>
         });
     }
 
+    const { user }: any = useAuth();
+    const { state } = useLocation<stateType>();
+
+    if (user || state == undefined || (state && state.from.pathname !== '/forgot-password')) {
+        return (
+            <Redirect
+                to={{
+                    pathname: '/'
+                }}
+            />
+        );
+    }
+
     return (
         <div className={"page-cont"}>
-            <div>
+            <div className={styles.center}>
                 <ResetPasswordForm handler={(password: string, token: string) => resetPassword(password, token)} />
                 <div className={styles.links}>
                     <div className={styles.linksRow}>

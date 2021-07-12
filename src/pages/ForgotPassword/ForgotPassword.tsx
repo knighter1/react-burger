@@ -3,14 +3,17 @@ import './ForgotPassword.css';
 import ForgotPasswordForm from '../../components/ForgotPasswordForm/ForgotPasswordForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import { INIT_RESET_PASSWORD_REQUEST, INIT_RESET_PASSWORD_ERROR, INIT_RESET_PASSWORD_SUCCESS } from '../../services/actions/auth';
+import { useAuth } from '../../services/auth';
 
 const ForgotPasswordPage = () =>
 {
     const END_POINT: string = 'https://norma.nomoreparties.space/api/password-reset';
 
     const dispatch = useDispatch();
+
+    const history = useHistory();
 
     const initResetPassword = (email: string) => {
 
@@ -30,7 +33,7 @@ const ForgotPasswordPage = () =>
         })
         .then(responseObj => {
             dispatch({ type: INIT_RESET_PASSWORD_SUCCESS, message: responseObj.message, success: responseObj.success });
-            console.log(responseObj);
+            history.push('/reset-password', {from: history.location});
         })
         .catch(error => {
             dispatch({ type: INIT_RESET_PASSWORD_ERROR });
@@ -38,9 +41,21 @@ const ForgotPasswordPage = () =>
         });
     }
 
+    const { user }: any = useAuth();
+
+    if (user) {
+        return (
+            <Redirect
+                to={{
+                    pathname: '/'
+                }}
+            />
+        );
+    }
+
     return (
         <div className={"page-cont"}>
-            <div>
+            <div className={styles.center}>
                 <ForgotPasswordForm handler={(email: string) => initResetPassword(email)} />
                 <div className={styles.links}>
                     <div className={styles.linksRow}>

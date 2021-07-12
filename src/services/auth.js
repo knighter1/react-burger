@@ -5,6 +5,7 @@ import {
     SIGNIN_REQUEST, SIGNIN_SUCCESS, SIGNIN_ERROR,
     LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_ERROR } from './actions/auth';
 import { GET_USER_REQUEST, GET_USER_SUCCESS, GET_USER_ERROR } from './actions/profile';
+import { useHistory } from 'react-router-dom';
 
 const AuthContext = createContext(undefined);
 
@@ -25,6 +26,8 @@ export function useProvideAuth()
     let user = useSelector((store) => store.access.user);
 
     const dispatch = useDispatch();
+
+    const history = useHistory();
 
     const signIn = (email, password) =>
     {
@@ -57,6 +60,7 @@ export function useProvideAuth()
         })
         .then(responseObj => {
             dispatch({ type: LOGOUT_SUCCESS, ...responseObj });
+            history.replace('/login');
         })
         .catch(error => {
             dispatch({ type: LOGOUT_ERROR });

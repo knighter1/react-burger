@@ -13,7 +13,7 @@ const constructorInitState: IConstructorState = {
     cost: 0
 };
 
-const orderCostReducer = (items: IngredientData[], bun: IngredientData | null): number =>
+export const orderCostReducer = (items: IngredientData[], bun: IngredientData | null): number =>
 {
     let costValue: number = items.reduce((acc: number, item: IngredientData) => {
         return acc + item.price;

@@ -11,3 +11,17 @@
 .field {
     padding-bottom: 24px;
 }
+
+.right {
+    text-align: right;
+}
+
+.cancel {
+    color: #4c4cff;
+    margin-right: 28px;
+    cursor: pointer;
+}
+
+.logout {
+    cursor: pointer;
+}

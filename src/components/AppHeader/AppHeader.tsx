@@ -9,6 +9,7 @@ const AppHeader = () => {
     
     const isConstructor: boolean = location.pathname === '/';
     const isProfile: boolean = location.pathname === '/profile';
+    const isFeed: boolean = location.pathname === '/orders-feed';
 
     const constructorCont = (
         <HeaderItem
@@ -26,12 +27,19 @@ const AppHeader = () => {
         />
     );
 
+    const feedCont = (
+        <HeaderItem
+            Icon={ListIcon}
+            caption='Лента заказов'
+            type={isFeed ? "primary" : "secondary"}
+        />
+    )
+
     return (
-    
         <header className={styles.row}>
             <nav className={`${styles.sideRow} ${styles.left}`}>
                 {!isConstructor ? <Link to='/'>{constructorCont}</Link> : constructorCont}
-                <HeaderItem Icon={ListIcon} caption='Лента заказов' type="secondary" />
+                {!isFeed ? <Link to='/orders-feed'>{feedCont}</Link> : feedCont}
             </nav>
             <Logo />
             <nav className={`${styles.sideRow} ${styles.right}`}>

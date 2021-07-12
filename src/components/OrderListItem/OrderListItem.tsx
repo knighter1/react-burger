@@ -32,7 +32,7 @@ const OrderListItem = ({name, orderId, ingredients, date }: IOrderListItemProps)
                         key={index}
                         style={style}
                         className={`${styles.ingredientImage} text text_type_digits-default`}>
-                            {index + 1 == MAX_COUNT && overCount ? <span className={styles.overCount}>+{overCount}</span> : ""}
+                            {index + 1 === MAX_COUNT && overCount ? <span className={styles.overCount}>+{overCount}</span> : ""}
                     </div>;
                 })}
             </div>
@@ -49,7 +49,6 @@ const OrderListItem = ({name, orderId, ingredients, date }: IOrderListItemProps)
         return moment().calendar(date, formats);
     }
     
-
     return (
         <div className={styles.cont}>
             <div className={styles.top}>

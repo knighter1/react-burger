@@ -1,11 +1,87 @@
-import { PasswordInput, Input } from '@ya.praktikum/react-developer-burger-ui-components'
-import { Link } from 'react-router-dom';
+import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Link, useHistory } from 'react-router-dom';
 import styles from './Profile.module.css';
 import './Profile.css';
+import { PATCH_USER_REQUEST, PATCH_USER_SUCCESS, PATCH_USER_ERROR } from '../../services/actions/profile';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCookie } from '../../utils/cookie';
+import { IStore } from '../..';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../../services/auth';
+import { fetchWithRefresh } from '../../services/fetchWithRefresh';
 
 const ProfilePage = () =>
 {
+    const USER_END_POINT = 'https://norma.nomoreparties.space/api/auth/user';
     
+    const dispatch = useDispatch();
+    const [isModified, setIsModified] = useState(false);
+
+    let initUser = useSelector((store: IStore) => store.access.user);
+    const [name, setName] = useState(initUser ? initUser.name : '');
+    const [email, setEmail] = useState(initUser ? initUser.email : '');
+
+    const [password, setPassword] = useState('');
+
+    const reset = () =>
+    {
+        if (!initUser || !isModified)
+            return;
+        
+        setName(initUser.name);
+        setEmail(initUser.email);
+        setPassword('');
+        setIsModified(false);
+    }
+
+    const updateUserInfo = () => {
+        dispatch({ type: PATCH_USER_REQUEST });
+        const accessToken = getCookie('accessToken');
+        const info = {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': accessToken ? accessToken : ''
+            },
+            body: JSON.stringify({ email: email, name: name })};
+
+        fetchWithRefresh(USER_END_POINT, info)
+        .then(response => {
+            if (response.success) {
+              return response;
+            }
+            return Promise.reject(`Status ${response.status}`);
+        })
+        .then(responseObj => {
+            dispatch({ type: PATCH_USER_SUCCESS, ...responseObj });
+            setIsModified(false);
+
+            console.log(responseObj);
+        })
+        .catch(error => {
+            dispatch({ type: PATCH_USER_ERROR });
+            console.error(`Update user info error: ${error}`)
+        });
+    }
+
+    useEffect(() => {
+        if (initUser && (initUser.name !== name || initUser.email !== email || password !== ''))
+            setIsModified(true);
+    }, [initUser, name, email, password, setIsModified]);
+
+    const { getUser, signOut }: any = useAuth();
+
+    useEffect(() => {
+        if (initUser === null)
+            getUser();
+    }, [initUser, getUser]);
+
+    const history = useHistory();
+
+    const logout = async () => {
+        await signOut();
+        history.replace('/login');
+    }
 
     return (
         <div className='page-cont'>
@@ -18,20 +94,30 @@ const ProfilePage = () =>
                     </div>
                 </Link>
 
-                <div className={`text text_type_main-medium text_color_inactive ${styles.caption}`}>Выход</div>
+                <div className={`text text_type_main-medium text_color_inactive ${styles.caption} ${styles.logout}`} onClick={() => logout()}>
+                    Выход
+                </div>
 
                 <div className={`text text_type_main-default text_color_inactive mt-20`}>В этом разделе вы можете изменить свои персональные данные</div>
             </div>
             <div className='column'>
                 <div className={styles.field}>
-                    <Input onChange={(event) => {}} value={''} name={'name'} size={'default'} placeholder={'Имя'} />
+                    <Input onChange={(event) => setName(event.target.value)} value={name} name={'name'} size={'default'} placeholder={'Имя'} />
                 </div>
                 <div className={styles.field}>
-                    <Input onChange={(event) => {}} value={''} name={'login'} size={'default'} placeholder={'Логин'} />
+                    <Input onChange={(event) => setEmail(event.target.value)} value={email} name={'login'} size={'default'} placeholder={'Логин'} />
                 </div>
                 <div className={styles.field}>
-                    <PasswordInput onChange={() => {}} value={''} name={'password'} />
+                    <PasswordInput onChange={(event) => setPassword(event.target.value)} value={password} name={'password'} />
                 </div>
+                { isModified && <div className={`${styles.field} ${styles.right}`}>
+                    <span className={`text text_type_main-default text_color_inactive ${styles.cancel}`} onClick={() => reset()} >
+                        Отмена
+                    </span>
+                    <Button type="primary" size="medium" onClick={() => updateUserInfo()} >
+                        Сохранить
+                    </Button>
+                </div>}
             </div>
         </div>
     )

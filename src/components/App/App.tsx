@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import styles from './App.module.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AppHeader from '../AppHeader/AppHeader';
 import { useDispatch } from 'react-redux';
 import { GET_INGREDIENTS_LIB_REQUEST, GET_INGREDIENTS_LIB_SUCCESS, GET_INGREDIENTS_LIB_ERROR } from '../../services/actions/api';
@@ -12,6 +12,8 @@ import ResetPasswordPage from '../../pages/ResetPassword/ResetPassword';
 import OrdersFeedPage from '../../pages/OrdersFeed/OrdersFeed';
 import ProfilePage from '../../pages/Profile/Profile';
 import ProfileOrdersPage from '../../pages/ProfileOrders/ProfileOrders';
+import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
+import { ProvideAuth } from '../../services/auth';
 
 const App = () => {
 
@@ -41,31 +43,35 @@ const App = () => {
     return (
         <div className={styles.appCont}>
             <Router>
-                <AppHeader />
-                <Route path="/" exact={true}>
-                    <ConstructorPage />
-                </Route>
-                <Route path="/login" exact={true}>
-                    <SignInPage />
-                </Route>
-                <Route path="/register" exact={true}>
-                    <RegisterPage />
-                </Route>
-                <Route path="/forgot-password" exact={true}>
-                    <ForgotPasswordPage />
-                </Route>
-                <Route path="/reset-password" exact={true}>
-                    <ResetPasswordPage />
-                </Route>
-                <Route path="/orders-feed" exact={true}>
-                    <OrdersFeedPage />
-                </Route>
-                <Route path='/profile' exact={true}>
-                    <ProfilePage />
-                </Route>
-                <Route path='/profile/orders' exact={true}>
-                    <ProfileOrdersPage />
-                </Route>
+                <ProvideAuth>
+                    <AppHeader />
+                    <Switch>
+                        <Route path="/" exact={true}>
+                            <ConstructorPage />
+                        </Route>
+                        <Route path="/login" exact={true}>
+                            <SignInPage />
+                        </Route>
+                        <Route path="/register" exact={true}>
+                            <RegisterPage />
+                        </Route>
+                        <Route path="/forgot-password" exact={true}>
+                            <ForgotPasswordPage />
+                        </Route>
+                        <Route path="/reset-password" exact={true}>
+                            <ResetPasswordPage />
+                        </Route>
+                        <Route path="/orders-feed" exact={true}>
+                            <OrdersFeedPage />
+                        </Route>
+                        <ProtectedRoute path='/profile' exact={true}>
+                            <ProfilePage />
+                        </ProtectedRoute>
+                        <ProtectedRoute path='/profile/orders' exact={true}>
+                            <ProfileOrdersPage />
+                        </ProtectedRoute>
+                    </Switch>
+                </ProvideAuth>
             </Router>
         </div>
     );

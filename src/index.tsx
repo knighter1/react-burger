@@ -13,8 +13,7 @@ import { IApiState } from './services/reducers/api';
 import { IOrderState } from './services/reducers/order';
 import { IInitResetPasswordState } from './services/reducers/initResetPassword';
 import { IResetPasswordState } from './services/reducers/resetPassword';
-import { ISignInState } from './services/reducers/signin';
-import { IRegisterState } from './services/reducers/register';
+import { IAccessState } from './services/reducers/access';
 
 declare global {
     interface Window {
@@ -32,13 +31,12 @@ export interface IStore {
     order: IOrderState,
     initResetPassword: IInitResetPasswordState,
     resetPassword: IResetPasswordState,
-    signIn: ISignInState,
-    register: IRegisterState,
+    access: IAccessState,
 }
 
 const store = createStore(rootReducer, enhancer);
 
-ReactDOM.render(
+ReactDOM.render( 
     <React.StrictMode>
         <Provider store={store}>
             <App />

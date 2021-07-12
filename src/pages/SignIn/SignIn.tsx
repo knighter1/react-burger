@@ -1,44 +1,29 @@
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import styles from './SignIn.module.css'
 import './SignIn.css';
 import SignInForm from '../../components/SignInForm/SignInForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch } from 'react-redux';
-import { SIGNIN_REQUEST, SIGNIN_ERROR, SIGNIN_SUCCESS } from '../../services/actions/auth';
+import { useAuth } from '../../services/auth';
+import { useLocation } from 'react-router-dom';
+
+interface stateType {
+    from: { pathname: string }
+}
 
 const SignInPage = () =>
 {
-    const END_POINT: string = 'https://norma.nomoreparties.space/api/auth/login';
+    const { state } = useLocation<stateType>();
 
-    const dispatch = useDispatch();
+    const { signIn, user }: any = useAuth();
 
-    const history = useHistory();
-
-    const signIn = (email: string, password: string) => {
-
-        dispatch({ type: SIGNIN_REQUEST });
-        fetch(END_POINT, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email: email, password: password })
-        })
-        .then(response => {
-            if (response.ok) {
-              return response.json();
-            }
-            return Promise.reject(`Status ${response.status}`);
-        })
-        .then(responseObj => {
-            dispatch({ type: SIGNIN_SUCCESS, ...responseObj });
-            history.replace('/');
-            console.log(responseObj);
-        })
-        .catch(error => {
-            dispatch({ type: SIGNIN_ERROR });
-            console.error(`Signin error: ${error}`)
-        });
+    if (user) {
+        return (
+            <Redirect
+                to={{
+                    pathname: state ? state.from.pathname : '/'
+                }}
+            />
+        );
     }
 
     return (

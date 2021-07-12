@@ -12,14 +12,14 @@ const OrdersStat = () =>
             <div className={styles.statOper}>
                 <div className={styles.statOperCol}>
                     <span className='text text_type_main-medium'>Готовы:</span>
-                    { completedOrders.map((orderId: string) => (
-                        <div className={`text text_type_digits-default mt-2 ${styles.completedOrder}`}>{orderId}</div>
+                    { completedOrders.map((orderId: string, index: number) => (
+                        <div key={index} className={`text text_type_digits-default mt-2 ${styles.completedOrder}`}>{orderId}</div>
                     )) }
                 </div>
                 <div className={styles.statOperCol}>
                     <span className='text text_type_main-medium'>В работе:</span>
-                    { prcessingOrders.map((orderId: string) => (
-                        <div className={`text text_type_digits-default mt-2`}>{orderId}</div>
+                    { prcessingOrders.map((orderId: string, index: number) => (
+                        <div key={index} className={`text text_type_digits-default mt-2`}>{orderId}</div>
                     )) }
                 </div>
             </div>

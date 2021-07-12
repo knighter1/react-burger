@@ -5,6 +5,7 @@ import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
 import { useDispatch } from 'react-redux';
 import { REGISTER_REQUEST, REGISTER_ERROR, REGISTER_SUCCESS } from '../../services/actions/auth';
+import { setCookie } from '../../utils/cookie';
 
 const RegisterPage = () =>
 {
@@ -33,6 +34,7 @@ const RegisterPage = () =>
         .then(responseObj => {
             dispatch({ type: REGISTER_SUCCESS, ...responseObj });
             history.replace('/');
+            setCookie('refreshToken', responseObj.refreshToken);
             console.log(responseObj);
         })
         .catch(error => {

@@ -1,5 +1,5 @@
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './Profile.module.css';
 import './Profile.css';
 import { PATCH_USER_REQUEST, PATCH_USER_SUCCESS, PATCH_USER_ERROR } from '../../services/actions/profile';
@@ -76,11 +76,8 @@ const ProfilePage = () =>
             getUser();
     }, [initUser, getUser]);
 
-    const history = useHistory();
-
     const logout = async () => {
         await signOut();
-        history.replace('/login');
     }
 
     return (

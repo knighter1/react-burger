@@ -46,7 +46,7 @@ const ResetPasswordPage = () =>
     const { user }: any = useAuth();
     const { state } = useLocation<stateType>();
 
-    if (user || state == undefined || (state && state.from.pathname !== '/forgot-password')) {
+    if (user || state === undefined || (state && state.from.pathname !== '/forgot-password')) {
         return (
             <Redirect
                 to={{

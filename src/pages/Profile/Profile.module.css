@@ -4,10 +4,6 @@
     padding-right: 60px;
 }
 
-.caption {
-    padding: 17px 0 17px 0;
-}
-
 .field {
     padding-bottom: 24px;
 }
@@ -19,9 +15,5 @@
 .cancel {
     color: #4c4cff;
     margin-right: 28px;
-    cursor: pointer;
-}
-
-.logout {
     cursor: pointer;
 }

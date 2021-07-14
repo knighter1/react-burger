@@ -1,5 +1,4 @@
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { Link } from 'react-router-dom';
 import styles from './Profile.module.css';
 import './Profile.css';
 import { PATCH_USER_REQUEST, PATCH_USER_SUCCESS, PATCH_USER_ERROR } from '../../services/actions/profile';
@@ -9,6 +8,7 @@ import { IStore } from '../..';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../services/auth';
 import { fetchWithRefresh } from '../../services/fetchWithRefresh';
+import ProfileMenu from '../../components/ProfileMenu/ProfileMenu';
 
 const ProfilePage = () =>
 {
@@ -82,21 +82,7 @@ const ProfilePage = () =>
 
     return (
         <div className='page-cont'>
-            <div className={styles.column}>
-                <div className={`text text_type_main-medium ${styles.caption}`}>Профиль</div>
-
-                <Link to='/profile/orders'>
-                    <div className={`text text_type_main-medium text_color_inactive ${styles.caption}`}>
-                        История заказов
-                    </div>
-                </Link>
-
-                <div className={`text text_type_main-medium text_color_inactive ${styles.caption} ${styles.logout}`} onClick={() => logout()}>
-                    Выход
-                </div>
-
-                <div className={`text text_type_main-default text_color_inactive mt-20`}>В этом разделе вы можете изменить свои персональные данные</div>
-            </div>
+            <ProfileMenu logoutHandler={() => logout()} />
             <div className='column'>
                 <div className={styles.field}>
                     <Input onChange={(event) => setName(event.target.value)} value={name} name={'name'} size={'default'} placeholder={'Имя'} />

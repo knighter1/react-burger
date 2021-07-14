@@ -3,7 +3,7 @@ import './ResetPassword.css';
 import ResetPasswordForm from '../../components/ResetPasswordForm/ResetPasswordForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
 import { useDispatch } from 'react-redux';
-import { Link, Redirect, useLocation } from 'react-router-dom';
+import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
 import { RESET_PASSWORD_REQUEST, RESET_PASSWORD_ERROR, RESET_PASSWORD_SUCCESS } from '../../services/actions/auth';
 import { useAuth } from '../../services/auth';
 
@@ -16,6 +16,8 @@ const ResetPasswordPage = () =>
     const END_POINT: string = 'https://norma.nomoreparties.space/api/password-reset/reset';
 
     const dispatch = useDispatch();
+
+    const history = useHistory();
 
     const resetPassword = (password: string, token: string) => {
 
@@ -35,7 +37,7 @@ const ResetPasswordPage = () =>
         })
         .then(responseObj => {
             dispatch({ type: RESET_PASSWORD_SUCCESS, message: responseObj.message, success: responseObj.success });
-            console.log(responseObj);
+            history.replace('/login');
         })
         .catch(error => {
             dispatch({ type: RESET_PASSWORD_ERROR });

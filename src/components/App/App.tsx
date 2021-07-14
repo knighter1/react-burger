@@ -14,6 +14,7 @@ import ProfilePage from '../../pages/Profile/Profile';
 import ProfileOrdersPage from '../../pages/ProfileOrders/ProfileOrders';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { ProvideAuth } from '../../services/auth';
+import NotFound404 from '../../pages/NotFound404/NotFound404';
 
 const App = () => {
 
@@ -70,6 +71,9 @@ const App = () => {
                         <ProtectedRoute path='/profile/orders' exact={true}>
                             <ProfileOrdersPage />
                         </ProtectedRoute>
+                        <Route>
+                            <NotFound404 />
+                        </Route>
                     </Switch>
                 </ProvideAuth>
             </Router>

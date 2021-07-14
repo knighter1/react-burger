@@ -39,7 +39,7 @@ const AppHeader = () => {
         <header className={styles.row}>
             <nav className={`${styles.sideRow} ${styles.left}`}>
                 {!isConstructor ? <Link to='/'>{constructorCont}</Link> : constructorCont}
-                {!isFeed ? <Link to='/orders-feed'>{feedCont}</Link> : feedCont}
+                {!isFeed ? <Link to='/feed'>{feedCont}</Link> : feedCont}
             </nav>
             <Logo />
             <nav className={`${styles.sideRow} ${styles.right}`}>

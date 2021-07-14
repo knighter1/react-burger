@@ -63,7 +63,7 @@ const App = () => {
                         <Route path="/reset-password" exact={true}>
                             <ResetPasswordPage />
                         </Route>
-                        <Route path="/orders-feed" exact={true}>
+                        <Route path="/feed" exact={true}>
                             <OrdersFeedPage />
                         </Route>
                         <Route path='/ingredients/:id'>

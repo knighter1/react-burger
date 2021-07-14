@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IStore } from '../..';
 import { useEffect } from 'react';
 import { SET_INGREDIENT } from '../../services/actions/ingredient';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 export const IngredientDetails = (): JSX.Element => {
 

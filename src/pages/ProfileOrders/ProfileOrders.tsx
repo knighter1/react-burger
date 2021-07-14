@@ -7,7 +7,7 @@ const ProfileOrdersPage = () =>
 
     return (
         <div className={"page-cont"}>
-            
+            Здесь будет история заказов
         </div>
     )
 }

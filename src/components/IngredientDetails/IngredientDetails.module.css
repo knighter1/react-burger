@@ -3,6 +3,10 @@
     margin-top: calc(50vh - 258px);
 }
 
+.pageContainer {
+    margin-top: calc(50vh - 358px);
+}
+
 .title {
     text-align: left;
 }

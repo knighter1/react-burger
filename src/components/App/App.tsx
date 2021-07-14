@@ -14,6 +14,7 @@ import ProfilePage from '../../pages/Profile/Profile';
 import ProfileOrdersPage from '../../pages/ProfileOrders/ProfileOrders';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { ProvideAuth } from '../../services/auth';
+import IngredientPage from '../../pages/Ingredient/Ingredient';
 import NotFound404 from '../../pages/NotFound404/NotFound404';
 
 const App = () => {
@@ -64,6 +65,9 @@ const App = () => {
                         </Route>
                         <Route path="/orders-feed" exact={true}>
                             <OrdersFeedPage />
+                        </Route>
+                        <Route path='/ingredients/:id'>
+                            <IngredientPage />
                         </Route>
                         <ProtectedRoute path='/profile' exact={true}>
                             <ProfilePage />

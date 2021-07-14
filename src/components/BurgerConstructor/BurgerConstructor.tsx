@@ -14,6 +14,8 @@ import { PLACE_ORDER_REQUEST, PLACE_ORDER_SUCCESS, PLACE_ORDER_ERROR } from "../
 import { useDrop } from "react-dnd";
 import { IConstructorState } from "../../services/reducers/constructor";
 import { SET_INGREDIENT } from "../../services/actions/ingredient";
+import { useAuth } from "../../services/auth";
+import { useHistory } from "react-router-dom";
 
 interface IBuns
 {
@@ -61,8 +63,15 @@ const BurgerConstructor = () =>
         return items;
     }
 
+    const { user }: any = useAuth();
+
+    const history = useHistory();
+
     const placeOrder = () => {
         
+        if (!user)
+            history.replace('/login');
+
         if (!(currentItems.items && currentItems.items.length) || !currentItems.bun)
             return;
 

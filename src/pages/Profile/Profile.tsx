@@ -69,20 +69,16 @@ const ProfilePage = () =>
             setIsModified(true);
     }, [initUser, name, email, password, setIsModified]);
 
-    const { getUser, signOut }: any = useAuth();
+    const { getUser }: any = useAuth();
 
     useEffect(() => {
         if (initUser === null)
             getUser();
     }, [initUser, getUser]);
 
-    const logout = async () => {
-        await signOut();
-    }
-
     return (
         <div className='page-cont'>
-            <ProfileMenu logoutHandler={() => logout()} />
+            <ProfileMenu />
             <div className='column'>
                 <div className={styles.field}>
                     <Input onChange={(event) => setName(event.target.value)} value={name} name={'name'} size={'default'} placeholder={'Имя'} />

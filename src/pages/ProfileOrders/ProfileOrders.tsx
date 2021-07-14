@@ -1,13 +1,15 @@
 import '@ya.praktikum/react-developer-burger-ui-components'
+import ProfileMenu from '../../components/ProfileMenu/ProfileMenu';
 
 
 const ProfileOrdersPage = () =>
 {
-    
-
     return (
-        <div className={"page-cont"}>
-            Здесь будет история заказов
+        <div className='page-cont'>
+            <ProfileMenu />
+            <div>
+                Здесь будет история заказов
+            </div>
         </div>
     )
 }

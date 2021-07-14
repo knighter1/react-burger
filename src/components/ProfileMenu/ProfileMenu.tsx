@@ -1,24 +1,39 @@
 import '@ya.praktikum/react-developer-burger-ui-components'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../../services/auth';
 import styles from './ProfileMenu.module.css';
 
-interface IProfileMenuProps {
-    logoutHandler: Function;
-}
-
-const ProfileMenu = ( { logoutHandler }: IProfileMenuProps ) =>
+const ProfileMenu = () =>
 {
+    const location = useLocation();
+
+    const isProfile: boolean = location.pathname === '/profile';
+    const isOrders: boolean = location.pathname === '/profile/orders';
+
+    const profileCont = (
+        <div className={`text text_type_main-medium ${ isProfile ? '' : 'text_color_inactive' } ${styles.caption}`}>
+            Профиль
+        </div>
+    );
+
+    const ordersCont = (
+        <div className={`text text_type_main-medium ${ isOrders ? '' : 'text_color_inactive' } ${styles.caption}`}>
+            История заказов
+        </div>
+    );
+
+    const { signOut }: any = useAuth();
+
+    const logout = async () => {
+        await signOut();
+    }
+
     return (
         <div className={styles.column}>
-            <div className={`text text_type_main-medium ${styles.caption}`}>Профиль</div>
+            {!isProfile ? <Link to='/profile'>{profileCont}</Link> : profileCont}
+            {!isOrders ? <Link to='/profile/orders'>{ordersCont}</Link> : ordersCont}
 
-            <Link to='/profile/orders'>
-                <div className={`text text_type_main-medium text_color_inactive ${styles.caption}`}>
-                    История заказов
-                </div>
-            </Link>
-
-            <div className={`text text_type_main-medium text_color_inactive ${styles.caption} ${styles.logout}`} onClick={() => logoutHandler()}>
+            <div className={`text text_type_main-medium text_color_inactive ${styles.caption} ${styles.logout}`} onClick={() => logout()}>
                 Выход
             </div>
 

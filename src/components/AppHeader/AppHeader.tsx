@@ -9,7 +9,7 @@ const AppHeader = () => {
     
     const isConstructor: boolean = location.pathname === '/';
     const isProfile: boolean = location.pathname === '/profile';
-    const isFeed: boolean = location.pathname === '/orders-feed';
+    const isFeed: boolean = location.pathname === '/feed';
 
     const constructorCont = (
         <HeaderItem

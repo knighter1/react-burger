@@ -14,6 +14,7 @@ import { IOrderState } from './services/reducers/order';
 import { IInitResetPasswordState } from './services/reducers/initResetPassword';
 import { IResetPasswordState } from './services/reducers/resetPassword';
 import { IAccessState } from './services/reducers/access';
+import { IOrderDetailsState } from './services/reducers/orderDetails';
 
 declare global {
     interface Window {
@@ -29,6 +30,7 @@ export interface IStore {
     constructor: IConstructorState,
     ingredient: IngredientData | null,
     order: IOrderState,
+    orderDetails: IOrderDetailsState,
     initResetPassword: IInitResetPasswordState,
     resetPassword: IResetPasswordState,
     access: IAccessState,

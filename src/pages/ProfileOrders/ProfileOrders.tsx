@@ -1,7 +1,6 @@
 import '@ya.praktikum/react-developer-burger-ui-components'
 import ProfileMenu from '../../components/ProfileMenu/ProfileMenu';
 
-
 const ProfileOrdersPage = () =>
 {
     return (

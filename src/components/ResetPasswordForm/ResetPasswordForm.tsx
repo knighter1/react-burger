@@ -1,5 +1,5 @@
 import { Logo, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import styles from './ResetPasswordForm.module.css'
 
 interface IResetPasswordFormProps {
@@ -11,8 +11,13 @@ const ResetPasswordForm = ({handler}: IResetPasswordFormProps) =>
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
 
+    const onSubmitHandler = (event: FormEvent, password: string, token: string) => {
+        event.preventDefault();
+        handler(password, token);
+    }
+
     return (
-        <div>
+        <form onSubmit={(event: FormEvent) => onSubmitHandler(event, password, token)}>
             <Logo />
             <div className={`text text_type_main-medium ${styles.title} ${styles.formRow}`}>Восстановление пароля</div>
             <div className={styles.formRow}>
@@ -22,11 +27,11 @@ const ResetPasswordForm = ({handler}: IResetPasswordFormProps) =>
                 <Input onChange={(event) => setToken(event.target.value)} value={token} name={'code'} size={'default'} placeholder={'Введите код из письма'} />
             </div>
             <div className={styles.formRow}>
-                <Button type="primary" size="medium" onClick={() => handler(password, token)} >
+                <Button type="primary" size="medium">
                     Восстановить
                 </Button>
             </div>
-        </div>
+        </form>
     )
 }
 

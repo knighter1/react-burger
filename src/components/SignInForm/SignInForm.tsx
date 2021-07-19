@@ -1,5 +1,5 @@
 import { Logo, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import styles from './SignInForm.module.css'
 
 interface ISignInFormProps {
@@ -11,8 +11,13 @@ const SignInForm = ({ handler }: ISignInFormProps) =>
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const onSubmitHandler = (event: FormEvent, email: string, password: string) => {
+        event.preventDefault();
+        handler(email, password);
+    }
+
     return (
-        <div>
+        <form onSubmit={(event: FormEvent) => onSubmitHandler(event, email, password)}>
             <Logo />
             <div className={`text text_type_main-medium ${styles.title} ${styles.formRow}`}>Вход</div>
             <div className={styles.formRow}>
@@ -22,11 +27,11 @@ const SignInForm = ({ handler }: ISignInFormProps) =>
                 <PasswordInput onChange={(event) => setPassword(event.target.value)} value={password} name={'password'} />
             </div>
             <div className={styles.formRow}>
-                <Button type="primary" size="medium" onClick={() => handler(email, password)}>
+                <Button type="primary" size="medium">
                     Войти
                 </Button>
             </div>
-        </div>
+        </form>
     )
 }
 

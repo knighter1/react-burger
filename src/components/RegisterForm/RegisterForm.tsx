@@ -1,5 +1,5 @@
 import { Logo, EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import styles from './RegisterForm.module.css'
 
 interface IRegisterFormProps {
@@ -12,8 +12,13 @@ const RegisterForm = ( { handler }: IRegisterFormProps) =>
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
 
+    const onSubmitHandler = (event: FormEvent, email: string, password: string, name: string) => {
+        event.preventDefault();
+        handler(email, password, name);
+    }
+
     return (
-        <div>
+        <form onSubmit={(event: FormEvent) => onSubmitHandler(event, email, password, name)}>
             <Logo />
             <div className={`text text_type_main-medium ${styles.title} ${styles.formRow}`}>Регистрация</div>
             <div className={styles.formRow}>
@@ -26,11 +31,11 @@ const RegisterForm = ( { handler }: IRegisterFormProps) =>
                 <PasswordInput onChange={(event) => setPassword(event.target.value)} value={password} name={'password'} />
             </div>
             <div className={styles.formRow}>
-                <Button type="primary" size="medium" onClick={() => handler(email, password, name)} >
+                <Button type="primary" size="medium">
                     Зарегистрироваться
                 </Button>
-            </div>
-        </div>
+            </div>    
+        </form>
     )
 }
 

@@ -1,4 +1,4 @@
-import { ADD_ITEM, REMOVE_ITEM, REORDER_ITEM } from '../actions/constructor';
+import { ADD_ITEM, REMOVE_ITEM, REORDER_ITEM, RESET_ORDER } from '../actions/constructor';
 import { IngredientData } from '../../components/IngredientMenuItem/IngredientMenuItem';
 
 export interface IConstructorState {
@@ -56,6 +56,11 @@ export const constructorReducer = (state: IConstructorState = constructorInitSta
             items.splice(action.newIndex, 0, data);
 
             return {...state, items: items };
+        }
+
+        case RESET_ORDER:
+        {
+            return { items: [], bun: null, cost: 0 };
         }
 
         default:

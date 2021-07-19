@@ -1,3 +1,5 @@
+import { RESET_ORDER } from "./constructor";
+
 export const PLACE_ORDER_REQUEST = 'PLACE_ORDER_REQUEST';
 export const PLACE_ORDER_ERROR = 'PLACE_ORDER_ERROR';
 export const PLACE_ORDER_SUCCESS = 'PLACE_ORDER_SUCCESS';
@@ -38,6 +40,7 @@ export function placeOrder(currentItems, setOrderModalState)
         })
         .then(responseObj => {
             dispatch({ type: PLACE_ORDER_SUCCESS, orderId: responseObj.order.number });
+            dispatch({ type: RESET_ORDER });
             setOrderModalState(true);
         })
         .catch(error => {

@@ -42,7 +42,10 @@ const BurgerConstructor = () =>
             last.name += ' (низ)';
 
             setBuns({ first: first, last: last });
+            return;
         }
+        
+        setBuns({ first: null, last: null });
         
     }, [currentItems]);
 

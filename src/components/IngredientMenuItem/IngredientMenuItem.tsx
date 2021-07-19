@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { SET_INGREDIENT } from '../../services/actions/ingredient';
 import { useDrag } from 'react-dnd';
 import { IStore } from '../..';
+import { Link, useLocation } from 'react-router-dom';
 
 export interface IngredientData
 {
@@ -23,18 +24,16 @@ export interface IngredientData
 
 interface IIngredientMenuItemProps
 {
-    data: IngredientData;
-    onClickHandler: Function
+    data: IngredientData
 }
 
-export const IngredientMenuItem = ({ data, onClickHandler }: IIngredientMenuItemProps) =>
+export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps) =>
 {
     const dispatch = useDispatch();
 
     const onItemClick = () =>
     {
         dispatch({ type: SET_INGREDIENT, ingredientData: data });
-        onClickHandler(true);
     }
 
     const [{isDrag}, dragRef] = useDrag({
@@ -58,8 +57,13 @@ export const IngredientMenuItem = ({ data, onClickHandler }: IIngredientMenuItem
         return countResult;
     });
 
+    const location = useLocation();
+
     return (
-        <>
+        <Link to={{
+            pathname: `/ingredients/${data._id}`,
+            state: {background: location}
+        }}>
             <div className={className}
                 onClick={onItemClick}
                 ref={dragRef} >
@@ -70,8 +74,8 @@ export const IngredientMenuItem = ({ data, onClickHandler }: IIngredientMenuItem
                     <span className={`text text_type_digits-default pr-2 ${styles.price}`}>{data.price}</span>
                     <CurrencyIcon type="primary" />
                 </div>
-                <span className="text_type_main-default">{data.name}</span>
+                <span className={`text_type_main-default ${styles.name}`}>{data.name}</span>
             </div>
-        </>
+        </Link>
     )
 }

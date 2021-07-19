@@ -19,8 +19,6 @@ export const IngredientDetails = (): JSX.Element => {
         </ul>
     )
 
-    window.history.replaceState(null, '', `/ingredients/${ingredientData._id}`)
-
     const dropIngredient: any = () => {
         return () => dispatch({ type: SET_INGREDIENT, ingredientData: null });
     }

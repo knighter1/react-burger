@@ -6,16 +6,15 @@ import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import IngredientsListItem from '../IngredientsListItem/IngredientsListItem';
 import { Modal } from '../Modal/Modal';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
-import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 import { useDispatch, useSelector } from "react-redux";
 import { IStore } from '../../index';
 import { ADD_ITEM } from "../../services/actions/constructor";
 import { useDrop } from "react-dnd";
 import { IConstructorState } from "../../services/reducers/constructor";
-import { SET_INGREDIENT } from "../../services/actions/ingredient";
 import { useAuth } from "../../services/auth";
 import { useHistory } from "react-router-dom";
 import { placeOrder } from "../../services/actions/order";
+import { SET_INGREDIENT } from "../../services/actions/ingredient";
 
 interface IBuns
 {
@@ -49,7 +48,6 @@ const BurgerConstructor = () =>
         
     }, [currentItems]);
 
-    const [ingredientsModalState, setIngredientsModalState] = useState(false);
     const [orderModalState, setOrderModalState] = useState(false);
 
     const { user }: any = useAuth();
@@ -77,7 +75,6 @@ const BurgerConstructor = () =>
     const onIngredientClick = (data: IngredientData) =>
     {
         dispatch({ type: SET_INGREDIENT, ingredientData: data });
-        setIngredientsModalState(true);
     }
 
     const ingredientClickHandler = (data: IngredientData) => onIngredientClick(data);
@@ -102,7 +99,6 @@ const BurgerConstructor = () =>
                 </div>
             </section>
             {orderModalState && <Modal closeHandle={() => setOrderModalState(false)}><OrderDetails /></Modal>}
-            {ingredientsModalState && <Modal closeHandle={() => setIngredientsModalState(false)}><IngredientDetails /></Modal>}
         </>
     )
 }

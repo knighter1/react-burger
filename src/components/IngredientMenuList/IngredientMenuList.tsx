@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { IngredientMenuItem } from '../IngredientMenuItem/IngredientMenuItem';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import styles from './IngredientMenuList.module.css';
@@ -6,8 +5,6 @@ import { useSelector } from 'react-redux';
 import { IStore } from '../../index';
 import { useEffect } from 'react';
 import { useInView } from "react-intersection-observer";
-import { Modal } from '../Modal/Modal';
-import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 
 interface IIngredientMenuListProps
 {
@@ -23,8 +20,6 @@ export enum IngredientTypes
 
 export const IngredientMenuList: React.FC<IIngredientMenuListProps> = ({changeTypeHandler}) =>
 {
-    const [modalState, setModalState] = useState(false);
-    
     const ingredients: IngredientData[] = useSelector((store: IStore) => store.ingredientsLib.data) as IngredientData[];
 
     const bunsList: IngredientData[] = ingredients ? ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.bun]) : [];
@@ -60,7 +55,7 @@ export const IngredientMenuList: React.FC<IIngredientMenuListProps> = ({changeTy
             <div key={IngredientTypes[type]} className={styles.categoryBlock} ref={elementRef}>
                 <span id={`menu_${IngredientTypes[type]}`} className={`${styles.listCategory} text text_type_main-medium pt-2`}>{type}</span>
                 {
-                    data.map(element => <IngredientMenuItem key={element._id} data={element} onClickHandler={setModalState} />)
+                    data.map(element => <IngredientMenuItem key={element._id} data={element} />)
                 }
             </div>
         );
@@ -75,7 +70,6 @@ export const IngredientMenuList: React.FC<IIngredientMenuListProps> = ({changeTy
     return (
         <div className={styles.list}>
             { categories }
-            {modalState && <Modal closeHandle={() => setModalState(false)}><IngredientDetails /></Modal>}
         </div>
     );
 }

@@ -5,6 +5,7 @@ import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import { REMOVE_ITEM, REORDER_ITEM } from '../../services/actions/constructor';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
+import { Link, useLocation } from 'react-router-dom';
 
 interface IConstructorElement {
     type?: 'top' | 'bottom';
@@ -71,8 +72,13 @@ const IngredientsListItem = ({ data, index, type, onClickHandler }: IIngredients
     
     const className = `${styles.item} ${isDrag ? styles.isDrag : ""}`;
 
+    const location = useLocation();
+
     return (
-        <>
+        <Link to={{
+            pathname: `/ingredients/${data._id}`,
+            state: {background: location}
+        }}>
             <div className={className} ref={elementRef} >
                 <div className={buttonPaddingStyle} >
                     {!elementProps.isLocked && <DragIcon type="primary" />}
@@ -81,7 +87,7 @@ const IngredientsListItem = ({ data, index, type, onClickHandler }: IIngredients
                     <ConstructorElement {...elementProps} />
                 </div>
             </div>
-        </>
+        </Link>
     );
 }
 

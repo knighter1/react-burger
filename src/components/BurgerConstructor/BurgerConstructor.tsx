@@ -10,12 +10,12 @@ import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 import { useDispatch, useSelector } from "react-redux";
 import { IStore } from '../../index';
 import { ADD_ITEM } from "../../services/actions/constructor";
-import { PLACE_ORDER_REQUEST, PLACE_ORDER_SUCCESS, PLACE_ORDER_ERROR } from "../../services/actions/order";
 import { useDrop } from "react-dnd";
 import { IConstructorState } from "../../services/reducers/constructor";
 import { SET_INGREDIENT } from "../../services/actions/ingredient";
 import { useAuth } from "../../services/auth";
 import { useHistory } from "react-router-dom";
+import { placeOrder } from "../../services/actions/order";
 
 interface IBuns
 {
@@ -25,8 +25,6 @@ interface IBuns
 
 const BurgerConstructor = () =>
 {
-    const PLACE_ORDER_ENDPOINT: string = 'https://norma.nomoreparties.space/api/orders';
-
     const [buns, setBuns] =  useState<IBuns>({ first: null, last: null });
 
     const currentItems: IConstructorState = useSelector((store: IStore) => store.constructor);
@@ -51,23 +49,11 @@ const BurgerConstructor = () =>
     const [ingredientsModalState, setIngredientsModalState] = useState(false);
     const [orderModalState, setOrderModalState] = useState(false);
 
-    const getFullIngredients = () => {
-        const items = [];
-        
-        if (currentItems.items)
-            items.push(...currentItems.items);
-
-        if (currentItems.bun)
-            items.push(currentItems.bun, currentItems.bun);
-
-        return items;
-    }
-
     const { user }: any = useAuth();
 
     const history = useHistory();
 
-    const placeOrder = () => {
+    const placeOrderHandler = () => {
         
         if (!user)
             history.replace('/login');
@@ -75,28 +61,7 @@ const BurgerConstructor = () =>
         if (!(currentItems.items && currentItems.items.length) || !currentItems.bun)
             return;
 
-        dispatch({ type: PLACE_ORDER_REQUEST });
-        fetch(PLACE_ORDER_ENDPOINT, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ingredients: getFullIngredients()})
-        })
-        .then(response => {
-            if (response.ok) {
-              return response.json();
-            }
-            return Promise.reject(`Status ${response.status}`);
-        })
-        .then(responseObj => {
-            dispatch({ type: PLACE_ORDER_SUCCESS, orderId: responseObj.order.number });
-            setOrderModalState(true); 
-        })
-        .catch(error => {
-            dispatch({ type: PLACE_ORDER_ERROR });
-            console.error(`Order placing error: ${error}`)
-        });
+        dispatch(placeOrder(currentItems, setOrderModalState));
     }
 
     const [, dropTarget] = useDrop({
@@ -127,7 +92,7 @@ const BurgerConstructor = () =>
                     <span className="text text_type_digits-medium mr-2">{currentItems.cost ? currentItems.cost : 0}</span>
                     <CurrencyIcon type="primary" />
                     <div className={`ml-10 ${styles.buttonWrapper}`}>
-                        <Button type="primary" size="large" onClick={() => placeOrder()}>
+                        <Button type="primary" size="large" onClick={() => placeOrderHandler()}>
                             Оформить заказ
                         </Button>
                     </div>

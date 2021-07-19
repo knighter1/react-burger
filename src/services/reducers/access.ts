@@ -1,4 +1,5 @@
-import { SIGNIN_REQUEST, SIGNIN_ERROR, SIGNIN_SUCCESS, REGISTER_REQUEST, REGISTER_ERROR, REGISTER_SUCCESS, LOGOUT_SUCCESS } from '../actions/auth';
+import { SIGNIN_REQUEST, SIGNIN_ERROR, SIGNIN_SUCCESS, LOGOUT_SUCCESS } from '../actions/auth';
+import { REGISTER_REQUEST, REGISTER_ERROR, REGISTER_SUCCESS } from '../actions/register';
 import { GET_USER_SUCCESS, PATCH_USER_SUCCESS } from '../actions/profile';
 import { setCookie } from '../../utils/cookie';
 

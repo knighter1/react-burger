@@ -9,7 +9,7 @@ import thunk from 'redux-thunk';
 import { rootReducer } from './services/reducers/index';
 import { IngredientData } from './components/IngredientMenuItem/IngredientMenuItem';
 import { IConstructorState } from './services/reducers/constructor';
-import { IApiState } from './services/reducers/api';
+import { IApiState } from './services/reducers/ingredientsLib';
 import { IOrderState } from './services/reducers/order';
 import { IInitResetPasswordState } from './services/reducers/initResetPassword';
 import { IResetPasswordState } from './services/reducers/resetPassword';

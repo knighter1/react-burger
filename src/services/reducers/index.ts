@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { apiReducer } from './api';
+import { apiReducer } from './ingredientsLib';
 import { constructorReducer } from './constructor';
 import { orderReducer } from './order';
 import { ingredientReducer } from './ingredient';

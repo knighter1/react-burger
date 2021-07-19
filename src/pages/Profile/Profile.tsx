@@ -1,19 +1,15 @@
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './Profile.module.css';
 import './Profile.css';
-import { PATCH_USER_REQUEST, PATCH_USER_SUCCESS, PATCH_USER_ERROR } from '../../services/actions/profile';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCookie } from '../../utils/cookie';
 import { IStore } from '../..';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../services/auth';
-import { fetchWithRefresh } from '../../services/fetchWithRefresh';
 import ProfileMenu from '../../components/ProfileMenu/ProfileMenu';
+import { updateUserInfo } from '../../services/actions/profile';
 
 const ProfilePage = () =>
 {
-    const USER_END_POINT = 'https://norma.nomoreparties.space/api/auth/user';
-    
     const dispatch = useDispatch();
     const [isModified, setIsModified] = useState(false);
 
@@ -34,34 +30,8 @@ const ProfilePage = () =>
         setIsModified(false);
     }
 
-    const updateUserInfo = () => {
-        dispatch({ type: PATCH_USER_REQUEST });
-        const accessToken = getCookie('accessToken');
-        const info = {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': accessToken ? accessToken : ''
-            },
-            body: JSON.stringify({ email: email, name: name })};
-
-        fetchWithRefresh(USER_END_POINT, info)
-        .then(response => {
-            if (response.success) {
-              return response;
-            }
-            return Promise.reject(`Status ${response.status}`);
-        })
-        .then(responseObj => {
-            dispatch({ type: PATCH_USER_SUCCESS, ...responseObj });
-            setIsModified(false);
-
-            console.log(responseObj);
-        })
-        .catch(error => {
-            dispatch({ type: PATCH_USER_ERROR });
-            console.error(`Update user info error: ${error}`)
-        });
+    const updateUserInfoHandler = () => {
+        dispatch(updateUserInfo(email, name, setIsModified));   
     }
 
     useEffect(() => {
@@ -93,7 +63,7 @@ const ProfilePage = () =>
                     <span className={`text text_type_main-default text_color_inactive ${styles.cancel}`} onClick={() => reset()} >
                         Отмена
                     </span>
-                    <Button type="primary" size="medium" onClick={() => updateUserInfo()} >
+                    <Button type="primary" size="medium" onClick={() => updateUserInfoHandler()} >
                         Сохранить
                     </Button>
                 </div>}

@@ -3,7 +3,7 @@ import styles from './Profile.module.css';
 import './Profile.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { IStore } from '../..';
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useAuth } from '../../services/auth';
 import ProfileMenu from '../../components/ProfileMenu/ProfileMenu';
 import { updateUserInfo } from '../../services/actions/profile';
@@ -46,10 +46,15 @@ const ProfilePage = () =>
             getUser();
     }, [initUser, getUser]);
 
+    const onSubmitHandler = (event: FormEvent) => {
+        event.preventDefault();
+        updateUserInfoHandler();
+    }
+
     return (
         <div className='page-cont'>
             <ProfileMenu />
-            <div className='column'>
+            <form className='column' onSubmit={(event: FormEvent) => onSubmitHandler(event)}>
                 <div className={styles.field}>
                     <Input onChange={(event) => setName(event.target.value)} value={name} name={'name'} size={'default'} placeholder={'Имя'} />
                 </div>
@@ -63,11 +68,11 @@ const ProfilePage = () =>
                     <span className={`text text_type_main-default text_color_inactive ${styles.cancel}`} onClick={() => reset()} >
                         Отмена
                     </span>
-                    <Button type="primary" size="medium" onClick={() => updateUserInfoHandler()} >
+                    <Button type="primary" size="medium">
                         Сохранить
                     </Button>
                 </div>}
-            </div>
+            </form>
         </div>
     )
 }

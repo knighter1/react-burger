@@ -57,7 +57,10 @@ const BurgerConstructor = () =>
     const placeOrderHandler = () => {
         
         if (!user)
+        {
             history.replace('/login');
+            return;
+        }
 
         if (!(currentItems.items && currentItems.items.length) || !currentItems.bun)
             return;

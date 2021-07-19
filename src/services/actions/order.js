@@ -25,6 +25,7 @@ export function placeOrder(currentItems, setOrderModalState)
     return function(dispatch)
     {
         dispatch({ type: PLACE_ORDER_REQUEST });
+        
         fetch(PLACE_ORDER_ENDPOINT, {
             method: 'POST',
             headers: {

@@ -46,7 +46,7 @@ const BurgerConstructor = () =>
         
         setBuns({ first: null, last: null });
         
-    }, [currentItems]);
+    }, [currentItems, setBuns]);
 
     const [orderModalState, setOrderModalState] = useState(false);
 

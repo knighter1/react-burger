@@ -11,13 +11,13 @@ const ResetPasswordForm = ({handler}: IResetPasswordFormProps) =>
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');
 
-    const onSubmitHandler = (event: FormEvent, password: string, token: string) => {
+    const onSubmitHandler = (event: FormEvent) => {
         event.preventDefault();
         handler(password, token);
     }
 
     return (
-        <form onSubmit={(event: FormEvent) => onSubmitHandler(event, password, token)}>
+        <form onSubmit={(event: FormEvent) => onSubmitHandler(event)}>
             <Logo />
             <div className={`text text_type_main-medium ${styles.title} ${styles.formRow}`}>Восстановление пароля</div>
             <div className={styles.formRow}>

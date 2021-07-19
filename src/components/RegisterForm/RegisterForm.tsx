@@ -12,13 +12,13 @@ const RegisterForm = ( { handler }: IRegisterFormProps) =>
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
 
-    const onSubmitHandler = (event: FormEvent, email: string, password: string, name: string) => {
+    const onSubmitHandler = (event: FormEvent) => {
         event.preventDefault();
         handler(email, password, name);
     }
 
     return (
-        <form onSubmit={(event: FormEvent) => onSubmitHandler(event, email, password, name)}>
+        <form onSubmit={(event: FormEvent) => onSubmitHandler(event)}>
             <Logo />
             <div className={`text text_type_main-medium ${styles.title} ${styles.formRow}`}>Регистрация</div>
             <div className={styles.formRow}>

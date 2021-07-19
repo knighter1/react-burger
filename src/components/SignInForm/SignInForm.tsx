@@ -11,13 +11,13 @@ const SignInForm = ({ handler }: ISignInFormProps) =>
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const onSubmitHandler = (event: FormEvent, email: string, password: string) => {
+    const onSubmitHandler = (event: FormEvent) => {
         event.preventDefault();
         handler(email, password);
     }
 
     return (
-        <form onSubmit={(event: FormEvent) => onSubmitHandler(event, email, password)}>
+        <form onSubmit={(event: FormEvent) => onSubmitHandler(event)}>
             <Logo />
             <div className={`text text_type_main-medium ${styles.title} ${styles.formRow}`}>Вход</div>
             <div className={styles.formRow}>

@@ -10,13 +10,13 @@ const ForgotPasswordForm = ({handler}: IForgotPasswordFormProps) =>
 {
     const [email, setEmail] = useState('');
 
-    const onSubmitHandler = (event: FormEvent, email: string) => {
+    const onSubmitHandler = (event: FormEvent) => {
         event.preventDefault();
         handler(email);
     }
 
     return (
-        <form onSubmit={(event: FormEvent) => onSubmitHandler(event, email)}>
+        <form onSubmit={(event: FormEvent) => onSubmitHandler(event)}>
             <Logo />
             <div className={`text text_type_main-medium ${styles.title} ${styles.formRow}`}>Восстановление пароля</div>
             <div className={styles.formRow}>

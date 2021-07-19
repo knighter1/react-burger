@@ -1,4 +1,4 @@
-import { RESET_PASSWORD_REQUEST, RESET_PASSWORD_ERROR, RESET_PASSWORD_SUCCESS } from '../actions/auth';
+import { RESET_PASSWORD_REQUEST, RESET_PASSWORD_ERROR, RESET_PASSWORD_SUCCESS } from '../actions/resetPassword';
 
 export interface IResetPasswordState
 {

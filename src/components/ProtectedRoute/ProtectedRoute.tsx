@@ -10,7 +10,9 @@ interface IProtectedRouteProps {
 
 export const ProtectedRoute = ({ path, exact, children, ...rest }: IProtectedRouteProps) => {
     
-    let { user, getUser }: any = useAuth();
+    const useAuthRes = useAuth();
+    let { user }: any = useAuthRes;
+    const { getUser }: any = useAuthRes;
     
     const [isUserLoaded, setUserLoaded] = useState(false);
 

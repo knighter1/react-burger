@@ -1,53 +1,89 @@
 import { useEffect } from 'react';
 import styles from './App.module.css';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import { BrowserRouter as Router, Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import AppHeader from '../AppHeader/AppHeader';
-import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
-import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
 import { useDispatch } from 'react-redux';
-import { GET_INGREDIENTS_LIB_REQUEST, GET_INGREDIENTS_LIB_SUCCESS, GET_INGREDIENTS_LIB_ERROR } from '../../services/actions/api';
-//import { ADD_ITEM } from '../../services/actions/constructor';
+import { getIngredientsLib } from '../../services/actions/ingredientsLib';
+import ConstructorPage from '../../pages/Constructor/Constructor';
+import SignInPage from '../../pages/SignIn/SignIn';
+import RegisterPage from '../../pages/Register/Register';
+import ForgotPasswordPage from '../../pages/ForgotPassword/ForgotPassword';
+import ResetPasswordPage from '../../pages/ResetPassword/ResetPassword';
+import OrdersFeedPage from '../../pages/OrdersFeed/OrdersFeed';
+import ProfilePage from '../../pages/Profile/Profile';
+import ProfileOrdersPage from '../../pages/ProfileOrders/ProfileOrders';
+import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
+import { ProvideAuth } from '../../services/auth';
+import IngredientPage from '../../pages/Ingredient/Ingredient';
+import NotFound404 from '../../pages/NotFound404/NotFound404';
+import { Modal } from '../Modal/Modal';
+import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
+
+const ModalSwitch = () => {
+
+    const location: any = useLocation();
+    const history = useHistory();
+
+    const background = history.action === "PUSH" && location.state && location.state.background;
+
+    return (
+        <ProvideAuth>
+            <AppHeader />
+            <Switch location={background || location}>
+                <Route path="/" exact={true}>
+                    <ConstructorPage />
+                </Route>
+                <Route path="/login" exact={true}>
+                    <SignInPage />
+                </Route>
+                <Route path="/register" exact={true}>
+                    <RegisterPage />
+                </Route>
+                <Route path="/forgot-password" exact={true}>
+                    <ForgotPasswordPage />
+                </Route>
+                <Route path="/reset-password" exact={true}>
+                    <ResetPasswordPage />
+                </Route>
+                <Route path="/feed">
+                    <OrdersFeedPage />
+                </Route>
+                <Route path='/ingredients/:id'>
+                    <IngredientPage />
+                </Route>
+                <ProtectedRoute path='/profile' exact={true}>
+                    <ProfilePage />
+                </ProtectedRoute>
+                <ProtectedRoute path='/profile/orders' exact={true}>
+                    <ProfileOrdersPage />
+                </ProtectedRoute>
+                <Route>
+                    <NotFound404 />
+                </Route>
+            </Switch>
+            {
+                background &&
+                <Route path={'/ingredients/:id'}>
+                    <Modal closeHandle={() => {history.goBack();}}>
+                        <IngredientDetails />
+                    </Modal>
+                </Route>
+            }
+        </ProvideAuth>
+    );
+}
 
 const App = () => {
 
-    const INGREDIENTS_ENDPOINT: string = 'https://norma.nomoreparties.space/api/ingredients';
-
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch({ type: GET_INGREDIENTS_LIB_REQUEST });
-        fetch(INGREDIENTS_ENDPOINT)
-        .then(response => {
-            if (response.ok) {
-              return response.json();
-            }
-            return Promise.reject(`Status ${response.status}`);
-        })
-        .then(responseObj => {
-            dispatch({ type: GET_INGREDIENTS_LIB_SUCCESS, data: responseObj.data });
-            
-            /*dispatch({ type: ADD_ITEM, item: responseObj.data[4] });
-            dispatch({ type: ADD_ITEM, item: responseObj.data[3] });
-            dispatch({ type: ADD_ITEM, item: responseObj.data[0] });
-            dispatch({ type: ADD_ITEM, item: responseObj.data[5] });*/
-        })
-        .catch(error => 
-            {
-                console.error(`Ingredients data receiving error: ${error}`);
-                dispatch({ type: GET_INGREDIENTS_LIB_ERROR });
-            });
-    }, [dispatch]);
+    useEffect(() => dispatch(getIngredientsLib()), [dispatch]);
 
     return (
         <div className={styles.appCont}>
-            <AppHeader />
-            <main className={styles.main}>
-                <DndProvider backend={HTML5Backend}>
-                    <BurgerIngredients />
-                    <BurgerConstructor />
-                </DndProvider>
-            </main>
+            <Router>
+                <ModalSwitch />
+            </Router>
         </div>
     );
 }

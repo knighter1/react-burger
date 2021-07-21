@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IStore } from '../..';
 import { useEffect } from 'react';
 import { SET_INGREDIENT } from '../../services/actions/ingredient';
+import { useLocation } from 'react-router-dom';
 
 export const IngredientDetails = (): JSX.Element => {
 
@@ -23,8 +24,16 @@ export const IngredientDetails = (): JSX.Element => {
     }
     useEffect(dropIngredient, [dispatch]);
 
+    const location = useLocation();
+    const getContStyle = () => {
+        if (location.pathname.indexOf('/ingredient') === 0)
+            return `${styles.pageContainer} modal-сontent`
+        
+        return `${styles.container} modal-сontent`
+    }
+
     return (
-        <div className={`${styles.container} modal-сontent`}>
+        <div className={getContStyle()}>
             <div className={`${styles.title} text text_type_main-large ml-10 mt-10 mr-10 pt-2`}>
                 Детали ингредиента
             </div>

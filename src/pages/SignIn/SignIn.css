@@ -1,0 +1,12 @@
+.signin-cont {
+    width: 480px;
+    margin: auto;
+    height: calc(100% - 90px);
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+
+.signin-cont .input_size_default {
+    width: 480px;
+}

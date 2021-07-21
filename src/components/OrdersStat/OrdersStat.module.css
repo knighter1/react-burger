@@ -1,0 +1,25 @@
+.section {
+    width: 600px;
+    height: 100%;
+    float: left;
+}
+
+.statOper {
+    display: flex;
+}
+
+.statOperCol {
+    width: 50%;
+}
+
+.statCont {
+    margin-top: 60px;
+}
+
+.digitsLarge {
+    text-shadow: 2px 2px 25px blue;
+}
+
+.completedOrder {
+    color: #00cccc;
+}

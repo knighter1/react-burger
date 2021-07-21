@@ -18,4 +18,9 @@
     display: block;
     position: relative;
     float: left;
+    color: white;
+}
+
+.name {
+    color: white;
 }

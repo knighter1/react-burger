@@ -1,0 +1,13 @@
+.column {
+    width: 320px;
+    text-align: left;
+    padding-right: 60px;
+}
+
+.caption {
+    padding: 17px 0 17px 0;
+}
+
+.logout {
+    cursor: pointer;
+}

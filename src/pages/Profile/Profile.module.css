@@ -1,0 +1,19 @@
+.column {
+    width: 320px;
+    text-align: left;
+    padding-right: 60px;
+}
+
+.field {
+    padding-bottom: 24px;
+}
+
+.right {
+    text-align: right;
+}
+
+.cancel {
+    color: #4c4cff;
+    margin-right: 28px;
+    cursor: pointer;
+}

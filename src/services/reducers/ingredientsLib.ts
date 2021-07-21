@@ -1,4 +1,4 @@
-import { GET_INGREDIENTS_LIB_REQUEST, GET_INGREDIENTS_LIB_SUCCESS, GET_INGREDIENTS_LIB_ERROR } from '../actions/api';
+import { GET_INGREDIENTS_LIB_REQUEST, GET_INGREDIENTS_LIB_SUCCESS, GET_INGREDIENTS_LIB_ERROR } from '../actions/ingredientsLib';
 import { IngredientData } from '../../components/IngredientMenuItem/IngredientMenuItem';
 
 export interface IApiState {

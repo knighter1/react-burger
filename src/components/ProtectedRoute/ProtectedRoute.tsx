@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 interface IProtectedRouteProps {
     path: string;
-    exact: boolean;
+    exact?: boolean;
     children: React.ReactNode;
 }
 
@@ -31,7 +31,7 @@ export const ProtectedRoute = ({ path, exact, children, ...rest }: IProtectedRou
     return (
         <Route
             path={path}
-            exact={exact}
+            exact={exact === true}
             render={({ location }) =>
                 user ? (
                     children

@@ -50,7 +50,7 @@ const ModalSwitch = () => {
                 <Route path='/ingredients/:id'>
                     <IngredientPage />
                 </Route>
-                <ProtectedRoute path='/profile' exact={false}>
+                <ProtectedRoute path='/profile'>
                     <ProfilePage />
                 </ProtectedRoute>
                 <Route>

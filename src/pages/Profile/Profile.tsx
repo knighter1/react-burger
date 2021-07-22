@@ -11,6 +11,7 @@ import { Switch } from 'react-router';
 import { ProtectedRoute } from '../../components/ProtectedRoute/ProtectedRoute';
 import ProfileOrdersPage from '../ProfileOrders/ProfileOrders';
 import { BrowserRouter } from 'react-router-dom';
+import OrderDetailPage from '../OrderDetail/OrderDetail';
 
 const ProfilePage = () =>
 {
@@ -85,8 +86,8 @@ const ProfilePage = () =>
                 <ProtectedRoute path='/profile/orders' exact={true}>
                     <ProfileOrdersPage />
                 </ProtectedRoute>
-                <ProtectedRoute path='/profile/orders/:id' exact={true}>
-                    <ProfileOrdersPage />
+                <ProtectedRoute path='/profile/orders/:id'>
+                    <OrderDetailPage />
                 </ProtectedRoute>
             </Switch>
         </BrowserRouter>

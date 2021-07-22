@@ -5,7 +5,8 @@ import { orderCostReducer } from '../../services/reducers/constructor';
 import { formatOrderDate } from '../../services/reducers/utils';
 import { useDispatch } from 'react-redux';
 import { SET_ORDER_DETAIL } from '../../services/actions/order';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 
 interface IOrderListItemProps {
     name: string
@@ -44,15 +45,17 @@ const OrderListItem = ({name, orderId, ingredients, date }: IOrderListItemProps)
 
     const dispatch = useDispatch();
 
-    const history = useHistory();
+    const location = useLocation();
 
     const orderSelect = () => {
         dispatch({ type: SET_ORDER_DETAIL, ingredientData: {name, orderId, ingredients, date } });
-        history.push(`/feed/${orderId}`);
     }
     
     return (
-        <div className={styles.cont} onClick={() => orderSelect()}>
+        <Link className={styles.cont} onClick={() => orderSelect()} to={{
+            pathname: `${location.pathname}/${orderId}`,
+            state: {background: location}
+        }}>
             <div className={styles.top}>
                 <span className='text text_type_digits-default'>{`#${orderId}`}</span>
                 <span className='text text_type_main-default text_color_inactive'>{formatOrderDate(date)}</span>
@@ -67,7 +70,7 @@ const OrderListItem = ({name, orderId, ingredients, date }: IOrderListItemProps)
                     <CurrencyIcon type="primary" />
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }
 

@@ -27,6 +27,11 @@ code {
     height: auto;
 }
 
+#modals {
+    position: relative;
+    z-index: 1000;
+}
+
 .modal-close-btn {
     position: absolute;
     top: 60px;

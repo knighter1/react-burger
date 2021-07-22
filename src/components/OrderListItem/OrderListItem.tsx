@@ -5,7 +5,7 @@ import { orderCostReducer } from '../../services/reducers/constructor';
 import { formatOrderDate } from '../../services/reducers/utils';
 import { useDispatch } from 'react-redux';
 import { SET_ORDER_DETAIL } from '../../services/actions/order';
-import { useHistory, useLocation } from 'react-router';
+import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 
 interface IOrderListItemProps {
@@ -48,7 +48,7 @@ const OrderListItem = ({name, orderId, ingredients, date }: IOrderListItemProps)
     const location = useLocation();
 
     const orderSelect = () => {
-        dispatch({ type: SET_ORDER_DETAIL, ingredientData: {name, orderId, ingredients, date } });
+        dispatch({ type: SET_ORDER_DETAIL, orderData: {name, orderId, ingredients, date } });
     }
     
     return (

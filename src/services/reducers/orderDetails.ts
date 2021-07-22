@@ -22,7 +22,7 @@ export const orderDetailsReducer = (state = initState, action: any) =>
     switch (action.type)
     {
         case SET_ORDER_DETAIL:
-            return { ...action.ingredientData };
+            return { ...action.orderData };
 
         default:
             return state;

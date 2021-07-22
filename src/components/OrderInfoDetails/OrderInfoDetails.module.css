@@ -1,0 +1,92 @@
+.page {
+    width: 640px;
+    margin: auto;
+    height: calc(100% - 200px);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 100px;
+    padding: 50px;
+}
+
+.center {
+    width: 100%;
+    text-align: center;
+}
+
+.completed {
+    color: #00cccc;
+}
+
+.bottom {
+    width: 100%;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+}
+
+.cost {
+    top: -5px;
+    position: relative;
+    padding-right: 10px;
+}
+
+.priceCont {
+    position: relative;
+}
+
+.itemCont {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 20px 0 20px;
+}
+
+.leftItemCont {
+    display: flex;
+}
+
+.rightItemCont {
+    display: flex;
+    padding-top: 32px;
+}
+
+.ingredientImage {
+    border-radius: 50%;
+    background-color: black;
+    background-position: 50%;
+    background-size: cover;
+
+    width: 64px;
+    height: 64px;
+    margin-left: -20px;
+
+    border: 2px solid #801AB2;
+    text-align: center;
+
+    margin-top: 10px;
+}
+
+.nameCont {
+    height: 100%;
+    width: 300px;
+    text-align: left;
+}
+
+.name {
+    vertical-align: middle;
+}
+
+.itemPrice {
+    padding-right: 10px;
+}
+
+.list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    max-height: 300px;
+}

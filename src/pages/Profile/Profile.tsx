@@ -10,7 +10,7 @@ import { updateUserInfo } from '../../services/actions/profile';
 import { Switch } from 'react-router';
 import { ProtectedRoute } from '../../components/ProtectedRoute/ProtectedRoute';
 import ProfileOrdersPage from '../ProfileOrders/ProfileOrders';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, useHistory, useLocation } from 'react-router-dom';
 import OrderDetailPage from '../OrderDetail/OrderDetail';
 
 const ProfilePage = () =>
@@ -91,8 +91,6 @@ const ProfilePage = () =>
                 </ProtectedRoute>
             </Switch>
         </BrowserRouter>
-        
-        /**/
     )
 }
 

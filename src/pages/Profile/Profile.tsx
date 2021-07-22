@@ -85,6 +85,9 @@ const ProfilePage = () =>
                 <ProtectedRoute path='/profile/orders' exact={true}>
                     <ProfileOrdersPage />
                 </ProtectedRoute>
+                <ProtectedRoute path='/profile/orders/:id' exact={true}>
+                    <ProfileOrdersPage />
+                </ProtectedRoute>
             </Switch>
         </BrowserRouter>
         

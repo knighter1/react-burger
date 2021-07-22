@@ -15,7 +15,7 @@ const OrdersFeedPage = () =>
                 </Route>
                 <Route>
                     <div className={styles.page}>
-                        <OrdersList />
+                        <OrdersList caption='Лента заказов' type='small' />
                         <OrdersStat />
                     </div>
                 </Route>

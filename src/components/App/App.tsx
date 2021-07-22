@@ -11,7 +11,6 @@ import ForgotPasswordPage from '../../pages/ForgotPassword/ForgotPassword';
 import ResetPasswordPage from '../../pages/ResetPassword/ResetPassword';
 import OrdersFeedPage from '../../pages/OrdersFeed/OrdersFeed';
 import ProfilePage from '../../pages/Profile/Profile';
-import ProfileOrdersPage from '../../pages/ProfileOrders/ProfileOrders';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { ProvideAuth } from '../../services/auth';
 import IngredientPage from '../../pages/Ingredient/Ingredient';
@@ -51,11 +50,8 @@ const ModalSwitch = () => {
                 <Route path='/ingredients/:id'>
                     <IngredientPage />
                 </Route>
-                <ProtectedRoute path='/profile' exact={true}>
+                <ProtectedRoute path='/profile' exact={false}>
                     <ProfilePage />
-                </ProtectedRoute>
-                <ProtectedRoute path='/profile/orders' exact={true}>
-                    <ProfileOrdersPage />
                 </ProtectedRoute>
                 <Route>
                     <NotFound404 />

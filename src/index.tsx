@@ -9,7 +9,7 @@ import thunk from 'redux-thunk';
 import { rootReducer } from './redux/reducers/index';
 import { IngredientData } from './components/IngredientMenuItem/IngredientMenuItem';
 import { IConstructorState } from './redux/reducers/constructor';
-import { IApiState } from './redux/reducers/ingredientsLib';
+import { IIngredientsLibState } from './redux/reducers/ingredientsLib';
 import { IOrderState } from './redux/reducers/order';
 import { IInitResetPasswordState } from './redux/reducers/initResetPassword';
 import { IResetPasswordState } from './redux/reducers/resetPassword';
@@ -30,7 +30,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(ORDERS_FEED_ENDPOINT)));
 
 export interface IStore {
-    ingredientsLib: IApiState,
+    ingredientsLib: IIngredientsLibState,
     constructor: IConstructorState,
     ingredient: IngredientData | null,
     order: IOrderState,

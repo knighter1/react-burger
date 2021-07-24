@@ -4,7 +4,7 @@ import styles from './OrderListItem.module.css'
 import { orderCostReducer } from '../../redux/reducers/constructor';
 import { formatOrderDate } from '../../redux/reducers/utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_ORDER_DETAIL } from '../../redux/actions/order';
+import { SET_ORDER_DETAIL } from '../../redux/actions/orderDetails';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -12,12 +12,12 @@ import { IStore } from '../..';
 
 interface IOrderListItemProps {
     name: string
-    orderId: number,
+    number: number,
     _ingredients: string[];
     date: Date;
 }
 
-const OrderListItem = ({name, orderId, _ingredients, date }: IOrderListItemProps) =>
+const OrderListItem = ({name, number, _ingredients, date }: IOrderListItemProps) =>
 {
     const MAX_NAME_LENGTH: number = 100;
     
@@ -27,7 +27,7 @@ const OrderListItem = ({name, orderId, _ingredients, date }: IOrderListItemProps
     const lib = useSelector((store: IStore) => store.ingredientsLib.itemsById);
 
     useEffect(() => {
-        const orderIngredients: IngredientData[] = _ingredients.map(id => lib.get(id)) as IngredientData[];
+        const orderIngredients: IngredientData[] = _ingredients.map(id => lib?.get(id)) as IngredientData[];
         setIngredients(orderIngredients);
         setCost(orderCostReducer(orderIngredients.slice(1, orderIngredients.length), orderIngredients[0]));
     }, [lib, _ingredients]);
@@ -61,7 +61,7 @@ const OrderListItem = ({name, orderId, _ingredients, date }: IOrderListItemProps
     const location = useLocation();
 
     const orderSelect = () => {
-        dispatch({ type: SET_ORDER_DETAIL, orderData: {name, orderId, ingredients, date } });
+        dispatch({ type: SET_ORDER_DETAIL, orderData: {name, number, ingredients, date } });
     }
 
     if (!ingredients || !ingredients.length)
@@ -70,11 +70,11 @@ const OrderListItem = ({name, orderId, _ingredients, date }: IOrderListItemProps
     return (
 
         <Link className={styles.cont} onClick={() => orderSelect()} to={{
-            pathname: `${location.pathname}/${orderId}`,
+            pathname: `${location.pathname}/${number}`,
             state: {background: location}
         }}>
             <div className={styles.top}>
-                <span className='text text_type_digits-default'>{`#${orderId}`}</span>
+                <span className='text text_type_digits-default'>{`#${number}`}</span>
                 <span className='text text_type_main-default text_color_inactive'>{formatOrderDate(date)}</span>
             </div>
             <div className={`${styles.name} text text_type_main-medium`}>

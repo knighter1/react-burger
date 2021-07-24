@@ -1,16 +1,16 @@
 import { GET_INGREDIENTS_LIB_REQUEST, GET_INGREDIENTS_LIB_SUCCESS, GET_INGREDIENTS_LIB_ERROR } from '../actions/ingredientsLib';
 import { IngredientData } from '../../components/IngredientMenuItem/IngredientMenuItem';
 
-export interface IApiState
+export interface IIngredientsLibState
 {
     items: IngredientData[];
-    itemsById: Map<string, IngredientData>;
+    itemsById: Map<string, IngredientData> | null;
 
     isError: boolean;
     isRequest: Boolean;
 }
 
-const initState: IApiState =
+const initState: IIngredientsLibState =
 {
     items: [],
     itemsById: new Map(),
@@ -19,15 +19,15 @@ const initState: IApiState =
     isRequest: false
 }
 
-export const apiReducer = (state = initState, action: any) =>
+export const apiReducer = (state: IIngredientsLibState = initState, action: any): IIngredientsLibState =>
 {
     switch (action.type)
     {
         case GET_INGREDIENTS_LIB_REQUEST:
-            return { data: [], isError: false, isRequest: true };
+            return { items: [], itemsById: null, isError: false, isRequest: true };
 
         case GET_INGREDIENTS_LIB_ERROR:
-            return { data: [], isError: true, isRequest: false };
+            return { items: [], itemsById: null, isError: true, isRequest: false };
 
         case GET_INGREDIENTS_LIB_SUCCESS:
 

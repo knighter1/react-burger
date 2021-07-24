@@ -26,7 +26,7 @@ const OrdersList = ( {caption, type}: IOrdersListProps ) =>
                     return <OrderListItem
                         key={order._id}
                         name={order.name}
-                        orderId={order.number}
+                        number={order.number}
                         _ingredients={order.ingredients}
                         date={order.updatedAt ? order.updatedAt : order.createdAt} />
                 })}

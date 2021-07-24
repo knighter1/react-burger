@@ -1,24 +1,21 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { IStore } from '../..';
 import { OrderInfoDetails } from '../../components/OrderInfoDetails/OrderInfoDetails';
-import { SET_ORDER_DETAIL } from '../../redux/actions/order';
+import { getOrderById } from '../../redux/actions/orderDetails';
 
 const OrderDetailPage = () =>
 {
-    const lib = useSelector((store: IStore) => store.ingredientsLib.items);
+    const lib = useSelector((store: IStore) => store.ingredientsLib);
 
     const dispatch = useDispatch();
 
+    const { id }: any = useParams();
+
     useEffect(() => {
-        lib.length && dispatch({
-            type: SET_ORDER_DETAIL,
-            orderData: {
-                name: 'Death Star Starship Main бургер',
-                orderId: 124567,
-                ingredients: [lib[0], lib[2], lib[4], lib[5], lib[7], lib[8], lib[10]],
-                date: new Date() } });
-    }, [dispatch, lib]);
+        lib && lib.items.length && dispatch(getOrderById(id, lib));
+    }, [dispatch, id, lib]);
 
     return (
         <div>

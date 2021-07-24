@@ -42,7 +42,7 @@ export const OrderInfoDetails = (): JSX.Element => {
     return (
         <div className={`${styles.page} modal-сontent`}>
             <div className={`text text_type_digits-default mb-5 ${styles.center}`}>
-                #{orderData.orderId}
+                #{orderData.number}
             </div>
             <div className={`text text_type_main-medium mb-2`}>
                 {orderData.name}

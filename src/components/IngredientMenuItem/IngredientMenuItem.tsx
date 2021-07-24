@@ -3,8 +3,8 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_INGREDIENT } from '../../redux/actions/ingredient';
 import { useDrag } from 'react-dnd';
-import { IStore } from '../..';
 import { Link, useLocation } from 'react-router-dom';
+import { IStore } from '../../redux/reducers';
 
 export interface IngredientData
 {

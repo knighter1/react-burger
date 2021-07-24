@@ -1,13 +1,17 @@
-import { combineReducers } from 'redux';
-import { apiReducer } from './ingredientsLib';
-import { constructorReducer } from './constructor';
-import { orderReducer } from './order';
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import { apiReducer, IIngredientsLibState } from './ingredientsLib';
+import { constructorReducer, IConstructorState } from './constructor';
+import { IOrderState, orderReducer } from './order';
 import { ingredientReducer } from './ingredient';
-import { initResetPasswordReducer } from './initResetPassword';
-import { resetPasswordReducer } from './resetPassword';
-import { accessReducer } from './access';
-import { orderDetailsReducer } from './orderDetails';
+import { IInitResetPasswordState, initResetPasswordReducer } from './initResetPassword';
+import { IResetPasswordState, resetPasswordReducer } from './resetPassword';
+import { accessReducer, IAccessState } from './access';
+import { IOrderDetailsState, orderDetailsReducer } from './orderDetails';
 import { feedWsReducer } from './feedWsReducer';
+import { IngredientData } from '../../components/IngredientMenuItem/IngredientMenuItem';
+import { IOrderFeedWebSocketState } from '../../types/IOrderData';
+import thunk from 'redux-thunk';
+import { socketMiddleware } from '../middlewares/wsMiddleware';
 
 export const rootReducer = combineReducers({
     ingredientsLib: apiReducer,
@@ -20,3 +24,28 @@ export const rootReducer = combineReducers({
     orderDetails: orderDetailsReducer,
     feedWs: feedWsReducer
 });
+
+declare global {
+    interface Window {
+      __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+    }
+}
+
+const ORDERS_FEED_ENDPOINT: string = 'wss://norma.nomoreparties.space/orders/all';
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(ORDERS_FEED_ENDPOINT)));
+
+export interface IStore {
+    ingredientsLib: IIngredientsLibState,
+    constructor: IConstructorState,
+    ingredient: IngredientData | null,
+    order: IOrderState,
+    orderDetails: IOrderDetailsState,
+    initResetPassword: IInitResetPasswordState,
+    resetPassword: IResetPasswordState,
+    access: IAccessState,
+    feedWs: IOrderFeedWebSocketState
+}
+
+export const store = createStore(rootReducer, enhancer);

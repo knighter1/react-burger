@@ -7,7 +7,6 @@ import IngredientsListItem from '../IngredientsListItem/IngredientsListItem';
 import { Modal } from '../Modal/Modal';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { useDispatch, useSelector } from "react-redux";
-import { IStore } from '../../index';
 import { ADD_ITEM } from "../../redux/actions/constructor";
 import { useDrop } from "react-dnd";
 import { IConstructorState } from "../../redux/reducers/constructor";
@@ -15,6 +14,7 @@ import { useAuth } from "../../services/auth";
 import { useHistory } from "react-router-dom";
 import { placeOrder } from "../../redux/actions/order";
 import { SET_INGREDIENT } from "../../redux/actions/ingredient";
+import { IStore } from "../../redux/reducers";
 
 interface IBuns
 {

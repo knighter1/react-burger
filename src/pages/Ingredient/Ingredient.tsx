@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { IStore } from "../..";
 import { IngredientDetails } from "../../components/IngredientDetails/IngredientDetails";
 import { IngredientData } from "../../components/IngredientMenuItem/IngredientMenuItem";
 import { SET_INGREDIENT } from "../../redux/actions/ingredient";
+import { IStore } from "../../redux/reducers";
 
 const IngredientPage = () =>
 {

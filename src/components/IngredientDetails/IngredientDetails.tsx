@@ -1,9 +1,9 @@
 import styles from './IngredientDetails.module.css';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { IStore } from '../..';
 import { useEffect } from 'react';
 import { SET_INGREDIENT } from '../../redux/actions/ingredient';
+import { IStore } from '../../redux/reducers';
 
 export const IngredientDetails = (): JSX.Element => {
 

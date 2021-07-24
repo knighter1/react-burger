@@ -8,7 +8,7 @@ import { SET_ORDER_DETAIL } from '../../redux/actions/orderDetails';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { IStore } from '../..';
+import { IStore } from '../../redux/reducers';
 
 interface IOrderListItemProps {
     name: string

@@ -2,9 +2,9 @@ import { IngredientMenuItem } from '../IngredientMenuItem/IngredientMenuItem';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import styles from './IngredientMenuList.module.css';
 import { useSelector } from 'react-redux';
-import { IStore } from '../../index';
 import { useEffect } from 'react';
 import { useInView } from "react-intersection-observer";
+import { IStore } from '../../redux/reducers';
 
 interface IIngredientMenuListProps
 {

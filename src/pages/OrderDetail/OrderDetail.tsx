@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { IStore } from '../..';
 import { OrderInfoDetails } from '../../components/OrderInfoDetails/OrderInfoDetails';
 import { getOrderById } from '../../redux/actions/orderDetails';
+import { IStore } from '../../redux/reducers';
 
 const OrderDetailPage = () =>
 {

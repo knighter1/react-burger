@@ -2,8 +2,8 @@ import styles from './OrdersList.module.css';
 import '@ya.praktikum/react-developer-burger-ui-components';
 import OrderListItem from '../OrderListItem/OrderListItem';
 import { useSelector } from 'react-redux';
-import { IStore } from '../..';
 import { IOrdersFeed } from '../../types/IOrderData';
+import { IStore } from '../../redux/reducers';
 
 export interface IOrdersListProps {
     caption?: string,

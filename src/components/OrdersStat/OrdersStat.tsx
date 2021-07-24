@@ -1,9 +1,9 @@
 import styles from './OrdersStat.module.css';
 import '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
-import { IStore } from '../..';
 import { IOrdersFeed, IOrderData } from '../../types/IOrderData';
 import { useEffect, useState } from 'react';
+import { IStore } from '../../redux/reducers';
 
 const OrdersStat = () =>
 {

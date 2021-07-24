@@ -1,7 +1,7 @@
 import styles from './OrderDetails.module.css';
 import orderDoneImg from '../../images/order_done.png';
 import { useSelector } from 'react-redux';
-import { IStore } from '../..';
+import { IStore } from '../../redux/reducers';
 
 export const OrderDetails = (): JSX.Element =>
 {

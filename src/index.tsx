@@ -15,7 +15,7 @@ import { IInitResetPasswordState } from './redux/reducers/initResetPassword';
 import { IResetPasswordState } from './redux/reducers/resetPassword';
 import { IAccessState } from './redux/reducers/access';
 import { IOrderDetailsState } from './redux/reducers/orderDetails';
-import { IFeedWebSocketState } from './redux/reducers/feedWsReducer';
+import { IOrderFeedWebSocketState } from './types/IOrderData';
 import { socketMiddleware } from './redux/middlewares/wsMiddleware';
 
 declare global {
@@ -38,7 +38,7 @@ export interface IStore {
     initResetPassword: IInitResetPasswordState,
     resetPassword: IResetPasswordState,
     access: IAccessState,
-    feedWs: IFeedWebSocketState
+    feedWs: IOrderFeedWebSocketState
 }
 
 const store = createStore(rootReducer, enhancer);

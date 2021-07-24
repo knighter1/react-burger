@@ -1,39 +1,14 @@
 import { WS_CONNECTION_SUCCESS, WS_CONNECTION_ERROR, WS_CONNECTION_CLOSED, WS_GET_MESSAGE } from '../actions/wsActions';
+import { IOrderFeedWebSocketState } from '../../types/IOrderData';
 
-export interface IOrderData
-{
-    _id: string;
-    name: string;
-    status: "done" | "pending" | "created";
-    number: number;
-    createdAt: Date;
-    updatedAt: Date;
-    ingredients: string[];
-}
-
-export interface IFeedData
-{
-    success: boolean;
-    orders: IOrderData[];
-    total: number;
-    totalToday: number;
-}
-
-export interface IFeedWebSocketState
-{
-    wsConnected: boolean;
-    error: string | null;
-    feed: IFeedData | null;
-}
-
-const initialState: IFeedWebSocketState =
+const initialState: IOrderFeedWebSocketState =
 {
     wsConnected: false,
     error: null,
     feed: null
 };
 
-export const feedWsReducer = (state: IFeedWebSocketState = initialState, action: any): IFeedWebSocketState =>
+export const feedWsReducer = (state: IOrderFeedWebSocketState = initialState, action: any): IOrderFeedWebSocketState =>
 {
     switch (action.type)
     {

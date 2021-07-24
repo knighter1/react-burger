@@ -3,7 +3,7 @@ import '@ya.praktikum/react-developer-burger-ui-components';
 import OrderListItem from '../OrderListItem/OrderListItem';
 import { useSelector } from 'react-redux';
 import { IStore } from '../..';
-import { IFeedData } from '../../redux/reducers/feedWsReducer';
+import { IOrdersFeed } from '../../types/IOrderData';
 
 export interface IOrdersListProps {
     caption?: string,
@@ -14,7 +14,7 @@ const OrdersList = ( {caption, type}: IOrdersListProps ) =>
 {
     const lib = useSelector((store: IStore) => store.ingredientsLib.items);
 
-    const feed: IFeedData | null = useSelector((store: IStore) => store.feedWs.feed);
+    const feed: IOrdersFeed | null = useSelector((store: IStore) => store.feedWs.feed);
 
     const sectionClassName = type === 'small' ? styles.smallSection : styles.largeSection;
 

@@ -1,3 +1,4 @@
+import { getCookie } from "../../utils/cookie";
 import { RESET_ORDER } from "./constructor";
 
 export const PLACE_ORDER_REQUEST = 'PLACE_ORDER_REQUEST';
@@ -23,11 +24,13 @@ export function placeOrder(currentItems, setOrderModalState)
     return function(dispatch)
     {
         dispatch({ type: PLACE_ORDER_REQUEST });
-        
+        const accessToken = getCookie('accessToken');
+
         fetch(PLACE_ORDER_ENDPOINT, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': accessToken
             },
             body: JSON.stringify({ingredients: getFullIngredients()})
         })

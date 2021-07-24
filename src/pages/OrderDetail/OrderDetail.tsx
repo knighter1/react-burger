@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IStore } from '../..';
 import { OrderInfoDetails } from '../../components/OrderInfoDetails/OrderInfoDetails';
-import { SET_ORDER_DETAIL } from '../../services/actions/order';
+import { SET_ORDER_DETAIL } from '../../redux/actions/order';
 
 const OrderDetailPage = () =>
 {
-    const lib = useSelector((store: IStore) => store.ingredientsLib.data);
+    const lib = useSelector((store: IStore) => store.ingredientsLib.items);
 
     const dispatch = useDispatch();
 

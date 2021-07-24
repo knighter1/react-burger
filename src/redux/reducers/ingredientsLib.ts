@@ -1,14 +1,20 @@
 import { GET_INGREDIENTS_LIB_REQUEST, GET_INGREDIENTS_LIB_SUCCESS, GET_INGREDIENTS_LIB_ERROR } from '../actions/ingredientsLib';
 import { IngredientData } from '../../components/IngredientMenuItem/IngredientMenuItem';
 
-export interface IApiState {
-    data: IngredientData[];
+export interface IApiState
+{
+    items: IngredientData[];
+    itemsById: Map<string, IngredientData>;
+
     isError: boolean;
     isRequest: Boolean;
 }
 
-const initState: IApiState = {
-    data: [],
+const initState: IApiState =
+{
+    items: [],
+    itemsById: new Map(),
+
     isError: false,
     isRequest: false
 }
@@ -24,7 +30,14 @@ export const apiReducer = (state = initState, action: any) =>
             return { data: [], isError: true, isRequest: false };
 
         case GET_INGREDIENTS_LIB_SUCCESS:
-            return { data: action.data, isError: false, isRequest: false };
+
+            let itemsById = new Map();
+
+            action.data.forEach((element: IngredientData) => {
+                itemsById.set(element._id, element);
+            });
+
+            return { items: action.data, itemsById: itemsById, isError: false, isRequest: false };
 
         default:
             return state;

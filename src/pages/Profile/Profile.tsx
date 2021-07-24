@@ -6,7 +6,7 @@ import { IStore } from '../..';
 import { FormEvent, useEffect, useState } from 'react';
 import { useAuth } from '../../services/auth';
 import ProfileMenu from '../../components/ProfileMenu/ProfileMenu';
-import { updateUserInfo } from '../../services/actions/profile';
+import { updateUserInfo } from '../../redux/actions/profile';
 
 const ProfilePage = () =>
 {

@@ -6,15 +6,17 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { compose, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import { rootReducer } from './services/reducers/index';
+import { rootReducer } from './redux/reducers/index';
 import { IngredientData } from './components/IngredientMenuItem/IngredientMenuItem';
-import { IConstructorState } from './services/reducers/constructor';
-import { IApiState } from './services/reducers/ingredientsLib';
-import { IOrderState } from './services/reducers/order';
-import { IInitResetPasswordState } from './services/reducers/initResetPassword';
-import { IResetPasswordState } from './services/reducers/resetPassword';
-import { IAccessState } from './services/reducers/access';
-import { IOrderDetailsState } from './services/reducers/orderDetails';
+import { IConstructorState } from './redux/reducers/constructor';
+import { IApiState } from './redux/reducers/ingredientsLib';
+import { IOrderState } from './redux/reducers/order';
+import { IInitResetPasswordState } from './redux/reducers/initResetPassword';
+import { IResetPasswordState } from './redux/reducers/resetPassword';
+import { IAccessState } from './redux/reducers/access';
+import { IOrderDetailsState } from './redux/reducers/orderDetails';
+import { IFeedWebSocketState } from './redux/reducers/feedWsReducer';
+import { socketMiddleware } from './redux/middlewares/wsMiddleware';
 
 declare global {
     interface Window {
@@ -22,8 +24,10 @@ declare global {
     }
 }
 
+const ORDERS_FEED_ENDPOINT: string = 'wss://norma.nomoreparties.space/orders/all';
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const enhancer = composeEnhancers(applyMiddleware(thunk));
+const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(ORDERS_FEED_ENDPOINT)));
 
 export interface IStore {
     ingredientsLib: IApiState,
@@ -34,6 +38,7 @@ export interface IStore {
     initResetPassword: IInitResetPasswordState,
     resetPassword: IResetPasswordState,
     access: IAccessState,
+    feedWs: IFeedWebSocketState
 }
 
 const store = createStore(rootReducer, enhancer);
@@ -44,7 +49,7 @@ ReactDOM.render(
             <App />
         </Provider>
     </React.StrictMode>,
-  document.getElementById('root')
+    document.getElementById('root')
 );
 
 reportWebVitals();

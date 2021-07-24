@@ -5,7 +5,7 @@ import '@ya.praktikum/react-developer-burger-ui-components'
 import { useDispatch } from 'react-redux';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { useAuth } from '../../services/auth';
-import { initResetPassword } from '../../services/actions/initResetPassword';
+import { initResetPassword } from '../../redux/actions/initResetPassword';
 
 const ForgotPasswordPage = () =>
 {

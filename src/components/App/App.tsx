@@ -16,7 +16,7 @@ import { Modal } from '../Modal/Modal';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 import { OrderInfoDetails } from '../OrderInfoDetails/OrderInfoDetails';
 import { useDispatch } from 'react-redux';
-import { getIngredientsLib } from '../../services/actions/ingredientsLib';
+import { getIngredientsLib } from '../../redux/actions/ingredientsLib';
 import { useEffect } from 'react';
 import OrderDetailPage from '../../pages/OrderDetail/OrderDetail';
 import ProfileOrdersPage from '../../pages/ProfileOrders/ProfileOrders';

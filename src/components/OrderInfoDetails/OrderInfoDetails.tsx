@@ -2,10 +2,10 @@ import styles from './OrderInfoDetails.module.css';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import { useSelector } from 'react-redux';
 import { IStore } from '../..';
-import { IOrderDetailsState } from '../../services/reducers/orderDetails';
-import { formatOrderDate } from '../../services/reducers/utils';
+import { IOrderDetailsState } from '../../redux/reducers/orderDetails';
+import { formatOrderDate } from '../../redux/reducers/utils';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { orderCostReducer } from '../../services/reducers/constructor';
+import { orderCostReducer } from '../../redux/reducers/constructor';
 
 export const OrderInfoDetails = (): JSX.Element => {
 

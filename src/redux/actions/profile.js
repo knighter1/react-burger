@@ -1,5 +1,5 @@
 import { getCookie } from "../../utils/cookie";
-import { fetchWithRefresh } from "../fetchWithRefresh";
+import { fetchWithRefresh } from "../../services/fetchWithRefresh";
 
 export const GET_USER_REQUEST = 'GET_USER_REQUEST';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';

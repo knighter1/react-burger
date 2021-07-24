@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import styles from './IngredientsListItem.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
-import { REMOVE_ITEM, REORDER_ITEM } from '../../services/actions/constructor';
+import { REMOVE_ITEM, REORDER_ITEM } from '../../redux/actions/constructor';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';

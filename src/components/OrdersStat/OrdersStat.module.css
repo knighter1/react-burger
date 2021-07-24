@@ -12,6 +12,13 @@
     width: 50%;
 }
 
+.statOrderList {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    height: 280px;
+}
+
 .statCont {
     margin-top: 60px;
 }

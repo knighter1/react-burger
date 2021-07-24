@@ -3,8 +3,8 @@ import { loginRequest, logoutRequest, getUserRequest } from './api';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     SIGNIN_REQUEST, SIGNIN_SUCCESS, SIGNIN_ERROR,
-    LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_ERROR } from './actions/auth';
-import { GET_USER_REQUEST, GET_USER_SUCCESS, GET_USER_ERROR } from './actions/profile';
+    LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_ERROR } from '../redux/actions/auth';
+import { GET_USER_REQUEST, GET_USER_SUCCESS, GET_USER_ERROR } from '../redux/actions/profile';
 import { useHistory } from 'react-router-dom';
 
 const AuthContext = createContext(undefined);

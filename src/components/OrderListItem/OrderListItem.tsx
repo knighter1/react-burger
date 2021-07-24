@@ -1,23 +1,36 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import styles from './OrderListItem.module.css'
-import { orderCostReducer } from '../../services/reducers/constructor';
-import { formatOrderDate } from '../../services/reducers/utils';
-import { useDispatch } from 'react-redux';
-import { SET_ORDER_DETAIL } from '../../services/actions/order';
+import { orderCostReducer } from '../../redux/reducers/constructor';
+import { formatOrderDate } from '../../redux/reducers/utils';
+import { useDispatch, useSelector } from 'react-redux';
+import { SET_ORDER_DETAIL } from '../../redux/actions/order';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { IStore } from '../..';
 
 interface IOrderListItemProps {
     name: string
     orderId: number,
-    ingredients: IngredientData[];
+    _ingredients: string[];
     date: Date;
 }
 
-const OrderListItem = ({name, orderId, ingredients, date }: IOrderListItemProps) =>
+const OrderListItem = ({name, orderId, _ingredients, date }: IOrderListItemProps) =>
 {
-    const cost: number = orderCostReducer(ingredients.slice(1, ingredients.length), ingredients[0]);
+    const MAX_NAME_LENGTH: number = 100;
+    
+    const [cost, setCost] = useState(0);
+    const [ingredients, setIngredients]: any = useState([]);
+
+    const lib = useSelector((store: IStore) => store.ingredientsLib.itemsById);
+
+    useEffect(() => {
+        const orderIngredients: IngredientData[] = _ingredients.map(id => lib.get(id)) as IngredientData[];
+        setIngredients(orderIngredients);
+        setCost(orderCostReducer(orderIngredients.slice(1, orderIngredients.length), orderIngredients[0]));
+    }, [lib, _ingredients]);
 
     const ingredientsCont = () => {
 
@@ -50,8 +63,12 @@ const OrderListItem = ({name, orderId, ingredients, date }: IOrderListItemProps)
     const orderSelect = () => {
         dispatch({ type: SET_ORDER_DETAIL, orderData: {name, orderId, ingredients, date } });
     }
+
+    if (!ingredients || !ingredients.length)
+        return null;
     
     return (
+
         <Link className={styles.cont} onClick={() => orderSelect()} to={{
             pathname: `${location.pathname}/${orderId}`,
             state: {background: location}
@@ -61,7 +78,7 @@ const OrderListItem = ({name, orderId, ingredients, date }: IOrderListItemProps)
                 <span className='text text_type_main-default text_color_inactive'>{formatOrderDate(date)}</span>
             </div>
             <div className={`${styles.name} text text_type_main-medium`}>
-                {name}
+                {name.substr(0, MAX_NAME_LENGTH)}
             </div>
             <div className={styles.bottom}>
                 <div>{ingredientsCont()}</div>

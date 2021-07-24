@@ -5,7 +5,7 @@ import '@ya.praktikum/react-developer-burger-ui-components'
 import { useDispatch } from 'react-redux';
 import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
 import { useAuth } from '../../services/auth';
-import { resetPassword } from '../../services/actions/resetPassword';
+import { resetPassword } from '../../redux/actions/resetPassword';
 
 interface stateType {
     from: { pathname: string }

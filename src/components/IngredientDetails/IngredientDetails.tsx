@@ -3,7 +3,7 @@ import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { IStore } from '../..';
 import { useEffect } from 'react';
-import { SET_INGREDIENT } from '../../services/actions/ingredient';
+import { SET_INGREDIENT } from '../../redux/actions/ingredient';
 
 export const IngredientDetails = (): JSX.Element => {
 

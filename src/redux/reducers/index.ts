@@ -7,6 +7,7 @@ import { initResetPasswordReducer } from './initResetPassword';
 import { resetPasswordReducer } from './resetPassword';
 import { accessReducer } from './access';
 import { orderDetailsReducer } from './orderDetails';
+import { feedWsReducer } from './feedWsReducer';
 
 export const rootReducer = combineReducers({
     ingredientsLib: apiReducer,
@@ -16,5 +17,6 @@ export const rootReducer = combineReducers({
     initResetPassword: initResetPasswordReducer,
     resetPassword: resetPasswordReducer,
     access: accessReducer,
-    orderDetails: orderDetailsReducer
+    orderDetails: orderDetailsReducer,
+    feedWs: feedWsReducer
 });

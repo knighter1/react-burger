@@ -26,6 +26,7 @@ const OrdersList = ( { caption, type, feed }: IOrdersListProps ) =>
                         key={order._id}
                         name={order.name}
                         number={order.number}
+                        status={order.status}
                         _ingredients={order.ingredients}
                         date={order.updatedAt ? order.updatedAt : order.createdAt} />
                 })}

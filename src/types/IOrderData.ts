@@ -1,8 +1,10 @@
+export type OrderStatus = 'done' | 'pending' | 'created' | 'canceled';
+
 export interface IOrderData
 {
     _id: string;
     name: string;
-    status: "done" | "pending" | "created";
+    status: OrderStatus;
     number: number;
     createdAt: Date;
     updatedAt: Date;

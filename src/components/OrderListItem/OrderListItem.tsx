@@ -9,17 +9,19 @@ import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { IStore } from '../../redux/reducers';
+import { OrderStatus } from '../../types/IOrderData';
 
 interface IOrderListItemProps {
     name: string
     number: number,
     _ingredients: string[];
     date: Date;
+    status: OrderStatus;
 }
 
-const OrderListItem = ({name, number, _ingredients, date }: IOrderListItemProps) =>
+const OrderListItem = ({name, number, _ingredients, date, status }: IOrderListItemProps) =>
 {
-    const MAX_NAME_LENGTH: number = 90;
+    const MAX_NAME_LENGTH: number = 65;
     
     const [cost, setCost] = useState(0);
     const [ingredients, setIngredients]: any = useState([]);
@@ -67,6 +69,16 @@ const OrderListItem = ({name, number, _ingredients, date }: IOrderListItemProps)
     if (!ingredients || !ingredients.length)
         return null;
     
+    let statusName, statusClassName;
+
+    switch (status)
+    {
+        case 'done': statusName = 'Выполнен'; statusClassName = styles.statusDone ; break;
+        case 'pending': statusName = 'В работе'; statusClassName = styles.statusPending ; break;
+        case 'created': statusName = 'Принят'; statusClassName = styles.statusCreated ; break;
+        case 'canceled': statusName = 'Отменен'; statusClassName = styles.statusCancled ; break;
+    }
+
     return (
 
         <Link className={styles.cont} onClick={() => orderSelect()} to={{
@@ -76,6 +88,9 @@ const OrderListItem = ({name, number, _ingredients, date }: IOrderListItemProps)
             <div className={styles.top}>
                 <span className='text text_type_digits-default'>{`#${number}`}</span>
                 <span className='text text_type_main-default text_color_inactive'>{formatOrderDate(date)}</span>
+            </div>
+            <div className={`${statusClassName} text text_type_default-default`}>
+                {statusName}
             </div>
             <div className={`${styles.name} text text_type_main-medium`}>
                 {name.substr(0, MAX_NAME_LENGTH)}

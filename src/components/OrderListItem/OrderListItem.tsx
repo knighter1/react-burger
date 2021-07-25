@@ -19,7 +19,7 @@ interface IOrderListItemProps {
 
 const OrderListItem = ({name, number, _ingredients, date }: IOrderListItemProps) =>
 {
-    const MAX_NAME_LENGTH: number = 100;
+    const MAX_NAME_LENGTH: number = 90;
     
     const [cost, setCost] = useState(0);
     const [ingredients, setIngredients]: any = useState([]);

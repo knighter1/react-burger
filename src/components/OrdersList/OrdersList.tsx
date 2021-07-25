@@ -6,15 +6,14 @@ import { IOrdersFeed } from '../../types/IOrderData';
 import { IStore } from '../../redux/reducers';
 
 export interface IOrdersListProps {
-    caption?: string,
+    caption?: string;
     type: 'small' | 'large';
+    feed: IOrdersFeed | null;
 }
 
-const OrdersList = ( {caption, type}: IOrdersListProps ) =>
+const OrdersList = ( { caption, type, feed }: IOrdersListProps ) =>
 {
     const lib = useSelector((store: IStore) => store.ingredientsLib.items);
-
-    const feed: IOrdersFeed | null = useSelector((store: IStore) => store.feedWs.feed);
 
     const sectionClassName = type === 'small' ? styles.smallSection : styles.largeSection;
 
@@ -22,7 +21,7 @@ const OrdersList = ( {caption, type}: IOrdersListProps ) =>
         <section className={`${sectionClassName} ${styles.section}`}>
             {caption && <div className="text text_type_main-large pt-10 pb-5">{caption}</div>}
             {lib?.length > 0 && <div className={styles.itemsCont}>
-                {feed?.orders.map(order => {
+                {feed?.orders?.map(order => {
                     return <OrderListItem
                         key={order._id}
                         name={order.name}

@@ -1,30 +1,34 @@
-import { WS_CONNECTION_SUCCESS, WS_CONNECTION_ERROR, WS_CONNECTION_CLOSED, WS_GET_MESSAGE } from './wsActions';
+export const FEED_WS_CONNECTION_START = 'FEED_WS_CONNECTION_START';
+export const FEED_WS_CONNECTION_SUCCESS = 'FEED_WS_CONNECTION_SUCCESS';
+export const FEED_WS_CONNECTION_ERROR = 'FEED_WS_CONNECTION_ERROR';
+export const FEED_WS_CONNECTION_CLOSED = 'FEED_WS_CONNECTION_CLOSED';
+export const FEED_WS_GET_MESSAGE = 'FEED_WS_GET_MESSAGE';
   
 export const feedWsConnectionSuccess = () =>
 {
     return {
-        type: WS_CONNECTION_SUCCESS
+        type: FEED_WS_CONNECTION_SUCCESS
     };
 };
 
 export const feedWsConnectionError = () =>
 {
     return {
-        type: WS_CONNECTION_ERROR
+        type: FEED_WS_CONNECTION_ERROR
     };
 };
 
 export const feedWsConnectionClosed = () =>
 {
     return {
-        type: WS_CONNECTION_CLOSED
+        type: FEED_WS_CONNECTION_CLOSED
     };
 };
 
 export const feedWsGetMessage = (message: string) =>
 {
     return {
-        type: WS_GET_MESSAGE,
+        type: FEED_WS_GET_MESSAGE,
         payload: message
     };
 };

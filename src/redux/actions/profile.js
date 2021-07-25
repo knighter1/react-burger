@@ -1,5 +1,6 @@
 import { getCookie } from "../../utils/cookie";
 import { fetchWithRefresh } from "../../services/fetchWithRefresh";
+import { USER_END_POINT } from '../../services/api';
 
 export const GET_USER_REQUEST = 'GET_USER_REQUEST';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
@@ -11,8 +12,6 @@ export const PATCH_USER_ERROR = 'PATCH_USER_ERROR';
 
 export function updateUserInfo(email, name, setIsModified)
 {
-    const USER_END_POINT = 'https://norma.nomoreparties.space/api/auth/user';
-    
     return function(dispatch)
     {
         dispatch({ type: PATCH_USER_REQUEST });
@@ -35,8 +34,6 @@ export function updateUserInfo(email, name, setIsModified)
         .then(responseObj => {
             dispatch({ type: PATCH_USER_SUCCESS, ...responseObj });
             setIsModified(false);
-
-            console.log(responseObj);
         })
         .catch(error => {
             dispatch({ type: PATCH_USER_ERROR });

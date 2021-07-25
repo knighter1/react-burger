@@ -9,8 +9,10 @@ import { useHistory } from 'react-router-dom';
 
 const AuthContext = createContext(undefined);
 
-export function ProvideAuth({ children }) {
+export function ProvideAuth({ children })
+{
     const auth = useProvideAuth();
+
     return <AuthContext.Provider value={auth}>
         {children}
     </AuthContext.Provider>;

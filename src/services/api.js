@@ -1,6 +1,8 @@
 import { getCookie } from "../utils/cookie";
 import { fetchWithRefresh } from "./fetchWithRefresh";
 
+export const USER_END_POINT = 'https://norma.nomoreparties.space/api/auth/user';
+
 export const loginRequest = async (email, password) => {
     return await fetch('https://norma.nomoreparties.space/api/auth/login', {
         method: 'POST',
@@ -32,9 +34,10 @@ export const logoutRequest = async () => {
     });
 };
 
-export const getUserRequest = async () => {
+export const getUserRequest = async () =>
+{
     const accessToken = getCookie('accessToken');
-    return await fetchWithRefresh('https://norma.nomoreparties.space/api/auth/user', {
+    return await fetchWithRefresh(USER_END_POINT, {
         method: 'GET',
         mode: 'cors',
         cache: 'no-cache',

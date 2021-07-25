@@ -7,11 +7,12 @@ import { IInitResetPasswordState, initResetPasswordReducer } from './initResetPa
 import { IResetPasswordState, resetPasswordReducer } from './resetPassword';
 import { accessReducer, IAccessState } from './access';
 import { IOrderDetailsState, orderDetailsReducer } from './orderDetails';
-import { feedWsReducer } from './feedWsReducer';
+import { feedWsReducer, ORDERS_FEED_ENDPOINT, wsActionsFeed } from './feedWsReducer';
 import { IngredientData } from '../../components/IngredientMenuItem/IngredientMenuItem';
 import { IOrderFeedWebSocketState } from '../../types/IOrderData';
 import thunk from 'redux-thunk';
 import { socketMiddleware } from '../middlewares/wsMiddleware';
+import { ORDERS_USER_ENDPOINT, userWsReducer, wsActionsUser } from './userWsReducer';
 
 export const rootReducer = combineReducers({
     ingredientsLib: apiReducer,
@@ -22,7 +23,8 @@ export const rootReducer = combineReducers({
     resetPassword: resetPasswordReducer,
     access: accessReducer,
     orderDetails: orderDetailsReducer,
-    feedWs: feedWsReducer
+    feedWs: feedWsReducer,
+    userWs: userWsReducer,
 });
 
 declare global {
@@ -31,10 +33,13 @@ declare global {
     }
 }
 
-const ORDERS_FEED_ENDPOINT: string = 'wss://norma.nomoreparties.space/orders/all';
-
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware(ORDERS_FEED_ENDPOINT)));
+
+const wsFeed = socketMiddleware(ORDERS_FEED_ENDPOINT, wsActionsFeed);
+const wsUser = socketMiddleware(ORDERS_USER_ENDPOINT, wsActionsUser);
+
+const middleWares = applyMiddleware(thunk, wsFeed, wsUser);
+const enhancer = composeEnhancers(middleWares);
 
 export interface IStore {
     ingredientsLib: IIngredientsLibState,
@@ -45,7 +50,8 @@ export interface IStore {
     initResetPassword: IInitResetPasswordState,
     resetPassword: IResetPasswordState,
     access: IAccessState,
-    feedWs: IOrderFeedWebSocketState
+    feedWs: IOrderFeedWebSocketState,
+    userWs: IOrderFeedWebSocketState
 }
 
 export const store = createStore(rootReducer, enhancer);

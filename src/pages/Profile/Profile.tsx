@@ -14,9 +14,9 @@ const ProfilePage = () =>
     const [isModified, setIsModified] = useState(false);
 
     let initUser = useSelector((store: IStore) => store.access.user);
+
     const [name, setName] = useState(initUser ? initUser.name : '');
     const [email, setEmail] = useState(initUser ? initUser.email : '');
-
     const [password, setPassword] = useState('');
 
     const reset = () =>
@@ -41,12 +41,14 @@ const ProfilePage = () =>
 
     const { getUser }: any = useAuth();
 
-    useEffect(() => {
+    useEffect(() =>
+    {
         if (initUser === null)
             getUser();
     }, [initUser, getUser]);
 
-    const onSubmitHandler = (event: FormEvent) => {
+    const onSubmitHandler = (event: FormEvent) =>
+    {
         event.preventDefault();
         updateUserInfoHandler();
     }

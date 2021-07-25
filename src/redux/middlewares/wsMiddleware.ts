@@ -1,7 +1,15 @@
-import { WS_CONNECTION_START, WS_CONNECTION_SUCCESS, WS_CONNECTION_ERROR, WS_CONNECTION_CLOSED, WS_GET_MESSAGE } from "../actions/wsActions";
 import { IStore } from "../reducers";
 
-export const socketMiddleware = (wsUrl: string): any =>
+export interface IWsActions
+{
+    wsInit: string;
+    onOpen: string,
+    onClose: string,
+    onError: string,
+    onMessage: string
+}
+
+export const socketMiddleware = (wsUrl: string, wsActions: IWsActions): any =>
 {
     return (store: IStore) =>
     {
@@ -10,30 +18,34 @@ export const socketMiddleware = (wsUrl: string): any =>
         return (next: any) => (action: any) =>
         {
             const { dispatch }: any = store;
-            const { type } = action;
+            const { type, payload } = action;
 
-            if (type === WS_CONNECTION_START) {
-                socket = new WebSocket(wsUrl);
+            if (type === wsActions.wsInit) {
+                let url = wsUrl;
+                if (payload)
+                    url += '?token=' + payload;
+
+                socket = new WebSocket(url);
             }
 
             if (socket)
             {
                 socket.onopen = event => {
-                    dispatch({ type: WS_CONNECTION_SUCCESS, payload: event });
+                    dispatch({ type: wsActions.onOpen, payload: event });
                 };
 
                 socket.onerror = event => {
-                    dispatch({ type: WS_CONNECTION_ERROR, payload: event });
+                    dispatch({ type: wsActions.onError, payload: event });
                 };
 
                 socket.onmessage = event =>
                 {
                     const { data } = event;
-                    dispatch({ type: WS_GET_MESSAGE, payload: data });
+                    dispatch({ type: wsActions.onMessage, payload: data, dispatch: dispatch });
                 };
 
                 socket.onclose = event => {
-                    dispatch({ type: WS_CONNECTION_CLOSED, payload: event });
+                    dispatch({ type: wsActions.onClose, payload: event });
                 };
             }
 

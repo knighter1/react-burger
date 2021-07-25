@@ -8,20 +8,22 @@ interface IProtectedRouteProps {
     children: React.ReactNode;
 }
 
-export const ProtectedRoute = ({ path, exact, children, ...rest }: IProtectedRouteProps) => {
-    
+export const ProtectedRoute = ({ path, exact, children, ...rest }: IProtectedRouteProps) =>
+{
     const useAuthRes = useAuth();
     let { user }: any = useAuthRes;
     const { getUser }: any = useAuthRes;
     
     const [isUserLoaded, setUserLoaded] = useState(false);
 
-    const init = async () => {
+    const init = async () =>
+    {
         user = await getUser();
         setUserLoaded(true);
     };
 
-    useEffect(() => {
+    useEffect(() =>
+    {
         init();
     }, []);
 

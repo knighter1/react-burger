@@ -1,6 +1,6 @@
 import { useAuth } from '../../services/auth';
 import { Redirect, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface IProtectedRouteProps {
     path: string;
@@ -16,16 +16,18 @@ export const ProtectedRoute = ({ path, exact, children, ...rest }: IProtectedRou
     
     const [isUserLoaded, setUserLoaded] = useState(false);
 
-    const init = async () =>
+    const userRef = useRef(user);
+
+    const init = useCallback(async function ()
     {
-        user = await getUser();
+        userRef.current = await getUser();
         setUserLoaded(true);
-    };
+    }, [getUser, setUserLoaded]);
 
     useEffect(() =>
     {
         init();
-    }, []);
+    }, [init]);
 
     if (!isUserLoaded)
         return null;

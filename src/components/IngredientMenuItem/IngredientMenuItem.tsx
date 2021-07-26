@@ -5,22 +5,7 @@ import { SET_INGREDIENT } from '../../redux/actions/ingredient';
 import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
 import { IStore } from '../../redux/reducers';
-
-export interface IngredientData
-{
-    _id: string;
-    name: string;
-    type: string;
-    proteins: number;
-    fat: number;
-    carbohydrates: number;
-    calories: number;
-    price: number;
-    image: string;
-    image_mobile: string;
-    image_large: string;
-    __v: number    
-}
+import { IngredientData } from '../../types/IIngredientData';
 
 interface IIngredientMenuItemProps
 {

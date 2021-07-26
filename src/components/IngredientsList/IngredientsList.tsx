@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import styles from './IngredientsList.module.css';
-import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import IngredientsListItem from '../IngredientsListItem/IngredientsListItem';
 import { Modal } from '../Modal/Modal';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
+import { IngredientData } from '../../types/IIngredientData';
 
 interface IIngredientsListProps
 {

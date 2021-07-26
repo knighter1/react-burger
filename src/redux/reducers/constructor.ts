@@ -1,5 +1,5 @@
+import { IngredientData } from '../../types/IIngredientData';
 import { ADD_ITEM, REMOVE_ITEM, REORDER_ITEM, RESET_ORDER } from '../actions/constructor';
-import { IngredientData } from '../../components/IngredientMenuItem/IngredientMenuItem';
 
 export interface IConstructorState {
     items: IngredientData[];

@@ -1,10 +1,10 @@
 import { IngredientMenuItem } from '../IngredientMenuItem/IngredientMenuItem';
-import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import styles from './IngredientMenuList.module.css';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useInView } from "react-intersection-observer";
 import { IStore } from '../../redux/reducers';
+import { IngredientData } from '../../types/IIngredientData';
 
 interface IIngredientMenuListProps
 {

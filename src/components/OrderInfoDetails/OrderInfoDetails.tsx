@@ -1,11 +1,11 @@
 import styles from './OrderInfoDetails.module.css';
-import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import { useSelector } from 'react-redux';
 import { IOrderDetailsState } from '../../redux/reducers/orderDetails';
 import { formatOrderDate } from '../../redux/reducers/utils';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { orderCostReducer } from '../../redux/reducers/constructor';
 import { IStore } from '../../redux/reducers';
+import { IngredientData } from '../../types/IIngredientData';
 
 export const OrderInfoDetails = (): JSX.Element => {
 

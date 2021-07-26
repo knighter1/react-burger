@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerConstructor.module.css';
 import IngredientsList from '../IngredientsList/IngredientsList';
-import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import IngredientsListItem from '../IngredientsListItem/IngredientsListItem';
 import { Modal } from '../Modal/Modal';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
@@ -15,6 +14,7 @@ import { useHistory } from "react-router-dom";
 import { placeOrder } from "../../redux/actions/order";
 import { SET_INGREDIENT } from "../../redux/actions/ingredient";
 import { IStore } from "../../redux/reducers";
+import { IngredientData } from "../../types/IIngredientData";
 
 interface IBuns
 {

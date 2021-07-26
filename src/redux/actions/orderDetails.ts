@@ -1,4 +1,4 @@
-import { IngredientData } from "../../components/IngredientMenuItem/IngredientMenuItem";
+import { IngredientData } from "../../types/IIngredientData";
 import { IIngredientsLibState } from "../reducers/ingredientsLib";
 import { IOrderDetailsState } from "../reducers/orderDetails";
 

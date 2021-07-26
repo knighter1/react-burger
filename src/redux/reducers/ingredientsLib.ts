@@ -19,7 +19,7 @@ const initState: IIngredientsLibState =
     isRequest: false
 }
 
-export const apiReducer = (state: IIngredientsLibState = initState, action: any): IIngredientsLibState =>
+export const ingredientsLibReducer = (state: IIngredientsLibState = initState, action: any): IIngredientsLibState =>
 {
     switch (action.type)
     {

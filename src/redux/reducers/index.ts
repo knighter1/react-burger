@@ -1,5 +1,5 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
-import { apiReducer, IIngredientsLibState } from './ingredientsLib';
+import { ingredientsLibReducer, IIngredientsLibState } from './ingredientsLib';
 import { constructorReducer, IConstructorState } from './constructor';
 import { IOrderState, orderReducer } from './order';
 import { ingredientReducer } from './ingredient';
@@ -15,7 +15,7 @@ import { ORDERS_USER_ENDPOINT, userWsReducer, wsActionsUser } from './userWsRedu
 import { IngredientData } from '../../types/IIngredientData';
 
 export const rootReducer = combineReducers({
-    ingredientsLib: apiReducer,
+    ingredientsLib: ingredientsLibReducer,
     constructor: constructorReducer,
     ingredient: ingredientReducer,
     order: orderReducer,

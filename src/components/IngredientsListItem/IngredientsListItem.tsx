@@ -58,7 +58,7 @@ const IngredientsListItem = ({ data, index, type, onClickHandler }: IIngredients
     const [, dropRef] = useDrop({
         accept: "reorder",
         drop(item: any) {
-            dispatch({ type: REORDER_ITEM, newIndex: index, item: item.data, prevIndex: item.prevIndex });
+            dispatch({ type: REORDER_ITEM, newIndex: index, prevIndex: item.prevIndex });
         },
     });
 

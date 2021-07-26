@@ -50,7 +50,7 @@ export const constructorReducer = (state: IConstructorState = constructorInitSta
         case REORDER_ITEM:
         {
             const items = [...state.items];
-            const data = action.item;
+            const data = items[action.prevIndex];
             
             items.splice(action.prevIndex, 1);
             items.splice(action.newIndex, 0, data);

@@ -3,7 +3,7 @@ import { IngredientData } from '../../types/IIngredientData';
 export const ingredient1: IngredientData = {
     _id: '1',
     name: 'name1',
-    type: 'type1',
+    type: 'bun',
     proteins: 10,
     fat: 20,
     carbohydrates: 15,
@@ -23,9 +23,39 @@ export const ingredient2: IngredientData = {
     fat: 200,
     carbohydrates: 150,
     calories: 250,
-    price: 200,
+    price: 225,
     image: 'img2',
     image_mobile: 'img_mob2',
     image_large: 'img_lrg2',
-    __v: 2
+    __v: 1
+}
+
+export const ingredient3: IngredientData = {
+    _id: '3',
+    name: 'name3',
+    type: 'bun',
+    proteins: 100,
+    fat: 200,
+    carbohydrates: 150,
+    calories: 250,
+    price: 133,
+    image: 'img3',
+    image_mobile: 'img_mob3',
+    image_large: 'img_lrg3',
+    __v: 1
+}
+
+export const ingredient4: IngredientData = {
+    _id: '4',
+    name: 'name4',
+    type: 'type4',
+    proteins: 100,
+    fat: 200,
+    carbohydrates: 150,
+    calories: 250,
+    price: 431,
+    image: 'img4',
+    image_mobile: 'img_mob4',
+    image_large: 'img_lrg4',
+    __v: 1
 }

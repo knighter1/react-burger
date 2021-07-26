@@ -3,7 +3,7 @@ import { SET_INGREDIENT } from '../actions/ingredient';
 
 type IngredientDataState = IngredientData | null;
 
-export const ingredientReducer = (state: IngredientDataState = null, action: any) =>
+export const ingredientReducer = (state: IngredientDataState = null, action: any): IngredientDataState =>
 {
     switch (action.type)
     {

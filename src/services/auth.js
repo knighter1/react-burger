@@ -25,7 +25,9 @@ export function useAuth()
 
 export function useProvideAuth()
 {
-    let user = useSelector((store) => store.access.user);
+    const access = useSelector((store) => store.access);
+    let user = access.user;
+    const isAuth = access.isAuth;
 
     const dispatch = useDispatch();
 
@@ -95,11 +97,12 @@ export function useProvideAuth()
         });
     }
 
-    if (user === undefined)
-        getUser();
+    /*if (user === undefined)
+        getUser();*/
 
     return {
         user,
+        isAuth,
         getUser,
         signIn,
         signOut

@@ -47,6 +47,14 @@ const ProfilePage = () =>
             getUser();
     }, [initUser, getUser]);
 
+    useEffect(() => {
+        if (!initUser)
+            return;
+            
+        setName(initUser.name);
+        setEmail(initUser.email);
+    }, [initUser])
+
     const onSubmitHandler = (event: FormEvent) =>
     {
         event.preventDefault();
@@ -54,7 +62,6 @@ const ProfilePage = () =>
     }
 
     return (
-        
         <div className='page-cont'>
             <ProfileMenu />
             <form className='column' onSubmit={(event: FormEvent) => onSubmitHandler(event)}>

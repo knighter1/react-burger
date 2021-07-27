@@ -14,9 +14,9 @@ const SignInPage = () =>
 {
     const { state } = useLocation<stateType>();
 
-    const { signIn, user }: any = useAuth();
+    const { signIn, isAuth }: any = useAuth();
 
-    if (user) {
+    if (isAuth) {
         return (
             <Redirect
                 to={{

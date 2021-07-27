@@ -50,13 +50,13 @@ const BurgerConstructor = () =>
 
     const [orderModalState, setOrderModalState] = useState(false);
 
-    const { user }: any = useAuth();
+    const { isAuth }: any = useAuth();
 
     const history = useHistory();
 
     const placeOrderHandler = () => {
         
-        if (!user)
+        if (!isAuth)
         {
             history.replace('/login');
             return;

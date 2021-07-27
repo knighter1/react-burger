@@ -2,30 +2,27 @@ import { SIGNIN_REQUEST, SIGNIN_ERROR, SIGNIN_SUCCESS, LOGOUT_SUCCESS } from '..
 import { REGISTER_REQUEST, REGISTER_ERROR, REGISTER_SUCCESS } from '../actions/register';
 import { GET_USER_SUCCESS, PATCH_USER_SUCCESS } from '../actions/profile';
 import { setCookie } from '../../utils/cookie';
+import { User } from '../../types/IUser';
 
 export interface IAccessState
 {
     success: boolean;
-
-    user: {
-        email: string;
-        name: string;
-    } | null | undefined;
+    user: User;
 
     isError: boolean;
     isRequest: boolean;
 }
 
-const initState: IAccessState = {
+const initState: IAccessState =
+{
     success: false,
-
     user: undefined,
 
     isError: false,
     isRequest: false
 }
 
-export const accessReducer = (state = initState, action: any): IAccessState =>
+export const accessReducer = (state: IAccessState = initState, action: any): IAccessState =>
 {
     switch (action.type)
     {

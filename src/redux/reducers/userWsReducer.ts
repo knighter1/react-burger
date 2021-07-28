@@ -3,7 +3,8 @@ import { IOrderFeedWebSocketState } from '../../types/IOrderData';
 import { setCookie } from '../../utils/cookie';
 import { USER_WS_CONNECTION_START, USER_WS_CONNECTION_CLOSED, USER_WS_CONNECTION_ERROR, USER_WS_CONNECTION_SUCCESS, USER_WS_GET_MESSAGE } from '../actions/userWsActions';
 
-export const wsActionsUser = {
+export const wsActionsUser =
+{
     wsInit: USER_WS_CONNECTION_START,
     onOpen: USER_WS_CONNECTION_SUCCESS,
     onClose: USER_WS_CONNECTION_CLOSED,
@@ -11,7 +12,7 @@ export const wsActionsUser = {
     onMessage: USER_WS_GET_MESSAGE
 };
 
-const initialState: IOrderFeedWebSocketState =
+export const initialState: IOrderFeedWebSocketState =
 {
     wsConnected: false,
     error: null,
@@ -41,13 +42,15 @@ export const userWsReducer = (state: IOrderFeedWebSocketState = initialState, ac
             {
                 refreshToken()
                 .then(res =>
-                    {
+                {
                     setCookie('accessToken', res.accessToken);
                     action.dispatch({ type: USER_WS_CONNECTION_START, payload: res.accessToken.substr(7) });
                 })
-                .catch(err => console.error('WS: Refresh token error: ', err))
-            }
+                .catch(err => console.error('WS: Refresh token error: ', err));
 
+                return { ...state, error: 'Invalid or missing token', feed: null };
+            }
+            
             return { ...state, error: null, feed: JSON.parse(action.payload) };
         }
 

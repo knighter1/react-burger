@@ -82,11 +82,11 @@ const ModalSwitch = () => {
                             <OrderInfoDetails />
                         </Modal>
                     </Route>
-                    <Route path={'/profile/orders/:id'}>
+                    <ProtectedRoute path={'/profile/orders/:id'}>
                         <Modal closeHandle={() => {history.goBack();}}>
                             <OrderInfoDetails />
                         </Modal>
-                    </Route>
+                    </ProtectedRoute>
                 </Switch>
             </>
             }

@@ -4,7 +4,6 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import { REMOVE_ITEM, REORDER_ITEM } from '../../redux/actions/constructor';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
-import { Link, useLocation } from 'react-router-dom';
 import { IngredientData } from '../../types/IIngredientData';
 
 interface IConstructorElement {
@@ -72,22 +71,15 @@ const IngredientsListItem = ({ data, index, type, onClickHandler }: IIngredients
     
     const className = `${styles.item} ${isDrag ? styles.isDrag : ""}`;
 
-    const location = useLocation();
-
     return (
-        <Link to={{
-            pathname: `/ingredients/${data._id}`,
-            state: {background: location}
-        }}>
-            <div className={className} ref={elementRef} >
-                <div className={buttonPaddingStyle} >
-                    {!elementProps.isLocked && <DragIcon type="primary" />}
-                </div>
-                <div className={`${elementPaddingStyle} ${styles.element}`} onClick={() => onClickHandler(data)}>
-                    <ConstructorElement {...elementProps} />
-                </div>
+        <div className={className} ref={elementRef} >
+            <div className={buttonPaddingStyle} >
+                {!elementProps.isLocked && <DragIcon type="primary" />}
             </div>
-        </Link>
+            <div className={`${styles.element} ${elementPaddingStyle}`} onClick={() => onClickHandler(data)}>
+                <ConstructorElement {...elementProps} />
+            </div>
+        </div>
     );
 }
 

@@ -91,7 +91,7 @@ const BurgerConstructor = () =>
                     {buns.last && <IngredientsListItem type="bottom" data={buns.last} index={-1} onClickHandler={ingredientClickHandler} />}
                 </div>
 
-                <div className={`mt-10 mr-4 ${styles.commitOrderWrapper}`}>
+                <div className={`${styles.commitOrderWrapper} mt-10 mr-4`}>
                     <span className="text text_type_digits-medium mr-2">{currentItems.cost ? currentItems.cost : 0}</span>
                     <CurrencyIcon type="primary" />
                     <div className={`ml-10 ${styles.buttonWrapper}`}>

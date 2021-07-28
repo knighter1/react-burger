@@ -1,5 +1,6 @@
-import { useAuth } from '../../services/auth';
 import { Redirect, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { IStore } from '../../redux/reducers';
 
 interface IProtectedRouteProps {
     path: string;
@@ -7,13 +8,12 @@ interface IProtectedRouteProps {
     children: React.ReactNode;
 }
 
-export const ProtectedRoute = ({ path, exact, children, ...rest }: IProtectedRouteProps) =>
+export const ProtectedRoute = ({ exact, children }: IProtectedRouteProps) =>
 {
-    const { isAuth }: any = useAuth();
+    const isAuth = useSelector((store: IStore) => store.access.isAuth);
 
     return (
         <Route
-            path={path}
             exact={exact === true}
             render={({ location }) =>
                 isAuth ? (

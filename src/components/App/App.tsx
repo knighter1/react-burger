@@ -72,9 +72,6 @@ const ModalSwitch = () => {
             
             { background &&
             <>
-                <ProtectedRoute path='/profile/orders/:id' exact={true}>
-                    <ProfileOrdersPage />
-                </ProtectedRoute>
                 <Switch>
                     <Route path={'/ingredients/:id'}>
                         <Modal closeHandle={() => {history.goBack();}}>

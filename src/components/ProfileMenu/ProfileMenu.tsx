@@ -1,11 +1,14 @@
 import '@ya.praktikum/react-developer-burger-ui-components'
-import { Link, useLocation } from 'react-router-dom';
-import { useAuth } from '../../services/auth';
+import { useDispatch } from 'react-redux';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { signOut } from '../../services/auth';
 import styles from './ProfileMenu.module.css';
 
 const ProfileMenu = () =>
 {
     const location = useLocation();
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     const isProfile: boolean = location.pathname === '/profile';
     const isOrders: boolean = location.pathname === '/profile/orders';
@@ -22,10 +25,8 @@ const ProfileMenu = () =>
         </div>
     );
 
-    const { signOut }: any = useAuth();
-
     const logout = async () => {
-        await signOut();
+        await signOut(dispatch, history);
     }
 
     return (

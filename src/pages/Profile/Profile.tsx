@@ -3,10 +3,10 @@ import styles from './Profile.module.css';
 import './Profile.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormEvent, useEffect, useState } from 'react';
-import { useAuth } from '../../services/auth';
 import ProfileMenu from '../../components/ProfileMenu/ProfileMenu';
 import { updateUserInfo } from '../../redux/actions/profile';
 import { IStore } from '../../redux/reducers';
+import { getUser } from '../../services/auth';
 
 const ProfilePage = () =>
 {
@@ -39,13 +39,11 @@ const ProfilePage = () =>
             setIsModified(true);
     }, [initUser, name, email, password, setIsModified]);
 
-    const { getUser }: any = useAuth();
-
     useEffect(() =>
     {
         if (initUser === null)
-            getUser();
-    }, [initUser, getUser]);
+            getUser(dispatch);
+    }, [initUser, dispatch]);
 
     useEffect(() => {
         if (!initUser)

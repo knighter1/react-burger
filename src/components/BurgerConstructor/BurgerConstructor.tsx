@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { ADD_ITEM } from "../../redux/actions/constructor";
 import { useDrop } from "react-dnd";
 import { IConstructorState } from "../../redux/reducers/constructor";
-import { useAuth } from "../../services/auth";
 import { useHistory } from "react-router-dom";
 import { placeOrder } from "../../redux/actions/order";
 import { SET_INGREDIENT } from "../../redux/actions/ingredient";
@@ -50,7 +49,7 @@ const BurgerConstructor = () =>
 
     const [orderModalState, setOrderModalState] = useState(false);
 
-    const { isAuth }: any = useAuth();
+    const isAuth = useSelector((store: IStore) => store.access.isAuth);
 
     const history = useHistory();
 

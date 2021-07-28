@@ -2,10 +2,10 @@ import styles from './ForgotPassword.module.css'
 import './ForgotPassword.css';
 import ForgotPasswordForm from '../../components/ForgotPasswordForm/ForgotPasswordForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect, useHistory } from 'react-router-dom';
-import { useAuth } from '../../services/auth';
 import { initResetPassword } from '../../redux/actions/initResetPassword';
+import { IStore } from '../../redux/reducers';
 
 const ForgotPasswordPage = () =>
 {
@@ -17,7 +17,7 @@ const ForgotPasswordPage = () =>
         dispatch(initResetPassword(email, history));
     }
 
-    const { isAuth }: any = useAuth();
+    const isAuth: boolean = useSelector((store: IStore) => store.access.isAuth);
 
     if (isAuth) {
         return (

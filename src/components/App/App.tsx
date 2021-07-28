@@ -9,7 +9,6 @@ import ResetPasswordPage from '../../pages/ResetPassword/ResetPassword';
 import OrdersFeedPage from '../../pages/OrdersFeed/OrdersFeed';
 import ProfilePage from '../../pages/Profile/Profile';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
-import { ProvideAuth } from '../../services/auth';
 import IngredientPage from '../../pages/Ingredient/Ingredient';
 import NotFound404 from '../../pages/NotFound404/NotFound404';
 import { Modal } from '../Modal/Modal';
@@ -29,7 +28,7 @@ const ModalSwitch = () => {
     const background = history.action === "PUSH" && location.state && location.state.background;
 
     return (
-        <ProvideAuth>
+        <>
             <AppHeader />
             <Switch location={background || location}>
                 <Route path="/" exact={true}>
@@ -91,7 +90,7 @@ const ModalSwitch = () => {
                 </Switch>
             </>
             }
-        </ProvideAuth>
+        </>
     );
 }
 

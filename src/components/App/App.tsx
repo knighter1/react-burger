@@ -98,7 +98,9 @@ const App = () => {
 
     const dispatch = useDispatch();
 
-    useEffect(() => dispatch(getIngredientsLib()), [dispatch]);
+    useEffect(() => {
+        dispatch(getIngredientsLib())
+    }, [dispatch]);
 
     return (
         <div className={styles.appCont}>

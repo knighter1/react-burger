@@ -1,7 +1,7 @@
 import { getCookie, setCookie } from "../utils/cookie";
 
-const checkResponse = (res) => {
-	return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
+const checkResponse = (res: any) => {
+	return res.ok ? res.json() : res.json().then((err: Error) => Promise.reject(err));
 }
 
 export const refreshToken = () =>
@@ -20,20 +20,28 @@ export const refreshToken = () =>
 	.then(checkResponse);
 }
 
-export const fetchWithRefresh = async (url, options) =>
+export const fetchWithRefresh = async (url: string, options: RequestInit) =>
 {
-    try {
+    try
+    {
 		const res = await fetch(url, options);
 		return await checkResponse(res);
 	}
-	catch (err) {
-		if (err.message === "jwt expired") {
+	catch (err)
+    {
+		if (err.message === "jwt expired")
+        {
 			const refreshData = await refreshToken();
 
 			setCookie('refreshToken', refreshData.refreshToken);
 			setCookie('accessToken', refreshData.accessToken);
 
-			options.headers.Authorization = refreshData.accessToken;
+            const headers = {
+                Authorization: refreshData.accessToken
+            }
+
+			options.headers = { ...options.headers, ...headers };
+            
             const res = await fetch(url, options);
             return await checkResponse(res);
 		}

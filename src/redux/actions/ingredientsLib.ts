@@ -6,7 +6,7 @@ export function getIngredientsLib()
 {
     const INGREDIENTS_ENDPOINT = 'https://norma.nomoreparties.space/api/ingredients';
 
-    return function(dispatch)
+    return function(dispatch: Function)
     {
         dispatch({ type: GET_INGREDIENTS_LIB_REQUEST });
 

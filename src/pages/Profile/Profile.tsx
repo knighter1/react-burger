@@ -2,11 +2,11 @@ import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burg
 import styles from './Profile.module.css';
 import './Profile.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { IStore } from '../..';
 import { FormEvent, useEffect, useState } from 'react';
 import { useAuth } from '../../services/auth';
 import ProfileMenu from '../../components/ProfileMenu/ProfileMenu';
-import { updateUserInfo } from '../../services/actions/profile';
+import { updateUserInfo } from '../../redux/actions/profile';
+import { IStore } from '../../redux/reducers';
 
 const ProfilePage = () =>
 {
@@ -14,9 +14,9 @@ const ProfilePage = () =>
     const [isModified, setIsModified] = useState(false);
 
     let initUser = useSelector((store: IStore) => store.access.user);
+
     const [name, setName] = useState(initUser ? initUser.name : '');
     const [email, setEmail] = useState(initUser ? initUser.email : '');
-
     const [password, setPassword] = useState('');
 
     const reset = () =>
@@ -41,12 +41,22 @@ const ProfilePage = () =>
 
     const { getUser }: any = useAuth();
 
-    useEffect(() => {
+    useEffect(() =>
+    {
         if (initUser === null)
             getUser();
     }, [initUser, getUser]);
 
-    const onSubmitHandler = (event: FormEvent) => {
+    useEffect(() => {
+        if (!initUser)
+            return;
+            
+        setName(initUser.name);
+        setEmail(initUser.email);
+    }, [initUser])
+
+    const onSubmitHandler = (event: FormEvent) =>
+    {
         event.preventDefault();
         updateUserInfoHandler();
     }

@@ -1,8 +1,8 @@
 import { IngredientData } from '../../components/IngredientMenuItem/IngredientMenuItem';
-import { SET_ORDER_DETAIL } from '../actions/order';
+import { SET_ORDER_DETAIL } from '../actions/orderDetails';
 
 export interface IOrderDetailsState {
-    orderId: string;
+    number: number;
     ingredients: IngredientData[];
     name: string;
     date: Date | null;
@@ -10,7 +10,7 @@ export interface IOrderDetailsState {
 }
 
 const initState: IOrderDetailsState = {
-    orderId: "",
+    number: 0,
     ingredients: [],
     name: "",
     date: null,
@@ -22,7 +22,7 @@ export const orderDetailsReducer = (state = initState, action: any) =>
     switch (action.type)
     {
         case SET_ORDER_DETAIL:
-            return { ...action.ingredientData };
+            return { ...action.orderData };
 
         default:
             return state;

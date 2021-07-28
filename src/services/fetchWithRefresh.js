@@ -4,7 +4,8 @@ const checkResponse = (res) => {
 	return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 }
 
-export const refreshToken = () => {
+export const refreshToken = () =>
+{
     const options = {
 		method: 'POST',
 		headers: {
@@ -19,8 +20,8 @@ export const refreshToken = () => {
 	.then(checkResponse);
 }
 
-export const fetchWithRefresh = async (url, options) => {
-	
+export const fetchWithRefresh = async (url, options) =>
+{
     try {
 		const res = await fetch(url, options);
 		return await checkResponse(res);

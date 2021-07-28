@@ -7,14 +7,14 @@ import IngredientsListItem from '../IngredientsListItem/IngredientsListItem';
 import { Modal } from '../Modal/Modal';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { useDispatch, useSelector } from "react-redux";
-import { IStore } from '../../index';
-import { ADD_ITEM } from "../../services/actions/constructor";
+import { ADD_ITEM } from "../../redux/actions/constructor";
 import { useDrop } from "react-dnd";
-import { IConstructorState } from "../../services/reducers/constructor";
+import { IConstructorState } from "../../redux/reducers/constructor";
 import { useAuth } from "../../services/auth";
 import { useHistory } from "react-router-dom";
-import { placeOrder } from "../../services/actions/order";
-import { SET_INGREDIENT } from "../../services/actions/ingredient";
+import { placeOrder } from "../../redux/actions/order";
+import { SET_INGREDIENT } from "../../redux/actions/ingredient";
+import { IStore } from "../../redux/reducers";
 
 interface IBuns
 {
@@ -50,13 +50,13 @@ const BurgerConstructor = () =>
 
     const [orderModalState, setOrderModalState] = useState(false);
 
-    const { user }: any = useAuth();
+    const { isAuth }: any = useAuth();
 
     const history = useHistory();
 
     const placeOrderHandler = () => {
         
-        if (!user)
+        if (!isAuth)
         {
             history.replace('/login');
             return;

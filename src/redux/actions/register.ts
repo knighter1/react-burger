@@ -28,7 +28,6 @@ export function register(email: string, password: string, name: string, history:
             dispatch({ type: REGISTER_SUCCESS, ...responseObj });
             history.replace('/');
             setCookie('refreshToken', responseObj.refreshToken);
-            console.log(responseObj);
         })
         .catch(error => {
             dispatch({ type: REGISTER_ERROR });

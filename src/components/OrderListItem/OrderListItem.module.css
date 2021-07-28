@@ -1,16 +1,19 @@
 .cont {
     border-radius: 32px;
     background-color: #1c1c21;
-    width: 536px;
+    width: 100%;
     height: 166px;
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 24px;
 
+    padding: 24px;
+    margin-right: 10px;
     margin-bottom: 16px;
+    
     cursor: pointer;
+    color: white;
 }
 
 .top {
@@ -57,4 +60,16 @@
 .priceCont {
     bottom: -20px;
     position: relative;
+}
+
+.statusDone {
+    color: #0cc;
+}
+
+.statusCreated {
+    color: #0b0;
+}
+
+.statusCanceled {
+    color: #b00;
 }

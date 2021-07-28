@@ -5,7 +5,7 @@ import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
 import { useDispatch } from 'react-redux';
 import { useAuth } from '../../services/auth';
-import { register } from '../../services/actions/register';
+import { register } from '../../redux/actions/register';
 
 const RegisterPage = () =>
 {
@@ -17,9 +17,9 @@ const RegisterPage = () =>
         dispatch(register(email, password, name, history));   
     }
 
-    const { user }: any = useAuth();
+    const { isAuth }: any = useAuth();
 
-    if (user) {
+    if (isAuth) {
         return (
             <Redirect
                 to={{

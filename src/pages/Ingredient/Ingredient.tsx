@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { IStore } from "../..";
 import { IngredientDetails } from "../../components/IngredientDetails/IngredientDetails";
 import { IngredientData } from "../../components/IngredientMenuItem/IngredientMenuItem";
-import { SET_INGREDIENT } from "../../services/actions/ingredient";
+import { SET_INGREDIENT } from "../../redux/actions/ingredient";
+import { IStore } from "../../redux/reducers";
 
 const IngredientPage = () =>
 {
@@ -11,7 +11,7 @@ const IngredientPage = () =>
 
     const dispatch = useDispatch();
 
-    const ingredientsLib: IngredientData[] = useSelector((store: IStore) => store.ingredientsLib.data);
+    const ingredientsLib: IngredientData[] = useSelector((store: IStore) => store.ingredientsLib.items);
 
     const ingredient: IngredientData | undefined = ingredientsLib.find((item: IngredientData) => item._id === id);
 

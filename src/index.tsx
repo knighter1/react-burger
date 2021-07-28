@@ -4,39 +4,7 @@ import './index.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { compose, createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { rootReducer } from './services/reducers/index';
-import { IngredientData } from './components/IngredientMenuItem/IngredientMenuItem';
-import { IConstructorState } from './services/reducers/constructor';
-import { IApiState } from './services/reducers/ingredientsLib';
-import { IOrderState } from './services/reducers/order';
-import { IInitResetPasswordState } from './services/reducers/initResetPassword';
-import { IResetPasswordState } from './services/reducers/resetPassword';
-import { IAccessState } from './services/reducers/access';
-import { IOrderDetailsState } from './services/reducers/orderDetails';
-
-declare global {
-    interface Window {
-      __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-    }
-}
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const enhancer = composeEnhancers(applyMiddleware(thunk));
-
-export interface IStore {
-    ingredientsLib: IApiState,
-    constructor: IConstructorState,
-    ingredient: IngredientData | null,
-    order: IOrderState,
-    orderDetails: IOrderDetailsState,
-    initResetPassword: IInitResetPasswordState,
-    resetPassword: IResetPasswordState,
-    access: IAccessState,
-}
-
-const store = createStore(rootReducer, enhancer);
+import { store } from './redux/reducers/index';
 
 ReactDOM.render( 
     <React.StrictMode>
@@ -44,7 +12,7 @@ ReactDOM.render(
             <App />
         </Provider>
     </React.StrictMode>,
-  document.getElementById('root')
+    document.getElementById('root')
 );
 
 reportWebVitals();

@@ -1,10 +1,9 @@
 import styles from './IngredientDetails.module.css';
 import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { IStore } from '../..';
 import { useEffect } from 'react';
-import { SET_INGREDIENT } from '../../services/actions/ingredient';
-import { useLocation } from 'react-router-dom';
+import { SET_INGREDIENT } from '../../redux/actions/ingredient';
+import { IStore } from '../../redux/reducers';
 
 export const IngredientDetails = (): JSX.Element => {
 
@@ -24,16 +23,8 @@ export const IngredientDetails = (): JSX.Element => {
     }
     useEffect(dropIngredient, [dispatch]);
 
-    const location = useLocation();
-    const getContStyle = () => {
-        if (location.pathname.indexOf('/ingredient') === 0)
-            return `${styles.pageContainer} modal-сontent`
-        
-        return `${styles.container} modal-сontent`
-    }
-
     return (
-        <div className={getContStyle()}>
+        <div className={`${styles.pageContainer} modal-сontent`}>
             <div className={`${styles.title} text text_type_main-large ml-10 mt-10 mr-10 pt-2`}>
                 Детали ингредиента
             </div>

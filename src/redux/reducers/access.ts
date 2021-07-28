@@ -1,6 +1,6 @@
-import { SIGNIN_REQUEST, SIGNIN_ERROR, SIGNIN_SUCCESS, LOGOUT_SUCCESS } from '../actions/auth';
+import { SIGNIN_REQUEST, SIGNIN_ERROR, SIGNIN_SUCCESS, LOGOUT_SUCCESS, LOGOUT_REQUEST, LOGOUT_ERROR } from '../actions/auth';
 import { REGISTER_REQUEST, REGISTER_ERROR, REGISTER_SUCCESS } from '../actions/register';
-import { GET_USER_SUCCESS, PATCH_USER_SUCCESS } from '../actions/profile';
+import { GET_USER_ERROR, GET_USER_REQUEST, GET_USER_SUCCESS, PATCH_USER_ERROR, PATCH_USER_REQUEST, PATCH_USER_SUCCESS } from '../actions/profile';
 import { getCookie, setCookie } from '../../utils/cookie';
 import { User } from '../../types/IUser';
 
@@ -32,37 +32,40 @@ export const accessReducer = (state: IAccessState = initState, action: any): IAc
     {
         case REGISTER_REQUEST:
         case SIGNIN_REQUEST:
-            console.log("accessReducer action: ", action);
-            return { ...initState, isError: false, isRequest: true, isAuth: false };
+            return { ...state, isError: false, isRequest: true, isAuth: false };
+
+        case LOGOUT_REQUEST:
+        case PATCH_USER_REQUEST:
+        case GET_USER_REQUEST:
+            return { ...state, isError: false, isRequest: true, isAuth: true };
+
+        case REGISTER_ERROR:
+        case SIGNIN_ERROR:
+            return { ...state, isError: true, isRequest: false, isAuth: false };
+
+        case LOGOUT_ERROR:
+        case PATCH_USER_ERROR:
+        case GET_USER_ERROR:
+            return { ...state, isError: true, isRequest: false, isAuth: true };
 
         case REGISTER_SUCCESS:
         case SIGNIN_SUCCESS:
         {
-            console.log("accessReducer action: ", action);
-
             setCookie('accessToken', action.accessToken);
             setCookie('refreshToken', action.refreshToken);
-
-            return { ...action, isError: false, isRequest: false, isAuth: true };
+            return { success: true, user: action.user, isError: false, isRequest: false, isAuth: true };
         }
-
-        case REGISTER_ERROR:
-        case SIGNIN_ERROR:
-            console.log("accessReducer action: ", action);
-            return { ...state, isError: true, isRequest: false };
-
-        case LOGOUT_SUCCESS:
-            console.log("accessReducer action: ", action);
-
-            setCookie('accessToken', '');
-            setCookie('refreshToken', '');
-
-            return { ...action, isError: false, isRequest: false, user: null, isAuth: false };
 
         case GET_USER_SUCCESS:
         case PATCH_USER_SUCCESS:
-            console.log("accessReducer action: ", action);
-            return { ...state, user: action.user };
+            return { ...state, success: true, user: action.user };
+
+        case LOGOUT_SUCCESS:
+        {
+            setCookie('accessToken', '');
+            setCookie('refreshToken', '');
+            return { ...state, success: true, isError: false, isRequest: false, user: null, isAuth: false };
+        }
 
         default:
             return state;

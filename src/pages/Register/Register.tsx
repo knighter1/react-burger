@@ -17,9 +17,9 @@ const RegisterPage = () =>
         dispatch(register(email, password, name, history));   
     }
 
-    const { user }: any = useAuth();
+    const { isAuth }: any = useAuth();
 
-    if (user) {
+    if (isAuth) {
         return (
             <Redirect
                 to={{

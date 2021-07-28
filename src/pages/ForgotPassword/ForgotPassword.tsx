@@ -17,9 +17,9 @@ const ForgotPasswordPage = () =>
         dispatch(initResetPassword(email, history));
     }
 
-    const { user }: any = useAuth();
+    const { isAuth }: any = useAuth();
 
-    if (user) {
+    if (isAuth) {
         return (
             <Redirect
                 to={{

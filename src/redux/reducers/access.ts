@@ -1,7 +1,7 @@
 import { SIGNIN_REQUEST, SIGNIN_ERROR, SIGNIN_SUCCESS, LOGOUT_SUCCESS } from '../actions/auth';
 import { REGISTER_REQUEST, REGISTER_ERROR, REGISTER_SUCCESS } from '../actions/register';
 import { GET_USER_SUCCESS, PATCH_USER_SUCCESS } from '../actions/profile';
-import { setCookie } from '../../utils/cookie';
+import { getCookie, setCookie } from '../../utils/cookie';
 import { User } from '../../types/IUser';
 
 export interface IAccessState
@@ -11,6 +11,8 @@ export interface IAccessState
 
     isError: boolean;
     isRequest: boolean;
+
+    isAuth: boolean;
 }
 
 const initState: IAccessState =
@@ -19,7 +21,9 @@ const initState: IAccessState =
     user: undefined,
 
     isError: false,
-    isRequest: false
+    isRequest: false,
+
+    isAuth: getCookie('refreshToken') !== undefined && getCookie('refreshToken') !== ""
 }
 
 export const accessReducer = (state: IAccessState = initState, action: any): IAccessState =>
@@ -36,7 +40,7 @@ export const accessReducer = (state: IAccessState = initState, action: any): IAc
             setCookie('accessToken', action.accessToken);
             setCookie('refreshToken', action.refreshToken);
 
-            return { ...action, isError: false, isRequest: false };
+            return { ...action, isError: false, isRequest: false, isAuth: true };
         }
 
         case REGISTER_ERROR:
@@ -47,7 +51,7 @@ export const accessReducer = (state: IAccessState = initState, action: any): IAc
             setCookie('accessToken', '');
             setCookie('refreshToken', '');
 
-            return { ...action, isError: false, isRequest: false, user: null };
+            return { ...action, isError: false, isRequest: false, user: null, isAuth: false };
 
         case GET_USER_SUCCESS:
         case PATCH_USER_SUCCESS:

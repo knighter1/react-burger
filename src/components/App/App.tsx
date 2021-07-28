@@ -70,10 +70,12 @@ const ModalSwitch = () => {
                 </Route>
             </Switch>
             
-            <Switch>
-            {
-                background &&
-                <>
+            { background &&
+            <>
+                <ProtectedRoute path='/profile/orders/:id' exact={true}>
+                    <ProfileOrdersPage />
+                </ProtectedRoute>
+                <Switch>
                     <Route path={'/ingredients/:id'}>
                         <Modal closeHandle={() => {history.goBack();}}>
                             <IngredientDetails />
@@ -89,9 +91,9 @@ const ModalSwitch = () => {
                             <OrderInfoDetails />
                         </Modal>
                     </Route>
-                </>
+                </Switch>
+            </>
             }
-            </Switch>
         </ProvideAuth>
     );
 }

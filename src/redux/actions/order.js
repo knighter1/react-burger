@@ -25,6 +25,7 @@ export function placeOrder(currentItems, setOrderModalState)
     {
         dispatch({ type: PLACE_ORDER_REQUEST });
         const accessToken = getCookie('accessToken');
+        setOrderModalState(true);
 
         fetch(PLACE_ORDER_ENDPOINT, {
             method: 'POST',

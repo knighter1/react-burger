@@ -21,10 +21,10 @@ const ResetPasswordPage = () =>
         dispatch(resetPassword(password, token, history));
     }
 
-    const { user }: any = useAuth();
+    const { isAuth }: any = useAuth();
     const { state } = useLocation<stateType>();
 
-    if (user || state === undefined || (state && state.from.pathname !== '/forgot-password')) {
+    if (isAuth || state === undefined || (state && state.from.pathname !== '/forgot-password')) {
         return (
             <Redirect
                 to={{

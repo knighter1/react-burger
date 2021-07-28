@@ -9,7 +9,8 @@ export interface IResetPasswordState
     isRequest: boolean;
 }
 
-const initState: IResetPasswordState = {
+export const initState: IResetPasswordState =
+{
     success: false,
     message: '',
 

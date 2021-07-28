@@ -42,7 +42,12 @@ const ProfilePage = () =>
     useEffect(() =>
     {
         if (initUser && (initUser.name !== name || initUser.email !== email || password !== ''))
+        {
             setIsModified(true);
+            return;
+        }
+
+        setIsModified(false);
     }, [initUser, name, email, password, setIsModified]);
 
     // запрос данных на сервер

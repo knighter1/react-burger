@@ -1,7 +1,8 @@
 import { IOrderFeedWebSocketState } from '../../types/IOrderData';
 import { FEED_WS_CONNECTION_START, FEED_WS_CONNECTION_CLOSED, FEED_WS_CONNECTION_ERROR, FEED_WS_CONNECTION_SUCCESS, FEED_WS_GET_MESSAGE } from '../actions/feedWsActions';
 
-export const wsActionsFeed = {
+export const wsActionsFeed =
+{
     wsInit: FEED_WS_CONNECTION_START,
     onOpen: FEED_WS_CONNECTION_SUCCESS,
     onClose: FEED_WS_CONNECTION_CLOSED,
@@ -9,7 +10,7 @@ export const wsActionsFeed = {
     onMessage: FEED_WS_GET_MESSAGE
 };
 
-const initialState: IOrderFeedWebSocketState =
+export const initialState: IOrderFeedWebSocketState =
 {
     wsConnected: false,
     error: null,
@@ -32,6 +33,7 @@ export const feedWsReducer = (state: IOrderFeedWebSocketState = initialState, ac
             return { ...state, error: null, wsConnected: false };
 
         case FEED_WS_GET_MESSAGE:
+            console.log(action.payload);
             return { ...state, error: null, feed: JSON.parse(action.payload) };
 
         default:

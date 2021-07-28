@@ -13,7 +13,8 @@ const ProfilePage = () =>
     const dispatch = useDispatch();
     const [isModified, setIsModified] = useState(false);
 
-    let initUser = useSelector((store: IStore) => store.access.user);
+    const access = useSelector((store: IStore) => store.access);
+    let initUser = access.user;
 
     const [name, setName] = useState(initUser ? initUser.name : '');
     const [email, setEmail] = useState(initUser ? initUser.email : '');
@@ -30,22 +31,30 @@ const ProfilePage = () =>
         setIsModified(false);
     }
 
-    const updateUserInfoHandler = () => {
-        dispatch(updateUserInfo(email, name, setIsModified));   
+    const updateUserInfoHandler = () => dispatch(updateUserInfo(email, name, password, onPathSuccess));
+
+    const onPathSuccess = () => {
+        setPassword('');
+        setIsModified(false);
     }
 
-    useEffect(() => {
+    // изменение полей
+    useEffect(() =>
+    {
         if (initUser && (initUser.name !== name || initUser.email !== email || password !== ''))
             setIsModified(true);
     }, [initUser, name, email, password, setIsModified]);
 
+    // запрос данных на сервер
     useEffect(() =>
     {
-        if (initUser === null)
+        if (initUser === null || initUser === undefined)
             getUser(dispatch);
     }, [initUser, dispatch]);
 
-    useEffect(() => {
+    // заполнение полей
+    useEffect(() =>
+    {
         if (!initUser)
             return;
             

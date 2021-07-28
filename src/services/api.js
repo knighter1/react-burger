@@ -36,8 +36,6 @@ export const logoutRequest = async () => {
 
 export const getUserRequest = async () =>
 {
-    console.trace("getUserRequest");
-
     const accessToken = getCookie('accessToken');
     return await fetchWithRefresh(USER_END_POINT, {
         method: 'GET',

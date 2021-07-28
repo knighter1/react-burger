@@ -33,7 +33,6 @@ export const feedWsReducer = (state: IOrderFeedWebSocketState = initialState, ac
             return { ...state, error: null, wsConnected: false };
 
         case FEED_WS_GET_MESSAGE:
-            console.log(action.payload);
             return { ...state, error: null, feed: JSON.parse(action.payload) };
 
         default:

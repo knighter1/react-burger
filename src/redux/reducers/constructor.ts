@@ -15,7 +15,9 @@ const constructorInitState: IConstructorState = {
 
 export const orderCostReducer = (items: IngredientData[], bun: IngredientData | null): number =>
 {
-    let costValue: number = items.reduce((acc: number, item: IngredientData) => {
+    let costValue: number = 0;
+    
+    costValue += items?.reduce((acc: number, item: IngredientData) => {
         return acc + item.price;
     }, 0);
 

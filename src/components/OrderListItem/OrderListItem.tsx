@@ -29,7 +29,7 @@ const OrderListItem = ({name, number, _ingredients, date, status }: IOrderListIt
     const lib = useSelector((store: IStore) => store.ingredientsLib.itemsById);
 
     useEffect(() => {
-        const orderIngredients: IngredientData[] = _ingredients.map(id => lib?.get(id)) as IngredientData[];
+        const orderIngredients: IngredientData[] = _ingredients.filter(item => item !== null && item !== undefined).map(id => lib?.get(id)) as IngredientData[];
         setIngredients(orderIngredients);
         setCost(orderCostReducer(orderIngredients.slice(1, orderIngredients.length), orderIngredients[0]));
     }, [lib, _ingredients]);

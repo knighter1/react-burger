@@ -41,7 +41,7 @@ export function getOrderById(id: number, lib: IIngredientsLibState)
                 ingredientsIds = responseObj.orders[0].ingredients;
 
                 if (orderData)
-                    orderData.ingredients = ingredientsIds.map(id => {
+                    orderData.ingredients = ingredientsIds.filter(item => item !== null && item !== undefined).map(id => {
                         const item: IngredientData | undefined = lib.itemsById?.get(id);
                         return item;
                     }) as IngredientData[];

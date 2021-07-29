@@ -9,7 +9,6 @@ import ResetPasswordPage from '../../pages/ResetPassword/ResetPassword';
 import OrdersFeedPage from '../../pages/OrdersFeed/OrdersFeed';
 import ProfilePage from '../../pages/Profile/Profile';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
-import { ProvideAuth } from '../../services/auth';
 import IngredientPage from '../../pages/Ingredient/Ingredient';
 import NotFound404 from '../../pages/NotFound404/NotFound404';
 import { Modal } from '../Modal/Modal';
@@ -29,7 +28,7 @@ const ModalSwitch = () => {
     const background = history.action === "PUSH" && location.state && location.state.background;
 
     return (
-        <ProvideAuth>
+        <>
             <AppHeader />
             <Switch location={background || location}>
                 <Route path="/" exact={true}>
@@ -72,9 +71,6 @@ const ModalSwitch = () => {
             
             { background &&
             <>
-                <ProtectedRoute path='/profile/orders/:id' exact={true}>
-                    <ProfileOrdersPage />
-                </ProtectedRoute>
                 <Switch>
                     <Route path={'/ingredients/:id'}>
                         <Modal closeHandle={() => {history.goBack();}}>
@@ -86,15 +82,15 @@ const ModalSwitch = () => {
                             <OrderInfoDetails />
                         </Modal>
                     </Route>
-                    <Route path={'/profile/orders/:id'}>
+                    <ProtectedRoute path={'/profile/orders/:id'}>
                         <Modal closeHandle={() => {history.goBack();}}>
                             <OrderInfoDetails />
                         </Modal>
-                    </Route>
+                    </ProtectedRoute>
                 </Switch>
             </>
             }
-        </ProvideAuth>
+        </>
     );
 }
 
@@ -102,7 +98,9 @@ const App = () => {
 
     const dispatch = useDispatch();
 
-    useEffect(() => dispatch(getIngredientsLib()), [dispatch]);
+    useEffect(() => {
+        dispatch(getIngredientsLib())
+    }, [dispatch]);
 
     return (
         <div className={styles.appCont}>

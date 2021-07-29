@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerConstructor.module.css';
 import IngredientsList from '../IngredientsList/IngredientsList';
-import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import IngredientsListItem from '../IngredientsListItem/IngredientsListItem';
 import { Modal } from '../Modal/Modal';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
@@ -10,11 +9,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { ADD_ITEM } from "../../redux/actions/constructor";
 import { useDrop } from "react-dnd";
 import { IConstructorState } from "../../redux/reducers/constructor";
-import { useAuth } from "../../services/auth";
 import { useHistory } from "react-router-dom";
 import { placeOrder } from "../../redux/actions/order";
 import { SET_INGREDIENT } from "../../redux/actions/ingredient";
 import { IStore } from "../../redux/reducers";
+import { IngredientData } from "../../types/IIngredientData";
 
 interface IBuns
 {
@@ -50,7 +49,7 @@ const BurgerConstructor = () =>
 
     const [orderModalState, setOrderModalState] = useState(false);
 
-    const { isAuth }: any = useAuth();
+    const isAuth = useSelector((store: IStore) => store.access.isAuth);
 
     const history = useHistory();
 
@@ -91,7 +90,7 @@ const BurgerConstructor = () =>
                     {buns.last && <IngredientsListItem type="bottom" data={buns.last} index={-1} onClickHandler={ingredientClickHandler} />}
                 </div>
 
-                <div className={`mt-10 mr-4 ${styles.commitOrderWrapper}`}>
+                <div className={`${styles.commitOrderWrapper} mt-10 mr-4`}>
                     <span className="text text_type_digits-medium mr-2">{currentItems.cost ? currentItems.cost : 0}</span>
                     <CurrencyIcon type="primary" />
                     <div className={`ml-10 ${styles.buttonWrapper}`}>

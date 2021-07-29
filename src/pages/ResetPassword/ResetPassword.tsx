@@ -2,10 +2,10 @@ import styles from './ResetPassword.module.css'
 import './ResetPassword.css';
 import ResetPasswordForm from '../../components/ResetPasswordForm/ResetPasswordForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
-import { useAuth } from '../../services/auth';
 import { resetPassword } from '../../redux/actions/resetPassword';
+import { IStore } from '../../redux/reducers';
 
 interface stateType {
     from: { pathname: string }
@@ -21,7 +21,8 @@ const ResetPasswordPage = () =>
         dispatch(resetPassword(password, token, history));
     }
 
-    const { isAuth }: any = useAuth();
+    const isAuth: boolean = useSelector((store: IStore) => store.access.isAuth);
+
     const { state } = useLocation<stateType>();
 
     if (isAuth || state === undefined || (state && state.from.pathname !== '/forgot-password')) {

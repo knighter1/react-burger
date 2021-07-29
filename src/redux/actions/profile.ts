@@ -10,9 +10,9 @@ export const PATCH_USER_REQUEST = 'PATCH_USER_REQUEST';
 export const PATCH_USER_SUCCESS = 'PATCH_USER_SUCCESS';
 export const PATCH_USER_ERROR = 'PATCH_USER_ERROR';
 
-export function updateUserInfo(email, name, setIsModified)
+export function updateUserInfo(email: string, name: string, password: string, onPathSuccess: Function)
 {
-    return function(dispatch)
+    return function(dispatch: Function)
     {
         dispatch({ type: PATCH_USER_REQUEST });
         const accessToken = getCookie('accessToken');
@@ -22,7 +22,7 @@ export function updateUserInfo(email, name, setIsModified)
               'Content-Type': 'application/json',
               'Authorization': accessToken ? accessToken : ''
             },
-            body: JSON.stringify({ email: email, name: name })};
+            body: JSON.stringify({ email: email, name: name, password: password })};
 
         fetchWithRefresh(USER_END_POINT, info)
         .then(response => {
@@ -33,7 +33,7 @@ export function updateUserInfo(email, name, setIsModified)
         })
         .then(responseObj => {
             dispatch({ type: PATCH_USER_SUCCESS, ...responseObj });
-            setIsModified(false);
+            onPathSuccess();
         })
         .catch(error => {
             dispatch({ type: PATCH_USER_ERROR });

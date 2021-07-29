@@ -41,7 +41,9 @@ const AppHeader = () => {
                 {!isConstructor ? <Link to='/'>{constructorCont}</Link> : constructorCont}
                 {!isFeed ? <Link to='/feed'>{feedCont}</Link> : feedCont}
             </nav>
-            <Logo />
+            <Link to='/'>
+                <Logo />
+            </Link>
             <nav className={`${styles.sideRow} ${styles.right}`}>
                 {!isProfile ? <Link to='/profile'>{profileCont}</Link> : profileCont}
             </nav>

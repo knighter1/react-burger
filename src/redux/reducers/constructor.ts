@@ -1,5 +1,5 @@
+import { IngredientData } from '../../types/IIngredientData';
 import { ADD_ITEM, REMOVE_ITEM, REORDER_ITEM, RESET_ORDER } from '../actions/constructor';
-import { IngredientData } from '../../components/IngredientMenuItem/IngredientMenuItem';
 
 export interface IConstructorState {
     items: IngredientData[];
@@ -15,7 +15,9 @@ const constructorInitState: IConstructorState = {
 
 export const orderCostReducer = (items: IngredientData[], bun: IngredientData | null): number =>
 {
-    let costValue: number = items.reduce((acc: number, item: IngredientData) => {
+    let costValue: number = 0;
+    
+    costValue += items?.reduce((acc: number, item: IngredientData) => {
         return acc + item.price;
     }, 0);
 
@@ -50,7 +52,7 @@ export const constructorReducer = (state: IConstructorState = constructorInitSta
         case REORDER_ITEM:
         {
             const items = [...state.items];
-            const data = action.item;
+            const data = items[action.prevIndex];
             
             items.splice(action.prevIndex, 1);
             items.splice(action.newIndex, 0, data);

@@ -3,8 +3,10 @@ import styles from './SignIn.module.css'
 import './SignIn.css';
 import SignInForm from '../../components/SignInForm/SignInForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
-import { useAuth } from '../../services/auth';
 import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { IStore } from '../../redux/reducers';
+import { signIn } from '../../services/auth';
 
 interface stateType {
     from: { pathname: string }
@@ -13,8 +15,9 @@ interface stateType {
 const SignInPage = () =>
 {
     const { state } = useLocation<stateType>();
+    const dispatch = useDispatch();
 
-    const { signIn, isAuth }: any = useAuth();
+    const isAuth: boolean = useSelector((store: IStore) => store.access.isAuth);
 
     if (isAuth) {
         return (
@@ -29,7 +32,7 @@ const SignInPage = () =>
     return (
         <div className={"signin-cont"}>
             <div>
-                <SignInForm handler={(email: string, password: string) => signIn(email, password)} />
+                <SignInForm handler={(email: string, password: string) => signIn(email, password, dispatch)} />
                 <div className={styles.links}>
                     <div className={styles.linksRow}>
                         <span className={'text text_type_main-default text_color_inactive'}>Вы - новый пользователь?</span>

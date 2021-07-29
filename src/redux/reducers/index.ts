@@ -1,5 +1,5 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
-import { apiReducer, IIngredientsLibState } from './ingredientsLib';
+import { ingredientsLibReducer, IIngredientsLibState } from './ingredientsLib';
 import { constructorReducer, IConstructorState } from './constructor';
 import { IOrderState, orderReducer } from './order';
 import { ingredientReducer } from './ingredient';
@@ -8,14 +8,14 @@ import { IResetPasswordState, resetPasswordReducer } from './resetPassword';
 import { accessReducer, IAccessState } from './access';
 import { IOrderDetailsState, orderDetailsReducer } from './orderDetails';
 import { feedWsReducer, ORDERS_FEED_ENDPOINT, wsActionsFeed } from './feedWsReducer';
-import { IngredientData } from '../../components/IngredientMenuItem/IngredientMenuItem';
 import { IOrderFeedWebSocketState } from '../../types/IOrderData';
 import thunk from 'redux-thunk';
 import { socketMiddleware } from '../middlewares/wsMiddleware';
 import { ORDERS_USER_ENDPOINT, userWsReducer, wsActionsUser } from './userWsReducer';
+import { IngredientData } from '../../types/IIngredientData';
 
 export const rootReducer = combineReducers({
-    ingredientsLib: apiReducer,
+    ingredientsLib: ingredientsLibReducer,
     constructor: constructorReducer,
     ingredient: ingredientReducer,
     order: orderReducer,

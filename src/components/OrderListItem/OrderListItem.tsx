@@ -1,5 +1,4 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { IngredientData } from '../IngredientMenuItem/IngredientMenuItem';
 import styles from './OrderListItem.module.css'
 import { orderCostReducer } from '../../redux/reducers/constructor';
 import { formatOrderDate } from '../../redux/reducers/utils';
@@ -10,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { IStore } from '../../redux/reducers';
 import { OrderStatus } from '../../types/IOrderData';
+import { IngredientData } from '../../types/IIngredientData';
 
 interface IOrderListItemProps {
     name: string
@@ -29,7 +29,7 @@ const OrderListItem = ({name, number, _ingredients, date, status }: IOrderListIt
     const lib = useSelector((store: IStore) => store.ingredientsLib.itemsById);
 
     useEffect(() => {
-        const orderIngredients: IngredientData[] = _ingredients.map(id => lib?.get(id)) as IngredientData[];
+        const orderIngredients: IngredientData[] = _ingredients.filter(item => item !== null && item !== undefined).map(id => lib?.get(id)) as IngredientData[];
         setIngredients(orderIngredients);
         setCost(orderCostReducer(orderIngredients.slice(1, orderIngredients.length), orderIngredients[0]));
     }, [lib, _ingredients]);

@@ -1,11 +1,12 @@
 import { getCookie } from "../../utils/cookie";
+import { IConstructorState } from "../reducers/constructor";
 import { RESET_ORDER } from "./constructor";
 
 export const PLACE_ORDER_REQUEST = 'PLACE_ORDER_REQUEST';
 export const PLACE_ORDER_ERROR = 'PLACE_ORDER_ERROR';
 export const PLACE_ORDER_SUCCESS = 'PLACE_ORDER_SUCCESS';
 
-export function placeOrder(currentItems, setOrderModalState)
+export function placeOrder(currentItems: IConstructorState, setOrderModalState: Function)
 {
     const PLACE_ORDER_ENDPOINT = 'https://norma.nomoreparties.space/api/orders';
 
@@ -21,10 +22,14 @@ export function placeOrder(currentItems, setOrderModalState)
         return items;
     }
 
-    return function(dispatch)
+    return function(dispatch: Function)
     {
         dispatch({ type: PLACE_ORDER_REQUEST });
-        const accessToken = getCookie('accessToken');
+        
+        let accessToken = getCookie('accessToken');
+        if (!accessToken)
+            accessToken = '';
+
         setOrderModalState(true);
 
         fetch(PLACE_ORDER_ENDPOINT, {

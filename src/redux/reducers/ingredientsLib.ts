@@ -1,5 +1,5 @@
+import { IngredientData } from '../../types/IIngredientData';
 import { GET_INGREDIENTS_LIB_REQUEST, GET_INGREDIENTS_LIB_SUCCESS, GET_INGREDIENTS_LIB_ERROR } from '../actions/ingredientsLib';
-import { IngredientData } from '../../components/IngredientMenuItem/IngredientMenuItem';
 
 export interface IIngredientsLibState
 {
@@ -19,7 +19,7 @@ const initState: IIngredientsLibState =
     isRequest: false
 }
 
-export const apiReducer = (state: IIngredientsLibState = initState, action: any): IIngredientsLibState =>
+export const ingredientsLibReducer = (state: IIngredientsLibState = initState, action: any): IIngredientsLibState =>
 {
     switch (action.type)
     {

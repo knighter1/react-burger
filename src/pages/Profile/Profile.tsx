@@ -3,17 +3,18 @@ import styles from './Profile.module.css';
 import './Profile.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormEvent, useEffect, useState } from 'react';
-import { useAuth } from '../../services/auth';
 import ProfileMenu from '../../components/ProfileMenu/ProfileMenu';
 import { updateUserInfo } from '../../redux/actions/profile';
 import { IStore } from '../../redux/reducers';
+import { getUser } from '../../services/auth';
 
 const ProfilePage = () =>
 {
     const dispatch = useDispatch();
     const [isModified, setIsModified] = useState(false);
 
-    let initUser = useSelector((store: IStore) => store.access.user);
+    const access = useSelector((store: IStore) => store.access);
+    let initUser = access.user;
 
     const [name, setName] = useState(initUser ? initUser.name : '');
     const [email, setEmail] = useState(initUser ? initUser.email : '');
@@ -30,24 +31,35 @@ const ProfilePage = () =>
         setIsModified(false);
     }
 
-    const updateUserInfoHandler = () => {
-        dispatch(updateUserInfo(email, name, setIsModified));   
+    const updateUserInfoHandler = () => dispatch(updateUserInfo(email, name, password, onPathSuccess));
+
+    const onPathSuccess = () => {
+        setPassword('');
+        setIsModified(false);
     }
 
-    useEffect(() => {
-        if (initUser && (initUser.name !== name || initUser.email !== email || password !== ''))
-            setIsModified(true);
-    }, [initUser, name, email, password, setIsModified]);
-
-    const { getUser }: any = useAuth();
-
+    // изменение полей
     useEffect(() =>
     {
-        if (initUser === null)
-            getUser();
-    }, [initUser, getUser]);
+        if (initUser && (initUser.name !== name || initUser.email !== email || password !== ''))
+        {
+            setIsModified(true);
+            return;
+        }
 
-    useEffect(() => {
+        setIsModified(false);
+    }, [initUser, name, email, password, setIsModified]);
+
+    // запрос данных на сервер
+    useEffect(() =>
+    {
+        if (initUser === null || initUser === undefined)
+            getUser(dispatch);
+    }, [initUser, dispatch]);
+
+    // заполнение полей
+    useEffect(() =>
+    {
         if (!initUser)
             return;
             

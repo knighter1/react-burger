@@ -1,4 +1,4 @@
-import { IngredientData } from '../../components/IngredientMenuItem/IngredientMenuItem';
+import { IngredientData } from '../../types/IIngredientData';
 import { SET_ORDER_DETAIL } from '../actions/orderDetails';
 
 export interface IOrderDetailsState {

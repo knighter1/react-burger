@@ -1,9 +1,8 @@
 import styles from './OrdersStat.module.css';
 import '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
 import { IOrdersFeed, IOrderData } from '../../types/IOrderData';
 import { useEffect, useState } from 'react';
-import { TStore } from '../../redux/reducers';
+import { useSelector } from '../../redux/reducers';
 
 const OrdersStat = () =>
 {
@@ -12,7 +11,7 @@ const OrdersStat = () =>
     const [completedOrders, setCompletedOrders]: any = useState([]);
     const [prcessingOrders, setPrcessingOrders]: any = useState([]);
 
-    const feed: IOrdersFeed | null = useSelector((store: TStore) => store.feedWs.feed);
+    const feed: IOrdersFeed | null = useSelector(store => store.feedWs.feed);
 
     useEffect(() => {
         const completed = feed?.orders.map((order: IOrderData) => order.status === 'done' ? order.number : null );

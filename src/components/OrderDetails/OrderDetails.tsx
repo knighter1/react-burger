@@ -1,11 +1,10 @@
 import styles from './OrderDetails.module.css';
 import orderDoneImg from '../../images/order_done.png';
-import { useSelector } from 'react-redux';
-import { TStore } from '../../redux/reducers';
+import { useSelector } from '../../redux/reducers';
 
 export const OrderDetails = (): JSX.Element =>
 {
-    const orderId: number = useSelector((store: TStore) => store.order.orderId);
+    const orderId: number = useSelector(store => store.order.orderId);
 
     let content;
     if (orderId)

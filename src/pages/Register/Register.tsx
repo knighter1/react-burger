@@ -3,9 +3,9 @@ import styles from './Register.module.css'
 import './Register.css';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { register } from '../../redux/actions/register';
-import { TStore } from '../../redux/reducers';
+import { useSelector } from '../../redux/reducers';
 
 const RegisterPage = () =>
 {
@@ -17,7 +17,7 @@ const RegisterPage = () =>
         dispatch(register(email, password, name, history));   
     }
 
-    const isAuth: boolean = useSelector((store: TStore) => store.access.isAuth);
+    const isAuth: boolean = useSelector(store => store.access.isAuth);
 
     if (isAuth) {
         return (

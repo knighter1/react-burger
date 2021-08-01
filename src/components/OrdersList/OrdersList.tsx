@@ -1,9 +1,8 @@
 import styles from './OrdersList.module.css';
 import '@ya.praktikum/react-developer-burger-ui-components';
 import OrderListItem from '../OrderListItem/OrderListItem';
-import { useSelector } from 'react-redux';
 import { IOrdersFeed } from '../../types/IOrderData';
-import { TStore } from '../../redux/reducers';
+import { useSelector } from '../../redux/reducers';
 
 export interface IOrdersListProps {
     caption?: string;
@@ -13,7 +12,7 @@ export interface IOrdersListProps {
 
 const OrdersList = ( { caption, type, feed }: IOrdersListProps ) =>
 {
-    const lib = useSelector((store: TStore) => store.ingredientsLib.items);
+    const lib = useSelector(store => store.ingredientsLib.items);
 
     const sectionClassName = type === 'small' ? styles.smallSection : styles.largeSection;
 

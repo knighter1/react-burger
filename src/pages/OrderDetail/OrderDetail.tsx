@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { OrderInfoDetails } from '../../components/OrderInfoDetails/OrderInfoDetails';
 import { getOrderById } from '../../redux/actions/orderDetails';
-import { TStore } from '../../redux/reducers';
+import { useSelector } from '../../redux/reducers';
 
 const OrderDetailPage = () =>
 {
-    const lib = useSelector((store: TStore) => store.ingredientsLib);
+    const lib = useSelector(store => store.ingredientsLib);
 
     const dispatch = useDispatch();
 

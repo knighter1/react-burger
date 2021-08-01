@@ -5,14 +5,14 @@ import IngredientsList from '../IngredientsList/IngredientsList';
 import IngredientsListItem from '../IngredientsListItem/IngredientsListItem';
 import { Modal } from '../Modal/Modal';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { constructorAddItem } from "../../redux/actions/constructor";
 import { useDrop } from "react-dnd";
 import { IConstructorState } from "../../redux/reducers/constructor";
 import { useHistory } from "react-router-dom";
 import { placeOrder } from "../../redux/actions/order";
 import { setIngredient } from "../../redux/actions/ingredient";
-import { TStore } from "../../redux/reducers";
+import { TStore, useSelector } from "../../redux/reducers";
 import { IngredientData } from "../../types/IIngredientData";
 
 interface IBuns
@@ -25,7 +25,7 @@ const BurgerConstructor = () =>
 {
     const [buns, setBuns] =  useState<IBuns>({ first: null, last: null });
 
-    const currentItems: IConstructorState = useSelector((store: TStore) => store.constructor);
+    const currentItems: IConstructorState = useSelector(store => store.constructor)
 
     const dispatch = useDispatch();
 
@@ -49,7 +49,7 @@ const BurgerConstructor = () =>
 
     const [orderModalState, setOrderModalState] = useState(false);
 
-    const isAuth = useSelector((store: TStore) => store.access.isAuth);
+    const isAuth = useSelector(store => store.access.isAuth);
 
     const history = useHistory();
 

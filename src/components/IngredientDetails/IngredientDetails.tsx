@@ -1,13 +1,13 @@
 import styles from './IngredientDetails.module.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { setIngredient } from '../../redux/actions/ingredient';
-import { TStore } from '../../redux/reducers';
 import { IngredientData } from '../../types/IIngredientData';
+import { useSelector } from '../../redux/reducers';
 
 export const IngredientDetails = (): JSX.Element => {
 
-    const ingredientData: IngredientData = useSelector((store: TStore) => store.ingredient) as IngredientData;
+    const ingredientData: IngredientData = useSelector(store => store.ingredient) as IngredientData;
     
     const dispatch = useDispatch();
 

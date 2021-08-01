@@ -1,11 +1,11 @@
 import styles from './IngredientMenuItem.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setIngredient } from '../../redux/actions/ingredient';
 import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
-import { TStore } from '../../redux/reducers';
 import { IngredientData } from '../../types/IIngredientData';
+import { useSelector } from '../../redux/reducers';
 
 interface IIngredientMenuItemProps
 {
@@ -31,7 +31,7 @@ export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps) =>
 
     const className = `${styles.menuItem} mt-6 mb-8 ml-4 mr-2 ${isDrag ? styles.isDrag : ''}`;
 
-    const count = useSelector((store: TStore) => {
+    const count = useSelector(store => {
         
         const items: IngredientData[] = store.constructor.items
         let countResult: number = items ? items.filter(item => item._id === data._id).length : 0;

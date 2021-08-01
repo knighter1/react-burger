@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import styles from './IngredientsListItem.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { REMOVE_ITEM, REORDER_ITEM } from '../../redux/actions/constructor';
+import { constructorRemoveItem, constructorReorderItem } from '../../redux/actions/constructor';
 import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import { IngredientData } from '../../types/IIngredientData';
@@ -39,7 +39,7 @@ const IngredientsListItem = ({ data, index, type, onClickHandler }: IIngredients
             isLocked: type ? true : false,
             handleClose: (event: Event) => {
                 event.stopPropagation();
-                dispatch({ type: REMOVE_ITEM, index: index })
+                dispatch(constructorRemoveItem(index))
             }
         };
 
@@ -57,7 +57,7 @@ const IngredientsListItem = ({ data, index, type, onClickHandler }: IIngredients
     const [, dropRef] = useDrop({
         accept: "reorder",
         drop(item: any) {
-            dispatch({ type: REORDER_ITEM, newIndex: index, prevIndex: item.prevIndex });
+            dispatch(constructorReorderItem(item.prevIndex, index))
         },
     });
 

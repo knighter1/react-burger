@@ -6,7 +6,7 @@ import IngredientsListItem from '../IngredientsListItem/IngredientsListItem';
 import { Modal } from '../Modal/Modal';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_ITEM } from "../../redux/actions/constructor";
+import { constructorAddItem, TConstructorActions } from "../../redux/actions/constructor";
 import { useDrop } from "react-dnd";
 import { IConstructorState } from "../../redux/reducers/constructor";
 import { useHistory } from "react-router-dom";
@@ -69,8 +69,8 @@ const BurgerConstructor = () =>
 
     const [, dropTarget] = useDrop({
         accept: "ingredients",
-        drop(ingredientData) {
-            dispatch({ type: ADD_ITEM, item: ingredientData });
+        drop(ingredientData: IngredientData) {
+            dispatch(constructorAddItem(ingredientData));
         },
     });
 

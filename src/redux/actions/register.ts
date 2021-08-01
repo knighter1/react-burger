@@ -1,5 +1,6 @@
 import { IUser } from "../../types/IUser";
 import { setCookie } from "../../utils/cookie";
+import { AppDispatch, AppThunk } from "../reducers";
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
@@ -37,35 +38,32 @@ export const registerSuccess = (accessToken: string, refreshToken: string, user:
 
 export const registerError = (): IRegisterErrorAction => ({ type: REGISTER_ERROR });
 
-export function register(email: string, password: string, name: string, history: any)
+export const register: AppThunk = (email: string, password: string, name: string, history: any) => (dispatch: AppDispatch) =>
 {
     const END_POINT: string = 'https://norma.nomoreparties.space/api/auth/register';
     
-    return function(dispatch: Function)
-    {
-        dispatch(registerRequest());
+    dispatch(registerRequest());
 
-        fetch(END_POINT, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email: email, password: password, name: name })
-        })
-        .then(response => {
-            if (response.ok) {
-              return response.json();
-            }
-            return Promise.reject(`Status ${response.status}`);
-        })
-        .then(responseObj => {
-            dispatch(registerSuccess(responseObj.accessToken, responseObj.refreshToken, responseObj.user));
-            history.replace('/');
-            setCookie('refreshToken', responseObj.refreshToken);
-        })
-        .catch(error => {
-            dispatch(registerError());
-            console.error(`Register error: ${error}`)
-        });
-    }
+    fetch(END_POINT, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email: email, password: password, name: name })
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        return Promise.reject(`Status ${response.status}`);
+    })
+    .then(responseObj => {
+        dispatch(registerSuccess(responseObj.accessToken, responseObj.refreshToken, responseObj.user));
+        history.replace('/');
+        setCookie('refreshToken', responseObj.refreshToken);
+    })
+    .catch(error => {
+        dispatch(registerError());
+        console.error(`Register error: ${error}`)
+    });
 }

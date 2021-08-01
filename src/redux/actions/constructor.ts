@@ -36,3 +36,5 @@ export const constructorAddItem = (item: IngredientData): TConstructorActions =>
 export const constructorRemoveItem = (index: number): TConstructorActions => ({ type: REMOVE_ITEM, index: index });
 
 export const constructorReorderItem = (prevIndex: number, newIndex: number): TConstructorActions => ({ type: REORDER_ITEM, prevIndex: prevIndex, newIndex: newIndex });
+
+export const resetOrder = (): IResetOrderAction => ({ type: RESET_ORDER });

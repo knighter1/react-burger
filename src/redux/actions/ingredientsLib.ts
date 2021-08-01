@@ -1,4 +1,5 @@
 import { IngredientData } from "../../types/IIngredientData";
+import { AppDispatch, AppThunk } from "../reducers";
 
 export const GET_INGREDIENTS_LIB_REQUEST = 'GET_INGREDIENTS_LIB_REQUEST';
 export const GET_INGREDIENTS_LIB_SUCCESS = 'GET_INGREDIENTS_LIB_SUCCESS';
@@ -28,28 +29,25 @@ export const getIngredientsLibSuccess = (data: IngredientData[]): IGetIngredient
 
 export const getIngredientsLibError = (): IGetIngredientsLibErrorAction => ({ type: GET_INGREDIENTS_LIB_ERROR });
 
-export function getIngredientsLib()
+export const getIngredientsLib: AppThunk = () => (dispatch: AppDispatch) =>
 {
     const INGREDIENTS_ENDPOINT = 'https://norma.nomoreparties.space/api/ingredients';
 
-    return function(dispatch: Function)
-    {
-        dispatch(getIngredientsLibRequest());
+    dispatch(getIngredientsLibRequest());
 
-        fetch(INGREDIENTS_ENDPOINT)
-        .then(response => {
-            if (response.ok) {
-              return response.json();
-            }
-            return Promise.reject(`Status ${response.status}`);
-        })
-        .then(responseObj => {
-            dispatch(getIngredientsLibSuccess(responseObj.data));
-        })
-        .catch(error => 
-        {
-            console.error(`Ingredients data receiving error: ${error}`);
-            dispatch(getIngredientsLibError());
-        });
-    }
+    fetch(INGREDIENTS_ENDPOINT)
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        return Promise.reject(`Status ${response.status}`);
+    })
+    .then(responseObj => {
+        dispatch(getIngredientsLibSuccess(responseObj.data));
+    })
+    .catch(error => 
+    {
+        console.error(`Ingredients data receiving error: ${error}`);
+        dispatch(getIngredientsLibError());
+    });
 }

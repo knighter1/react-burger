@@ -1,4 +1,5 @@
 import { IngredientData } from "../../types/IIngredientData";
+import { AppDispatch, AppThunk } from "../reducers";
 import { IIngredientsLibState } from "../reducers/ingredientsLib";
 import { IOrderDetailsData } from "../reducers/orderDetails";
 
@@ -40,51 +41,48 @@ export const getOrderByIdSuccess = (orderData: IOrderDetailsData | null): IGetOr
 
 export const getOrderByIdError = (): IGetOrderByIdErrorAction => ({ type: GET_ORDER_BY_ID_ERROR });
 
-export function getOrderById(id: number, lib: IIngredientsLibState)
+export const getOrderById: AppThunk = (id: number, lib: IIngredientsLibState) => (dispatch: AppDispatch) =>
 {
     const END_POINT: string = `https://norma.nomoreparties.space/api/orders/${id}`;
     
-    return function(dispatch: Function)
+    dispatch(getOrderByIdRequest());
+
+    fetch(END_POINT,
     {
-        dispatch(getOrderByIdRequest());
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response =>
+    {
+        if (response.ok) {
+            return response.json();
+        }
+        return Promise.reject(`Status ${response.status}`);
+    })
+    .then(responseObj =>
+    {
+        let orderData: IOrderDetailsData | null = null;
+        let ingredientsIds: string[] = [];
 
-        fetch(END_POINT,
+        if (responseObj.orders?.length)
         {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json'
-            }
-        })
-        .then(response =>
-        {
-            if (response.ok) {
-                return response.json();
-            }
-            return Promise.reject(`Status ${response.status}`);
-        })
-        .then(responseObj =>
-        {
-            let orderData: IOrderDetailsData | null = null;
-            let ingredientsIds: string[] = [];
+            orderData = responseObj.orders[0];
+            ingredientsIds = responseObj.orders[0].ingredients;
 
-            if (responseObj.orders?.length)
-            {
-                orderData = responseObj.orders[0];
-                ingredientsIds = responseObj.orders[0].ingredients;
+            if (orderData)
+                orderData.ingredients = ingredientsIds.filter(item => item !== null && item !== undefined).map(id => {
+                    const item: IngredientData | undefined = lib.itemsById?.get(id);
+                    return item;
+                }) as IngredientData[];
+        }
 
-                if (orderData)
-                    orderData.ingredients = ingredientsIds.filter(item => item !== null && item !== undefined).map(id => {
-                        const item: IngredientData | undefined = lib.itemsById?.get(id);
-                        return item;
-                    }) as IngredientData[];
-            }
-
-            dispatch(getOrderByIdSuccess(orderData));
-        })
-        .catch(error =>
-        {
-            dispatch(getOrderByIdError());
-            console.error(`Get order by id error: ${error}`)
-        });
-    }
+        dispatch(getOrderByIdSuccess(orderData));
+    })
+    .catch(error =>
+    {
+        dispatch(getOrderByIdError());
+        console.error(`Get order by id error: ${error}`)
+    });
 }

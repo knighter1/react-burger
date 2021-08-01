@@ -61,9 +61,7 @@ export const constructorReducer = (state: IConstructorState = constructorInitSta
         }
 
         case RESET_ORDER:
-        {
             return { items: [], bun: null, cost: 0 };
-        }
 
         default:
             return state;

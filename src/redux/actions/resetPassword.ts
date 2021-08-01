@@ -1,3 +1,5 @@
+import { AppDispatch, AppThunk } from "../reducers";
+
 export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
 export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
 export const RESET_PASSWORD_ERROR = 'RESET_PASSWORD_ERROR';
@@ -26,34 +28,31 @@ export const resetPasswordSuccess = (message: string): IResetPasswordSuccessActi
 
 export const resetPasswordError = (): IResetPasswordErrorAction => ({ type: RESET_PASSWORD_ERROR });
 
-export function resetPassword(password: string, token: string, history: any)
+export const register: AppThunk = (password: string, token: string, history: any) => (dispatch: AppDispatch) =>
 {
     const END_POINT = 'https://norma.nomoreparties.space/api/password-reset/reset';
+
+    dispatch(resetPasswordRequest());
     
-    return function(dispatch: Function)
-    {
-        dispatch(resetPasswordRequest());
-        
-        fetch(END_POINT, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ password: password, token: token })
-        })
-        .then(response => {
-            if (response.ok) {
-              return response.json();
-            }
-            return Promise.reject(`Status ${response.status}`);
-        })
-        .then(responseObj => {
-            dispatch(resetPasswordSuccess(responseObj.message));
-            history.replace('/login');
-        })
-        .catch(error => {
-            dispatch(resetPasswordError());
-            console.error(`Reset password error: ${error}`)
-        });
-    }
+    fetch(END_POINT, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ password: password, token: token })
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        return Promise.reject(`Status ${response.status}`);
+    })
+    .then(responseObj => {
+        dispatch(resetPasswordSuccess(responseObj.message));
+        history.replace('/login');
+    })
+    .catch(error => {
+        dispatch(resetPasswordError());
+        console.error(`Reset password error: ${error}`)
+    });
 }

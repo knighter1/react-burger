@@ -1,5 +1,5 @@
 import { constructorReducer } from './constructor';
-import { constructorAddItem, constructorRemoveItem, constructorReorderItem, RESET_ORDER } from '../actions/constructor';
+import { constructorAddItem, constructorRemoveItem, constructorReorderItem, resetOrder } from '../actions/constructor';
 import { ingredient1, ingredient2, ingredient3, ingredient4 } from './testsData';
 
 describe('constructor reducer', () =>
@@ -61,10 +61,9 @@ describe('constructor reducer', () =>
     it('should handle RESET_ORDER', () =>
     {
         expect(
-            constructorReducer({ items: [ingredient2, ingredient4], bun: ingredient1, cost: 856 },
-            {
-                type: RESET_ORDER
-            })
+            constructorReducer(
+                { items: [ingredient2, ingredient4], bun: ingredient1, cost: 856 },
+                resetOrder())
         ).toEqual({ items: [], bun: null, cost: 0 });
     });
 

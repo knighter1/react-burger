@@ -2,6 +2,7 @@ import { getCookie } from "../../utils/cookie";
 import { fetchWithRefresh } from "../../services/fetchWithRefresh";
 import { USER_END_POINT } from '../../services/api';
 import { IUser } from "../../types/IUser";
+import { AppDispatch, AppThunk } from "../reducers";
 
 export const GET_USER_REQUEST = 'GET_USER_REQUEST';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
@@ -57,35 +58,32 @@ export const patchUserSuccess = (user: IUser): IPatchUserSuccessAction => ({ typ
 
 export const patchUserError = (): IPatchUserErrorAction => ({ type: PATCH_USER_ERROR });
 
-export function updateUserInfo(email: string, name: string, password: string, onPathSuccess: Function)
+export const getOrderById: AppThunk = (email: string, name: string, password: string, onPathSuccess: Function) => (dispatch: AppDispatch) =>
 {
-    return function(dispatch: Function)
-    {
-        dispatch(patchUserRequest());
+    dispatch(patchUserRequest());
 
-        const accessToken = getCookie('accessToken');
-        const info = {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': accessToken ? accessToken : ''
-            },
-            body: JSON.stringify({ email: email, name: name, password: password })};
+    const accessToken = getCookie('accessToken');
+    const info = {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': accessToken ? accessToken : ''
+        },
+        body: JSON.stringify({ email: email, name: name, password: password })};
 
-        fetchWithRefresh(USER_END_POINT, info)
-        .then(response => {
-            if (response.success) {
-              return response;
-            }
-            return Promise.reject(`Status ${response.status}`);
-        })
-        .then(responseObj => {
-            dispatch(patchUserSuccess(responseObj.user));
-            onPathSuccess();
-        })
-        .catch(error => {
-            dispatch(patchUserError());
-            console.error(`Update user info error: ${error}`)
-        });
-    }
+    fetchWithRefresh(USER_END_POINT, info)
+    .then(response => {
+        if (response.success) {
+            return response;
+        }
+        return Promise.reject(`Status ${response.status}`);
+    })
+    .then(responseObj => {
+        dispatch(patchUserSuccess(responseObj.user));
+        onPathSuccess();
+    })
+    .catch(error => {
+        dispatch(patchUserError());
+        console.error(`Update user info error: ${error}`)
+    });
 }

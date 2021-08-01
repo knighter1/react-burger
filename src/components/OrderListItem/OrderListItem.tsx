@@ -3,7 +3,7 @@ import styles from './OrderListItem.module.css'
 import { orderCostReducer } from '../../redux/reducers/constructor';
 import { formatOrderDate } from '../../redux/reducers/utils';
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_ORDER_DETAIL } from '../../redux/actions/orderDetails';
+import { setOrderDetail } from '../../redux/actions/orderDetails';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -63,7 +63,7 @@ const OrderListItem = ({name, number, _ingredients, date, status }: IOrderListIt
     const location = useLocation();
 
     const orderSelect = () => {
-        dispatch({ type: SET_ORDER_DETAIL, orderData: {name, number, ingredients, date } });
+        dispatch(setOrderDetail({name, number, ingredients, date, status }));
     }
 
     if (!ingredients || !ingredients.length)

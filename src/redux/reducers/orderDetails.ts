@@ -1,29 +1,46 @@
 import { IngredientData } from '../../types/IIngredientData';
-import { SET_ORDER_DETAIL } from '../actions/orderDetails';
+import { OrderStatus } from '../../types/IOrderData';
+import { GET_ORDER_BY_ID_ERROR, GET_ORDER_BY_ID_REQUEST, GET_ORDER_BY_ID_SUCCESS, SET_ORDER_DETAIL, TOrderDetailsActions } from '../actions/orderDetails';
 
-export interface IOrderDetailsState {
+export interface IOrderDetailsData {
     number: number;
     ingredients: IngredientData[];
     name: string;
-    date: Date | null;
-    status: 'in_progress' | 'completed' | null;
+    date: Date;
+    status: OrderStatus;
 }
 
-const initState: IOrderDetailsState = {
-    number: 0,
-    ingredients: [],
-    name: "",
-    date: null,
-    status: null
+export interface IOrderDetailsState
+{
+    success: boolean;
+    orderData: IOrderDetailsData | null;
+
+    isRequest: boolean;
+    isError: boolean;
 }
 
-export const orderDetailsReducer = (state = initState, action: any) =>
+const initState: IOrderDetailsState =
+{
+    success: false,
+    orderData: null,
+    isRequest: false,
+    isError: false
+}
+
+export const orderDetailsReducer = (state = initState, action: TOrderDetailsActions): IOrderDetailsState =>
 {
     switch (action.type)
     {
-        case SET_ORDER_DETAIL:
-            return { ...action.orderData };
+        case GET_ORDER_BY_ID_REQUEST:
+            return { ...initState, isRequest: true };
 
+        case GET_ORDER_BY_ID_SUCCESS:
+        case SET_ORDER_DETAIL:
+            return { ...initState, success: true, orderData: action.orderData };
+
+        case GET_ORDER_BY_ID_ERROR:
+            return { ...initState, isRequest: false, isError: true };
+            
         default:
             return state;
     }

@@ -27,7 +27,7 @@ export const orderCostReducer = (items: IngredientData[], bun: IngredientData | 
     return costValue;
 }
 
-export const constructorReducer = (state: IConstructorState = constructorInitState, action: TConstructorActions) =>
+export const constructorReducer = (state: IConstructorState = constructorInitState, action: TConstructorActions): IConstructorState =>
 {
     switch (action.type)
     {

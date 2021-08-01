@@ -1,12 +1,12 @@
-import { loginRequest, logoutRequest, getUserRequest } from './api';
+import { loginRequest, getUserRequest, logout } from './api';
 import {
-    SIGNIN_REQUEST, SIGNIN_SUCCESS, SIGNIN_ERROR,
-    LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_ERROR } from '../redux/actions/auth';
+    signInRequest, signInSuccess, signInError, logoutRequest, logoutSuccess, logoutError } from '../redux/actions/auth';
 import { GET_USER_REQUEST, GET_USER_SUCCESS, GET_USER_ERROR } from '../redux/actions/profile';
+import { getCookie } from '../utils/cookie';
 
 export const signIn = (email: string, password: string, dispatch: Function) =>
 {
-    dispatch({ type: SIGNIN_REQUEST });
+    dispatch(signInRequest());
 
     loginRequest(email, password)
     .then(response => {
@@ -16,19 +16,22 @@ export const signIn = (email: string, password: string, dispatch: Function) =>
         return Promise.reject(`Status ${response.status}`);
     })
     .then(responseObj => {
-        dispatch({ type: SIGNIN_SUCCESS, ...responseObj });
+        dispatch(signInSuccess(responseObj.accessToken, responseObj.refreshtoken, responseObj.user));
     })
     .catch(error => {
-        dispatch({ type: SIGNIN_ERROR });
+        dispatch(signInError());
         console.error(`Signin error: ${error}`)
     });
 }
 
 export const signOut = (dispatch: Function, history: any) =>
 {
-    dispatch({ type: LOGOUT_REQUEST });
+    let refreshToken: string | undefined = getCookie('refreshToken');
+    if (!refreshToken)
+        refreshToken = '';
+    dispatch(logoutRequest(refreshToken));
 
-    logoutRequest()
+    logout()
     .then(response => {
         if (response.ok) {
             return response.json();
@@ -36,11 +39,11 @@ export const signOut = (dispatch: Function, history: any) =>
         return Promise.reject(`Status ${response.status}`);
     })
     .then(responseObj => {
-        dispatch({ type: LOGOUT_SUCCESS, ...responseObj });
+        dispatch(logoutSuccess());
         history.replace('/login');
     })
     .catch(error => {
-        dispatch({ type: LOGOUT_ERROR });
+        dispatch(logoutError());
         console.error(`Logout error: ${error}`)
     });
 };

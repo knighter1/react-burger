@@ -1,7 +1,6 @@
 import { accessReducer } from './access';
 import {
-        SIGNIN_REQUEST, SIGNIN_ERROR, SIGNIN_SUCCESS,
-        LOGOUT_REQUEST, LOGOUT_ERROR, LOGOUT_SUCCESS } from '../actions/auth';
+        signInRequest, signInSuccess, signInError, logoutRequest, logoutSuccess, logoutError } from '../actions/auth';
 import { REGISTER_REQUEST, REGISTER_ERROR, REGISTER_SUCCESS } from '../actions/register';
 import {
     GET_USER_REQUEST, GET_USER_ERROR, GET_USER_SUCCESS,
@@ -27,99 +26,116 @@ describe('access reducer', () =>
         isAuth: false
     }
 
-    it('should return the initial state', () =>
+    it(`should handle SIGNIN_REQUEST`, () =>
     {
-        expect(accessReducer(undefined, {})).toEqual(initState);
+        expect(
+            accessReducer(undefined, signInRequest())
+        ).toEqual({ success: false, user: undefined, isError: false, isRequest: true, isAuth: false });
     });
 
-    const request = (action: string) =>
+    it(`should handle REGISTER_REQUEST`, () =>
     {
-        it(`should handle ${action}`, () =>
-        {
-            expect(
-                accessReducer(undefined, { type: action })
-            ).toEqual({ success: false, user: undefined, isError: false, isRequest: true, isAuth: false });
-        });
-    }
+        expect(
+            accessReducer(undefined, { type: REGISTER_REQUEST })
+        ).toEqual({ success: false, user: undefined, isError: false, isRequest: true, isAuth: false });
+    });
 
-    request(REGISTER_REQUEST);
-    request(SIGNIN_REQUEST);
-
-    const request2 = (action: string) =>
+    it(`should handle GET_USER_REQUEST`, () =>
     {
-        it(`should handle ${action}`, () =>
-        {
-            expect(
-                accessReducer({ ...initState, user, isAuth: true }, { type: action })
-            ).toEqual({ success: false, user: user, isError: false, isRequest: true, isAuth: true });
-        });
-    }
+        expect(
+            accessReducer({ ...initState, user, isAuth: true }, { type: GET_USER_REQUEST })
+        ).toEqual({ success: false, user: user, isError: false, isRequest: true, isAuth: true });
+    });
 
-    request2(GET_USER_REQUEST);
-    request2(LOGOUT_REQUEST);
-    request2(PATCH_USER_REQUEST);
-
-    const error = (action: string) =>
+    it(`should handle LOGOUT_REQUEST`, () =>
     {
-        it(`should handle ${action}`, () =>
-        {
-            expect(
-                accessReducer(undefined, { type: action })
-            ).toEqual({ success: false, user: undefined, isError: true, isRequest: false, isAuth: false });
-        });
-    }
+        const refreshToken = "6d831a732853d562290877";
 
-    error(REGISTER_ERROR);
-    error(SIGNIN_ERROR);
+        expect(
+            accessReducer({ ...initState, user, isAuth: true }, logoutRequest(refreshToken))
+        ).toEqual({ success: false, user: user, isError: false, isRequest: true, isAuth: true });
+    });
 
-    const error2 = (action: string) =>
+    it(`should handle PATCH_USER_REQUEST`, () =>
     {
-        it(`should handle ${action}`, () =>
-        {
-            expect(
-                accessReducer({ ...initState, user: user, isAuth: true }, { type: action })
-            ).toEqual({ success: false, user: user, isError: true, isRequest: false, isAuth: true });
-        });
-    }
+        expect(
+            accessReducer({ ...initState, user, isAuth: true }, { type: PATCH_USER_REQUEST })
+        ).toEqual({ success: false, user: user, isError: false, isRequest: true, isAuth: true });
+    });
 
-    error2(GET_USER_ERROR);
-    error2(LOGOUT_ERROR);
-    error2(PATCH_USER_ERROR);
-
-    const success = (action: string) =>
+    it(`should handle REGISTER_ERROR`, () =>
     {
-        it(`should handle ${action}`, () =>
-        {
-            const accessToken = "Bearer eyJhbGciOiJIUzI1";
-            const refreshToken = "6d831a732853d562290877";
+        expect(
+            accessReducer(undefined, { type: REGISTER_ERROR })
+        ).toEqual({ success: false, user: undefined, isError: true, isRequest: false, isAuth: false });
+    });
 
-            expect(
-                accessReducer(initState, { type: action, user: user, success: true, accessToken: accessToken, refreshToken: refreshToken })
-            ).toEqual({ success: true, user: user, isError: false, isRequest: false, isAuth: true });
-        });
-    }
+    it(`should handle SIGNIN_ERROR`, () =>
+    {
+        expect(
+            accessReducer(undefined, signInError())
+        ).toEqual({ success: false, user: undefined, isError: true, isRequest: false, isAuth: false });
+    });
 
-    success(REGISTER_SUCCESS);
-    success(SIGNIN_SUCCESS);
+    it(`should handle GET_USER_ERROR`, () =>
+    {
+        expect(
+            accessReducer({ ...initState, user: user, isAuth: true }, { type: GET_USER_ERROR })
+        ).toEqual({ success: false, user: user, isError: true, isRequest: false, isAuth: true });
+    });
+
+    it(`should handle LOGOUT_ERROR`, () =>
+    {
+        expect(
+            accessReducer({ ...initState, user: user, isAuth: true }, logoutError())
+        ).toEqual({ success: false, user: user, isError: true, isRequest: false, isAuth: true });
+    });
+
+    it(`should handle PATCH_USER_ERROR`, () =>
+    {
+        expect(
+            accessReducer({ ...initState, user: user, isAuth: true }, { type: PATCH_USER_ERROR })
+        ).toEqual({ success: false, user: user, isError: true, isRequest: false, isAuth: true });
+    });
+
+    it(`should handle REGISTER_SUCCESS`, () =>
+    {
+        const accessToken = "Bearer eyJhbGciOiJIUzI1";
+        const refreshToken = "6d831a732853d562290877";
+
+        expect(
+            accessReducer(initState, { type: REGISTER_SUCCESS, user: user, accessToken: accessToken, refreshToken: refreshToken })
+        ).toEqual({ success: true, user: user, isError: false, isRequest: false, isAuth: true });
+    });
+
+    it(`should handle SIGNIN_SUCCESS`, () =>
+    {
+        const accessToken = "Bearer eyJhbGciOiJIUzI1";
+        const refreshToken = "6d831a732853d562290877";
+
+        expect(
+            accessReducer(initState, signInSuccess(accessToken, refreshToken, user))
+        ).toEqual({ success: true, user: user, isError: false, isRequest: false, isAuth: true });
+    });
 
     it(`should handle GET_USER_SUCCESS`, () =>
     {
         expect(
-            accessReducer({ ...initState, isAuth: true }, { type: GET_USER_SUCCESS, user: user, success: true })
+            accessReducer({ ...initState, isAuth: true }, { type: GET_USER_SUCCESS, user: user })
         ).toEqual({ success: true, user: user, isError: false, isRequest: false, isAuth: true });
     });
 
     it(`should handle PATCH_USER_SUCCESS`, () =>
     {
         expect(
-            accessReducer({ ...initState, user: user, isAuth: true }, { type: PATCH_USER_SUCCESS, user: user, success: true })
+            accessReducer({ ...initState, user: user, isAuth: true }, { type: PATCH_USER_SUCCESS, user: user })
         ).toEqual({ success: true, user: user, isError: false, isRequest: false, isAuth: true });
     });
 
     it(`should handle LOGOUT_SUCCESS`, () =>
     {
         expect(
-            accessReducer({ ...initState, user: user, isAuth: true }, { type: LOGOUT_SUCCESS, user: user, success: true })
+            accessReducer({ ...initState, user: user, isAuth: true }, logoutSuccess())
         ).toEqual({ success: true, user: null, isError: false, isRequest: false, isAuth: false });
     });    
 }) 

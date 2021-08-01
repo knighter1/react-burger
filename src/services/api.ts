@@ -19,7 +19,7 @@ export const loginRequest = async (email: string, password: string) =>
     });
 };
 
-export const logoutRequest = async () =>
+export const logout = async () =>
 {
     const refreshToken = getCookie('refreshToken');
     return await fetch('https://norma.nomoreparties.space/api/auth/logout', {

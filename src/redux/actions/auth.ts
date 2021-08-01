@@ -25,6 +25,7 @@ export interface ISignInErrorAction {
 
 export interface ILogoutRequestAction {
     readonly type: typeof LOGOUT_REQUEST;
+    token: string;
 }
 
 export interface ILogoutSuccessAction {
@@ -42,3 +43,20 @@ export type TAuthActions =
     | ILogoutRequestAction
     | ILogoutSuccessAction
     | ILogoutErrorAction;
+
+export const signInRequest = (): ISignInRequestAction => ({ type: SIGNIN_REQUEST });
+
+export const signInSuccess = (accessToken: string, refreshToken: string, user: IUser): ISignInSuccessAction => ({
+    type: SIGNIN_SUCCESS,
+    accessToken: accessToken,
+    refreshToken: refreshToken,
+    user: user
+});
+
+export const signInError = (): ISignInErrorAction => ({ type: SIGNIN_ERROR });
+
+export const logoutRequest = (token: string): ILogoutRequestAction => ({ type: LOGOUT_REQUEST, token: token });
+
+export const logoutSuccess = (): ILogoutSuccessAction => ({ type: LOGOUT_SUCCESS });
+
+export const logoutError = (): ILogoutErrorAction => ({ type: LOGOUT_ERROR });

@@ -9,7 +9,8 @@ export interface IRegisterRequestAction {
     readonly type: typeof REGISTER_REQUEST;
 }
 
-export interface IRegisterSuccessAction {
+export interface IRegisterSuccessAction
+{
     readonly type: typeof REGISTER_SUCCESS;
     readonly accessToken: string;
     readonly refreshToken: string;
@@ -25,13 +26,25 @@ export type TRegisterActions =
     | IRegisterSuccessAction
     | IRegisterErrorAction;
 
+export const registerRequest = (): IRegisterRequestAction => ({ type: REGISTER_REQUEST });
+
+export const registerSuccess = (accessToken: string, refreshToken: string, user: IUser): IRegisterSuccessAction => ({
+    type: REGISTER_SUCCESS,
+    accessToken: accessToken,
+    refreshToken: refreshToken,
+    user: user
+});
+
+export const registerError = (): IRegisterErrorAction => ({ type: REGISTER_ERROR });
+
 export function register(email: string, password: string, name: string, history: any)
 {
     const END_POINT: string = 'https://norma.nomoreparties.space/api/auth/register';
     
     return function(dispatch: Function)
     {
-        dispatch({ type: REGISTER_REQUEST });
+        dispatch(registerRequest());
+
         fetch(END_POINT, {
             method: 'POST',
             headers: {
@@ -46,12 +59,12 @@ export function register(email: string, password: string, name: string, history:
             return Promise.reject(`Status ${response.status}`);
         })
         .then(responseObj => {
-            dispatch({ type: REGISTER_SUCCESS, ...responseObj });
+            dispatch(registerSuccess(responseObj.accessToken, responseObj.refreshToken, responseObj.user));
             history.replace('/');
             setCookie('refreshToken', responseObj.refreshToken);
         })
         .catch(error => {
-            dispatch({ type: REGISTER_ERROR });
+            dispatch(registerError());
             console.error(`Register error: ${error}`)
         });
     }

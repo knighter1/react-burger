@@ -1,7 +1,7 @@
 import { accessReducer } from './access';
 import {
         signInRequest, signInSuccess, signInError, logoutRequest, logoutSuccess, logoutError } from '../actions/auth';
-import { REGISTER_REQUEST, REGISTER_ERROR, REGISTER_SUCCESS } from '../actions/register';
+import { registerRequest, registerSuccess, registerError } from '../actions/register';
 import {
     GET_USER_REQUEST, GET_USER_ERROR, GET_USER_SUCCESS,
     PATCH_USER_REQUEST, PATCH_USER_ERROR, PATCH_USER_SUCCESS } from '../actions/profile';
@@ -36,7 +36,7 @@ describe('access reducer', () =>
     it(`should handle REGISTER_REQUEST`, () =>
     {
         expect(
-            accessReducer(undefined, { type: REGISTER_REQUEST })
+            accessReducer(undefined, registerRequest())
         ).toEqual({ success: false, user: undefined, isError: false, isRequest: true, isAuth: false });
     });
 
@@ -66,7 +66,7 @@ describe('access reducer', () =>
     it(`should handle REGISTER_ERROR`, () =>
     {
         expect(
-            accessReducer(undefined, { type: REGISTER_ERROR })
+            accessReducer(undefined, registerError())
         ).toEqual({ success: false, user: undefined, isError: true, isRequest: false, isAuth: false });
     });
 
@@ -104,7 +104,7 @@ describe('access reducer', () =>
         const refreshToken = "6d831a732853d562290877";
 
         expect(
-            accessReducer(initState, { type: REGISTER_SUCCESS, user: user, accessToken: accessToken, refreshToken: refreshToken })
+            accessReducer(initState, registerSuccess(accessToken, refreshToken, user))
         ).toEqual({ success: true, user: user, isError: false, isRequest: false, isAuth: true });
     });
 

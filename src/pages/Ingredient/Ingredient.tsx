@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { IngredientDetails } from "../../components/IngredientDetails/IngredientDetails";
-import { SET_INGREDIENT } from "../../redux/actions/ingredient";
+import { setIngredient } from "../../redux/actions/ingredient";
 import { IStore } from "../../redux/reducers";
 import { IngredientData } from "../../types/IIngredientData";
 
@@ -18,7 +18,7 @@ const IngredientPage = () =>
     if (!ingredient)
         return null;
 
-    dispatch({ type: SET_INGREDIENT, ingredientData: ingredient });
+    dispatch(setIngredient(ingredient));
 
     return (
         <div>

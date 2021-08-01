@@ -11,7 +11,7 @@ import { useDrop } from "react-dnd";
 import { IConstructorState } from "../../redux/reducers/constructor";
 import { useHistory } from "react-router-dom";
 import { placeOrder } from "../../redux/actions/order";
-import { SET_INGREDIENT } from "../../redux/actions/ingredient";
+import { setIngredient } from "../../redux/actions/ingredient";
 import { IStore } from "../../redux/reducers";
 import { IngredientData } from "../../types/IIngredientData";
 
@@ -76,7 +76,7 @@ const BurgerConstructor = () =>
 
     const onIngredientClick = (data: IngredientData) =>
     {
-        dispatch({ type: SET_INGREDIENT, ingredientData: data });
+        dispatch(setIngredient(data));
     }
 
     const ingredientClickHandler = (data: IngredientData) => onIngredientClick(data);

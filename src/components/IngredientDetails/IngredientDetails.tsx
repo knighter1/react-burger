@@ -1,7 +1,7 @@
 import styles from './IngredientDetails.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { SET_INGREDIENT } from '../../redux/actions/ingredient';
+import { setIngredient } from '../../redux/actions/ingredient';
 import { IStore } from '../../redux/reducers';
 import { IngredientData } from '../../types/IIngredientData';
 
@@ -19,7 +19,7 @@ export const IngredientDetails = (): JSX.Element => {
     )
 
     const dropIngredient: any = () => {
-        return () => dispatch({ type: SET_INGREDIENT, ingredientData: null });
+        return () => dispatch(setIngredient(null));
     }
     useEffect(dropIngredient, [dispatch]);
 

@@ -1,13 +1,16 @@
 import { IOrderFeedWebSocketState } from '../../types/IOrderData';
-import { FEED_WS_CONNECTION_START, FEED_WS_CONNECTION_CLOSED, FEED_WS_CONNECTION_ERROR, FEED_WS_CONNECTION_SUCCESS, FEED_WS_GET_MESSAGE } from '../actions/feedWsActions';
+import {
+    FEED_WS_CONNECTION_START, FEED_WS_CONNECTION_CLOSED, FEED_WS_CONNECTION_ERROR, FEED_WS_CONNECTION_SUCCESS, FEED_WS_GET_MESSAGE,
+    TFeedWsActions, feedWsConnectionSuccess, feedWsConnectionError, feedWsConnectionClosed, feedWsGetMessage } from '../actions/feedWsActions';
+import { IWsActions } from '../middlewares/wsMiddleware';
 
-export const wsActionsFeed =
+export const wsActionsFeed: IWsActions =
 {
     wsInit: FEED_WS_CONNECTION_START,
-    onOpen: FEED_WS_CONNECTION_SUCCESS,
-    onClose: FEED_WS_CONNECTION_CLOSED,
-    onError: FEED_WS_CONNECTION_ERROR,
-    onMessage: FEED_WS_GET_MESSAGE
+    onOpen: () => feedWsConnectionSuccess(),
+    onClose: () => feedWsConnectionClosed(),
+    onError: (payload: string) => feedWsConnectionError(payload),
+    onMessage: (message: string) => feedWsGetMessage(message)
 };
 
 export const initialState: IOrderFeedWebSocketState =
@@ -19,7 +22,7 @@ export const initialState: IOrderFeedWebSocketState =
 
 export const ORDERS_FEED_ENDPOINT: string = 'wss://norma.nomoreparties.space/orders/all';
 
-export const feedWsReducer = (state: IOrderFeedWebSocketState = initialState, action: any): IOrderFeedWebSocketState =>
+export const feedWsReducer = (state: IOrderFeedWebSocketState = initialState, action: TFeedWsActions): IOrderFeedWebSocketState =>
 {
     switch (action.type)
     {

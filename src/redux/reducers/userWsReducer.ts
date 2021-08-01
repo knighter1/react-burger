@@ -1,15 +1,18 @@
 import { refreshToken } from '../../services/fetchWithRefresh';
 import { IOrderFeedWebSocketState } from '../../types/IOrderData';
 import { setCookie } from '../../utils/cookie';
-import { USER_WS_CONNECTION_START, USER_WS_CONNECTION_CLOSED, USER_WS_CONNECTION_ERROR, USER_WS_CONNECTION_SUCCESS, USER_WS_GET_MESSAGE } from '../actions/userWsActions';
+import {
+    USER_WS_CONNECTION_START, USER_WS_CONNECTION_CLOSED, USER_WS_CONNECTION_ERROR, USER_WS_CONNECTION_SUCCESS, USER_WS_GET_MESSAGE,
+    TUserWsActions, userWsConnectionSuccess, userWsConnectionError, userWsConnectionClosed, userWsGetMessage, userWsConnectionStart } from '../actions/userWsActions';
+import { IWsActions } from '../middlewares/wsMiddleware';
 
-export const wsActionsUser =
+export const wsActionsUser: IWsActions =
 {
     wsInit: USER_WS_CONNECTION_START,
-    onOpen: USER_WS_CONNECTION_SUCCESS,
-    onClose: USER_WS_CONNECTION_CLOSED,
-    onError: USER_WS_CONNECTION_ERROR,
-    onMessage: USER_WS_GET_MESSAGE
+    onOpen: () => userWsConnectionSuccess(),
+    onClose: () => userWsConnectionClosed(),
+    onError: (payload: string) => userWsConnectionError(payload),
+    onMessage: (message: string, dispatch: Function) => userWsGetMessage(message, dispatch)
 };
 
 export const initialState: IOrderFeedWebSocketState =
@@ -21,7 +24,7 @@ export const initialState: IOrderFeedWebSocketState =
 
 export const ORDERS_USER_ENDPOINT: string = 'wss://norma.nomoreparties.space/orders';
 
-export const userWsReducer = (state: IOrderFeedWebSocketState = initialState, action: any): IOrderFeedWebSocketState =>
+export const userWsReducer = (state: IOrderFeedWebSocketState = initialState, action: TUserWsActions): IOrderFeedWebSocketState =>
 {
    switch (action.type)
     {
@@ -44,7 +47,7 @@ export const userWsReducer = (state: IOrderFeedWebSocketState = initialState, ac
                 .then(res =>
                 {
                     setCookie('accessToken', res.accessToken);
-                    action.dispatch({ type: USER_WS_CONNECTION_START, payload: res.accessToken.substr(7) });
+                    action.dispatch(userWsConnectionStart(res.accessToken.substr(7)));
                 })
                 .catch(err => console.error('WS: Refresh token error: ', err));
 

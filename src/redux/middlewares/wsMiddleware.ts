@@ -3,10 +3,10 @@ import { IStore } from "../reducers";
 export interface IWsActions
 {
     wsInit: string;
-    onOpen: string,
-    onClose: string,
-    onError: string,
-    onMessage: string
+    onOpen: Function,
+    onClose: Function,
+    onError: Function,
+    onMessage: Function
 }
 
 export const socketMiddleware = (wsUrl: string, wsActions: IWsActions): any =>
@@ -31,21 +31,21 @@ export const socketMiddleware = (wsUrl: string, wsActions: IWsActions): any =>
             if (socket)
             {
                 socket.onopen = event => {
-                    dispatch({ type: wsActions.onOpen, payload: event });
+                    dispatch(wsActions.onOpen());
                 };
 
                 socket.onerror = event => {
-                    dispatch({ type: wsActions.onError, payload: event });
+                    dispatch(wsActions.onError(event));
                 };
 
                 socket.onmessage = event =>
                 {
                     const { data } = event;
-                    dispatch({ type: wsActions.onMessage, payload: data, dispatch: dispatch });
+                    dispatch(wsActions.onMessage(data, dispatch));
                 };
 
                 socket.onclose = event => {
-                    dispatch({ type: wsActions.onClose, payload: event });
+                    dispatch(wsActions.onClose(event));
                 };
             }
 

@@ -3,32 +3,42 @@ export const FEED_WS_CONNECTION_SUCCESS = 'FEED_WS_CONNECTION_SUCCESS';
 export const FEED_WS_CONNECTION_ERROR = 'FEED_WS_CONNECTION_ERROR';
 export const FEED_WS_CONNECTION_CLOSED = 'FEED_WS_CONNECTION_CLOSED';
 export const FEED_WS_GET_MESSAGE = 'FEED_WS_GET_MESSAGE';
-  
-export const feedWsConnectionSuccess = () =>
-{
-    return {
-        type: FEED_WS_CONNECTION_SUCCESS
-    };
-};
 
-export const feedWsConnectionError = () =>
-{
-    return {
-        type: FEED_WS_CONNECTION_ERROR
-    };
-};
+export interface IFeedWsConnectionStartAction {
+    readonly type: typeof FEED_WS_CONNECTION_START;
+}
 
-export const feedWsConnectionClosed = () =>
-{
-    return {
-        type: FEED_WS_CONNECTION_CLOSED
-    };
-};
+export interface IFeedWsConnectionSuccessAction {
+    readonly type: typeof FEED_WS_CONNECTION_SUCCESS;
+}
 
-export const feedWsGetMessage = (message: string) =>
-{
-    return {
-        type: FEED_WS_GET_MESSAGE,
-        payload: message
-    };
-};
+export interface IFeedWsConnectionErrorAction {
+    readonly type: typeof FEED_WS_CONNECTION_ERROR;
+    readonly payload: string;
+}
+
+export interface IFeedWsConnectionClosedAction {
+    readonly type: typeof FEED_WS_CONNECTION_CLOSED;
+}
+
+export interface IFeedWsGetMessageAction {
+    readonly type: typeof FEED_WS_GET_MESSAGE;
+    readonly payload: string;
+}
+
+export type TFeedWsActions =
+    IFeedWsConnectionStartAction |
+    IFeedWsConnectionSuccessAction |
+    IFeedWsConnectionErrorAction |
+    IFeedWsConnectionClosedAction |
+    IFeedWsGetMessageAction;
+
+export const feedWsConnectionStart = (): IFeedWsConnectionStartAction => ({ type: FEED_WS_CONNECTION_START });
+
+export const feedWsConnectionSuccess = (): IFeedWsConnectionSuccessAction => ({ type: FEED_WS_CONNECTION_SUCCESS });
+
+export const feedWsConnectionError = (payload: string): IFeedWsConnectionErrorAction => ({ type: FEED_WS_CONNECTION_ERROR, payload: payload });
+
+export const feedWsConnectionClosed = (): IFeedWsConnectionClosedAction => ({ type: FEED_WS_CONNECTION_CLOSED });
+
+export const feedWsGetMessage = (message: string): IFeedWsGetMessageAction => ({ type: FEED_WS_GET_MESSAGE, payload: message });

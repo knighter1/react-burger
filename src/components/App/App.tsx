@@ -20,9 +20,13 @@ import { useEffect } from 'react';
 import OrderDetailPage from '../../pages/OrderDetail/OrderDetail';
 import ProfileOrdersPage from '../../pages/ProfileOrders/ProfileOrders';
 
-const ModalSwitch = () => {
+interface ILocationState {
+    background?: any;
+}
 
-    const location: any = useLocation();
+const ModalSwitch = () =>
+{
+    const location = useLocation<ILocationState>();
     const history = useHistory();
 
     const background = history.action === "PUSH" && location.state && location.state.background;

@@ -1,7 +1,7 @@
 import { getCookie, setCookie } from "../utils/cookie";
 
-const checkResponse = (res: any) => {
-	return res.ok ? res.json() : res.json().then((err: Error) => Promise.reject(err));
+const checkResponse = (response: any) => {
+	return response.ok ? response.json() : response.json().then((err: Error) => Promise.reject(err));
 }
 
 export const refreshToken = () =>

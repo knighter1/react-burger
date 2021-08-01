@@ -4,12 +4,12 @@ import { IOrderDetailsData, IOrderDetailsState } from '../../redux/reducers/orde
 import { formatOrderDate } from '../../redux/reducers/utils';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { orderCostReducer } from '../../redux/reducers/constructor';
-import { IStore } from '../../redux/reducers';
+import { TStore } from '../../redux/reducers';
 import { IngredientData } from '../../types/IIngredientData';
 
 export const OrderInfoDetails = (): JSX.Element => {
 
-    const orderState: IOrderDetailsState = useSelector((store: IStore) => store.orderDetails) as IOrderDetailsState;
+    const orderState: IOrderDetailsState = useSelector((store: TStore) => store.orderDetails) as IOrderDetailsState;
 
     const orderData: IOrderDetailsData | null = orderState.orderData;
 

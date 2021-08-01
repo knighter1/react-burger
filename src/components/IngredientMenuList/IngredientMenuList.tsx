@@ -3,7 +3,7 @@ import styles from './IngredientMenuList.module.css';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useInView } from "react-intersection-observer";
-import { IStore } from '../../redux/reducers';
+import { TStore } from '../../redux/reducers';
 import { IngredientData } from '../../types/IIngredientData';
 
 interface IIngredientMenuListProps
@@ -20,7 +20,7 @@ export enum IngredientTypes
 
 export const IngredientMenuList: React.FC<IIngredientMenuListProps> = ({changeTypeHandler}) =>
 {
-    const ingredients: IngredientData[] = useSelector((store: IStore) => store.ingredientsLib.items) as IngredientData[];
+    const ingredients: IngredientData[] = useSelector((store: TStore) => store.ingredientsLib.items) as IngredientData[];
 
     const bunsList: IngredientData[] = ingredients ? ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.bun]) : [];
     const mainList: IngredientData[] = ingredients ? ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.main]) : [];

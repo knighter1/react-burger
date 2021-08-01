@@ -1,4 +1,4 @@
-import { IStore } from "../reducers";
+import { TStore } from "../reducers";
 
 export interface IWsActions
 {
@@ -11,7 +11,7 @@ export interface IWsActions
 
 export const socketMiddleware = (wsUrl: string, wsActions: IWsActions): any =>
 {
-    return (store: IStore) =>
+    return (store: TStore) =>
     {
         let socket: WebSocket | null = null;
 

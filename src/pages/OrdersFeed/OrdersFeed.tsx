@@ -5,14 +5,14 @@ import OrdersStat from '../../components/OrdersStat/OrdersStat';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { feedWsConnectionStart } from '../../redux/actions/feedWsActions';
-import { IStore } from '../../redux/reducers';
+import { TStore } from '../../redux/reducers';
 import { IOrdersFeed } from '../../types/IOrderData';
 
 const OrdersFeedPage = () =>
 {
     const dispatch = useDispatch();
 
-    const feed: IOrdersFeed | null = useSelector((store: IStore) => store.feedWs.feed);
+    const feed: IOrdersFeed | null = useSelector((store: TStore) => store.feedWs.feed);
 
     useEffect(() => {
         dispatch(feedWsConnectionStart());

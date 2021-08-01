@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { OrderInfoDetails } from '../../components/OrderInfoDetails/OrderInfoDetails';
 import { getOrderById } from '../../redux/actions/orderDetails';
-import { IStore } from '../../redux/reducers';
+import { TStore } from '../../redux/reducers';
 
 const OrderDetailPage = () =>
 {
-    const lib = useSelector((store: IStore) => store.ingredientsLib);
+    const lib = useSelector((store: TStore) => store.ingredientsLib);
 
     const dispatch = useDispatch();
 

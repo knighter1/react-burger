@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setIngredient } from '../../redux/actions/ingredient';
 import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
-import { IStore } from '../../redux/reducers';
+import { TStore } from '../../redux/reducers';
 import { IngredientData } from '../../types/IIngredientData';
 
 interface IIngredientMenuItemProps
@@ -31,7 +31,7 @@ export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps) =>
 
     const className = `${styles.menuItem} mt-6 mb-8 ml-4 mr-2 ${isDrag ? styles.isDrag : ''}`;
 
-    const count = useSelector((store: IStore) => {
+    const count = useSelector((store: TStore) => {
         
         const items: IngredientData[] = store.constructor.items
         let countResult: number = items ? items.filter(item => item._id === data._id).length : 0;

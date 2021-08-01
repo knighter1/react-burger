@@ -5,7 +5,7 @@ import SignInForm from '../../components/SignInForm/SignInForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { IStore } from '../../redux/reducers';
+import { TStore } from '../../redux/reducers';
 import { signIn } from '../../services/auth';
 
 interface stateType {
@@ -17,7 +17,7 @@ const SignInPage = () =>
     const { state } = useLocation<stateType>();
     const dispatch = useDispatch();
 
-    const isAuth: boolean = useSelector((store: IStore) => store.access.isAuth);
+    const isAuth: boolean = useSelector((store: TStore) => store.access.isAuth);
 
     if (isAuth) {
         return (

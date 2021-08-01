@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import OrdersList from '../../components/OrdersList/OrdersList';
 import ProfileMenu from '../../components/ProfileMenu/ProfileMenu';
 import { userWsConnectionStart } from '../../redux/actions/userWsActions';
-import { IStore } from '../../redux/reducers';
+import { TStore } from '../../redux/reducers';
 import { IOrdersFeed } from '../../types/IOrderData';
 import { getCookie } from '../../utils/cookie';
 import styles from './ProfileOrders.module.css';
@@ -13,7 +13,7 @@ const ProfileOrdersPage = () =>
 {
     const dispatch = useDispatch();
 
-    const feed: IOrdersFeed | null = useSelector((store: IStore) => store.userWs.feed);
+    const feed: IOrdersFeed | null = useSelector((store: TStore) => store.userWs.feed);
 
     useEffect(() =>
     {

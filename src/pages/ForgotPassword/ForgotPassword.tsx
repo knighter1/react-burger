@@ -5,7 +5,7 @@ import '@ya.praktikum/react-developer-burger-ui-components'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { initResetPassword } from '../../redux/actions/initResetPassword';
-import { IStore } from '../../redux/reducers';
+import { TStore } from '../../redux/reducers';
 
 const ForgotPasswordPage = () =>
 {
@@ -17,7 +17,7 @@ const ForgotPasswordPage = () =>
         dispatch(initResetPassword(email, history));
     }
 
-    const isAuth: boolean = useSelector((store: IStore) => store.access.isAuth);
+    const isAuth: boolean = useSelector((store: TStore) => store.access.isAuth);
 
     if (isAuth) {
         return (

@@ -12,7 +12,7 @@ import { IConstructorState } from "../../redux/reducers/constructor";
 import { useHistory } from "react-router-dom";
 import { placeOrder } from "../../redux/actions/order";
 import { setIngredient } from "../../redux/actions/ingredient";
-import { IStore } from "../../redux/reducers";
+import { TStore } from "../../redux/reducers";
 import { IngredientData } from "../../types/IIngredientData";
 
 interface IBuns
@@ -25,7 +25,7 @@ const BurgerConstructor = () =>
 {
     const [buns, setBuns] =  useState<IBuns>({ first: null, last: null });
 
-    const currentItems: IConstructorState = useSelector((store: IStore) => store.constructor);
+    const currentItems: IConstructorState = useSelector((store: TStore) => store.constructor);
 
     const dispatch = useDispatch();
 
@@ -49,7 +49,7 @@ const BurgerConstructor = () =>
 
     const [orderModalState, setOrderModalState] = useState(false);
 
-    const isAuth = useSelector((store: IStore) => store.access.isAuth);
+    const isAuth = useSelector((store: TStore) => store.access.isAuth);
 
     const history = useHistory();
 

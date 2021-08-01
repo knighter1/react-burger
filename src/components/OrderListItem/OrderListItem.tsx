@@ -7,7 +7,7 @@ import { setOrderDetail } from '../../redux/actions/orderDetails';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { IStore } from '../../redux/reducers';
+import { TStore } from '../../redux/reducers';
 import { OrderStatus } from '../../types/IOrderData';
 import { IngredientData } from '../../types/IIngredientData';
 
@@ -26,7 +26,7 @@ const OrderListItem = ({name, number, _ingredients, date, status }: IOrderListIt
     const [cost, setCost] = useState(0);
     const [ingredients, setIngredients]: any = useState([]);
 
-    const lib = useSelector((store: IStore) => store.ingredientsLib.itemsById);
+    const lib = useSelector((store: TStore) => store.ingredientsLib.itemsById);
 
     useEffect(() => {
         const orderIngredients: IngredientData[] = _ingredients.filter(item => item !== null && item !== undefined).map(id => lib?.get(id)) as IngredientData[];

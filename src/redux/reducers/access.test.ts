@@ -49,7 +49,7 @@ describe('access reducer', () =>
         const refreshToken = "6d831a732853d562290877";
 
         expect(
-            accessReducer({ ...initState, user, isAuth: true }, logoutRequest(refreshToken))
+            accessReducer({ ...initState, user, isAuth: true }, logoutRequest())
         ).toEqual({ success: false, user: user, isError: false, isRequest: true, isAuth: true });
     });
 

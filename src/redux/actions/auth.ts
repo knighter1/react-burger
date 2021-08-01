@@ -27,7 +27,6 @@ export interface ISignInErrorAction {
 
 export interface ILogoutRequestAction {
     readonly type: typeof LOGOUT_REQUEST;
-    token: string;
 }
 
 export interface ILogoutSuccessAction {
@@ -57,7 +56,7 @@ export const signInSuccess = (accessToken: string, refreshToken: string, user: I
 
 export const signInError = (): ISignInErrorAction => ({ type: SIGNIN_ERROR });
 
-export const logoutRequest = (token: string): ILogoutRequestAction => ({ type: LOGOUT_REQUEST, token: token });
+export const logoutRequest = (): ILogoutRequestAction => ({ type: LOGOUT_REQUEST });
 
 export const logoutSuccess = (): ILogoutSuccessAction => ({ type: LOGOUT_SUCCESS });
 
@@ -91,7 +90,7 @@ export const signIn: AppThunk = (email: string, password: string) => (dispatch: 
         return Promise.reject(`Status ${response.status}`);
     })
     .then(responseObj => {
-        dispatch(signInSuccess(responseObj.accessToken, responseObj.refreshtoken, responseObj.user));
+        dispatch(signInSuccess(responseObj.accessToken, responseObj.refreshToken, responseObj.user));
     })
     .catch(error => {
         dispatch(signInError());
@@ -102,6 +101,7 @@ export const signIn: AppThunk = (email: string, password: string) => (dispatch: 
 const logout = async () =>
 {
     const refreshToken = getCookie('refreshToken');
+
     return await fetch('https://norma.nomoreparties.space/api/auth/logout', {
         method: 'POST',
         mode: 'cors',
@@ -121,7 +121,7 @@ export const signOut: AppThunk = (history: any) => (dispatch: AppDispatch) =>
     let refreshToken: string | undefined = getCookie('refreshToken');
     if (!refreshToken)
         refreshToken = '';
-    dispatch(logoutRequest(refreshToken));
+    dispatch(logoutRequest());
 
     logout()
     .then(response => {

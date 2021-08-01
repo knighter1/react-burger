@@ -5,9 +5,13 @@ import { setIngredient } from "../../redux/actions/ingredient";
 import { useSelector } from "../../redux/reducers";
 import { IngredientData } from "../../types/IIngredientData";
 
+interface IngredientId {
+    id: string
+}
+
 const IngredientPage = () =>
 {
-    const { id }: any = useParams();
+    const { id } = useParams<IngredientId>();
 
     const dispatch = useDispatch();
 

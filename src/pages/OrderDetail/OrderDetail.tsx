@@ -5,13 +5,17 @@ import { OrderInfoDetails } from '../../components/OrderInfoDetails/OrderInfoDet
 import { getOrderById } from '../../redux/actions/orderDetails';
 import { useSelector } from '../../redux/reducers';
 
+interface OrderId {
+    id: string;
+}
+
 const OrderDetailPage = () =>
 {
     const lib = useSelector(store => store.ingredientsLib);
 
     const dispatch = useDispatch();
 
-    const { id }: any = useParams();
+    const { id } = useParams<OrderId>();
 
     useEffect(() => {
         lib && lib.items.length && dispatch(getOrderById(id, lib));

@@ -4,9 +4,8 @@ import './Profile.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { FormEvent, useEffect, useState } from 'react';
 import ProfileMenu from '../../components/ProfileMenu/ProfileMenu';
-import { updateUserInfo } from '../../redux/actions/profile';
+import { getUser, updateUserInfo } from '../../redux/actions/profile';
 import { TStore } from '../../redux/reducers';
-import { getUser } from '../../services/auth';
 
 const ProfilePage = () =>
 {
@@ -54,7 +53,7 @@ const ProfilePage = () =>
     useEffect(() =>
     {
         if (initUser === null || initUser === undefined)
-            getUser(dispatch);
+            dispatch(getUser());
     }, [initUser, dispatch]);
 
     // заполнение полей

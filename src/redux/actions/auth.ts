@@ -1,4 +1,6 @@
 import { IUser } from "../../types/IUser";
+import { getCookie } from "../../utils/cookie";
+import { AppDispatch, AppThunk } from "../reducers";
 
 export const SIGNIN_REQUEST = 'SIGNIN_REQUEST';
 export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
@@ -60,3 +62,80 @@ export const logoutRequest = (token: string): ILogoutRequestAction => ({ type: L
 export const logoutSuccess = (): ILogoutSuccessAction => ({ type: LOGOUT_SUCCESS });
 
 export const logoutError = (): ILogoutErrorAction => ({ type: LOGOUT_ERROR });
+
+const loginRequest = async (email: string, password: string) =>
+{
+    return await fetch('https://norma.nomoreparties.space/api/auth/login', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify({ email: email, password: password })
+    });
+};
+
+export const signIn: AppThunk = (email: string, password: string) => (dispatch: AppDispatch) =>
+{
+    dispatch(signInRequest());
+
+    loginRequest(email, password)
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        return Promise.reject(`Status ${response.status}`);
+    })
+    .then(responseObj => {
+        dispatch(signInSuccess(responseObj.accessToken, responseObj.refreshtoken, responseObj.user));
+    })
+    .catch(error => {
+        dispatch(signInError());
+        console.error(`Signin error: ${error}`)
+    });
+}
+
+const logout = async () =>
+{
+    const refreshToken = getCookie('refreshToken');
+    return await fetch('https://norma.nomoreparties.space/api/auth/logout', {
+        method: 'POST',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify({ token: refreshToken })
+    });
+};
+
+export const signOut: AppThunk = (history: any) => (dispatch: AppDispatch) =>
+{
+    let refreshToken: string | undefined = getCookie('refreshToken');
+    if (!refreshToken)
+        refreshToken = '';
+    dispatch(logoutRequest(refreshToken));
+
+    logout()
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        return Promise.reject(`Status ${response.status}`);
+    })
+    .then(() => {
+        dispatch(logoutSuccess());
+        history.replace('/login');
+    })
+    .catch(error => {
+        dispatch(logoutError());
+        console.error(`Logout error: ${error}`)
+    });
+};

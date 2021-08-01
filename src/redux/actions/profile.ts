@@ -1,6 +1,5 @@
 import { getCookie } from "../../utils/cookie";
 import { fetchWithRefresh } from "../../services/fetchWithRefresh";
-import { USER_END_POINT } from '../../services/api';
 import { IUser } from "../../types/IUser";
 import { AppDispatch, AppThunk } from "../reducers";
 
@@ -58,7 +57,9 @@ export const patchUserSuccess = (user: IUser): IPatchUserSuccessAction => ({ typ
 
 export const patchUserError = (): IPatchUserErrorAction => ({ type: PATCH_USER_ERROR });
 
-export const getOrderById: AppThunk = (email: string, name: string, password: string, onPathSuccess: Function) => (dispatch: AppDispatch) =>
+const USER_END_POINT = 'https://norma.nomoreparties.space/api/auth/user';
+
+export const updateUserInfo: AppThunk = (email: string, name: string, password: string, onPathSuccess: Function) => (dispatch: AppDispatch) =>
 {
     dispatch(patchUserRequest());
 
@@ -85,5 +86,46 @@ export const getOrderById: AppThunk = (email: string, name: string, password: st
     .catch(error => {
         dispatch(patchUserError());
         console.error(`Update user info error: ${error}`)
+    });
+}
+
+const fetchGetUser = async () =>
+{
+    let accessToken = getCookie('accessToken');
+    if (!accessToken)
+        accessToken = '';
+
+    return await fetchWithRefresh(USER_END_POINT,
+    {
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': accessToken
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+    })
+}
+
+export const getUser: AppThunk = () => (dispatch: AppDispatch) =>
+{
+    dispatch(getUserRequest());
+
+    fetchGetUser()
+    .then(response => {
+        if (response.success) {
+            return response;
+        }
+        return Promise.reject(`Status ${response.status}`);
+    })
+    .then(responseObj => {
+        dispatch(getUserSuccess(responseObj.user));
+    })
+    .catch(error => {
+        dispatch(getUserError());
+        console.error('Get user info error:', error)
     });
 }

@@ -1,7 +1,7 @@
 import '@ya.praktikum/react-developer-burger-ui-components'
 import { useDispatch } from 'react-redux';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import { signOut } from '../../services/auth';
+import { signOut } from '../../redux/actions/auth';
 import styles from './ProfileMenu.module.css';
 
 const ProfileMenu = () =>
@@ -26,7 +26,7 @@ const ProfileMenu = () =>
     );
 
     const logout = async () => {
-        await signOut(dispatch, history);
+        dispatch(signOut(history));
     }
 
     return (

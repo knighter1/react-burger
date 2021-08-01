@@ -6,7 +6,7 @@ import '@ya.praktikum/react-developer-burger-ui-components'
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { TStore } from '../../redux/reducers';
-import { signIn } from '../../services/auth';
+import { signIn } from '../../redux/actions/auth';
 
 interface stateType {
     from: { pathname: string }
@@ -32,7 +32,7 @@ const SignInPage = () =>
     return (
         <div className={"signin-cont"}>
             <div>
-                <SignInForm handler={(email: string, password: string) => signIn(email, password, dispatch)} />
+                <SignInForm handler={(email: string, password: string) => dispatch(signIn(email, password))} />
                 <div className={styles.links}>
                     <div className={styles.linksRow}>
                         <span className={'text text_type_main-default text_color_inactive'}>Вы - новый пользователь?</span>

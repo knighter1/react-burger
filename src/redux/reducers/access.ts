@@ -1,6 +1,6 @@
-import { SIGNIN_REQUEST, SIGNIN_ERROR, SIGNIN_SUCCESS, LOGOUT_SUCCESS, LOGOUT_REQUEST, LOGOUT_ERROR } from '../actions/auth';
-import { REGISTER_REQUEST, REGISTER_ERROR, REGISTER_SUCCESS } from '../actions/register';
-import { GET_USER_ERROR, GET_USER_REQUEST, GET_USER_SUCCESS, PATCH_USER_ERROR, PATCH_USER_REQUEST, PATCH_USER_SUCCESS } from '../actions/profile';
+import { SIGNIN_REQUEST, SIGNIN_ERROR, SIGNIN_SUCCESS, LOGOUT_SUCCESS, LOGOUT_REQUEST, LOGOUT_ERROR, TAuthActions } from '../actions/auth';
+import { REGISTER_REQUEST, REGISTER_ERROR, REGISTER_SUCCESS, TRegisterActions } from '../actions/register';
+import { GET_USER_ERROR, GET_USER_REQUEST, GET_USER_SUCCESS, PATCH_USER_ERROR, PATCH_USER_REQUEST, PATCH_USER_SUCCESS, TProfileActions } from '../actions/profile';
 import { getCookie, setCookie } from '../../utils/cookie';
 import { User } from '../../types/IUser';
 
@@ -26,7 +26,12 @@ const initState: IAccessState =
     isAuth: getCookie('refreshToken') !== undefined && getCookie('refreshToken') !== ""
 }
 
-export const accessReducer = (state: IAccessState = initState, action: any): IAccessState =>
+export type TAccessActions =
+    TAuthActions |
+    TRegisterActions |
+    TProfileActions;
+
+export const accessReducer = (state: IAccessState = initState, action: TAccessActions): IAccessState =>
 {
     switch (action.type)
     {

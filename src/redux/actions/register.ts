@@ -1,8 +1,29 @@
+import { IUser } from "../../types/IUser";
 import { setCookie } from "../../utils/cookie";
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_ERROR = 'REGISTER_ERROR';
+
+export interface IRegisterRequestAction {
+    readonly type: typeof REGISTER_REQUEST;
+}
+
+export interface IRegisterSuccessAction {
+    readonly type: typeof REGISTER_SUCCESS;
+    readonly accessToken: string;
+    readonly refreshToken: string;
+    user: IUser;
+}
+
+export interface IRegisterErrorAction {
+    readonly type: typeof REGISTER_ERROR;
+}
+
+export type TRegisterActions = 
+    | IRegisterRequestAction
+    | IRegisterSuccessAction
+    | IRegisterErrorAction;
 
 export function register(email: string, password: string, name: string, history: any)
 {

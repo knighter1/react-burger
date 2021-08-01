@@ -1,4 +1,4 @@
-import { PLACE_ORDER_REQUEST, PLACE_ORDER_ERROR, PLACE_ORDER_SUCCESS } from '../actions/order';
+import { PLACE_ORDER_REQUEST, PLACE_ORDER_ERROR, PLACE_ORDER_SUCCESS, TPlaceOrderActions } from '../actions/order';
 
 export interface IOrderState
 {
@@ -15,7 +15,7 @@ const initState: IOrderState = {
     isRequest: false
 }
 
-export const orderReducer = (state = initState, action: any) =>
+export const orderReducer = (state = initState, action: TPlaceOrderActions) =>
 {
     switch (action.type)
     {

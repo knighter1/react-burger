@@ -6,6 +6,30 @@ export const PLACE_ORDER_REQUEST = 'PLACE_ORDER_REQUEST';
 export const PLACE_ORDER_ERROR = 'PLACE_ORDER_ERROR';
 export const PLACE_ORDER_SUCCESS = 'PLACE_ORDER_SUCCESS';
 
+export interface IPlaceOrderRequestAction {
+    readonly type: typeof PLACE_ORDER_REQUEST;
+}
+
+export interface IPlaceOrderErrorAction {
+    readonly type: typeof PLACE_ORDER_ERROR;
+}
+
+export interface IPlaceOrderSuccessAction {
+    readonly type: typeof PLACE_ORDER_SUCCESS;
+    readonly orderId: number;
+}
+
+export type TPlaceOrderActions =
+    IPlaceOrderRequestAction |
+    IPlaceOrderErrorAction |
+    IPlaceOrderSuccessAction;
+
+export const placeOrderRequest = (): IPlaceOrderRequestAction => ({ type: PLACE_ORDER_REQUEST });
+
+export const placeOrderError = (): IPlaceOrderErrorAction => ({ type: PLACE_ORDER_ERROR });
+
+export const placeOrderSuccess = (orderId: number) => ({ type: PLACE_ORDER_SUCCESS, orderId: orderId });
+
 export function placeOrder(currentItems: IConstructorState, setOrderModalState: Function)
 {
     const PLACE_ORDER_ENDPOINT = 'https://norma.nomoreparties.space/api/orders';
@@ -24,7 +48,7 @@ export function placeOrder(currentItems: IConstructorState, setOrderModalState: 
 
     return function(dispatch: Function)
     {
-        dispatch({ type: PLACE_ORDER_REQUEST });
+        dispatch(placeOrderRequest());
         
         let accessToken = getCookie('accessToken');
         if (!accessToken)
@@ -47,12 +71,12 @@ export function placeOrder(currentItems: IConstructorState, setOrderModalState: 
             return Promise.reject(`Status ${response.status}`);
         })
         .then(responseObj => {
-            dispatch({ type: PLACE_ORDER_SUCCESS, orderId: responseObj.order.number });
+            dispatch(placeOrderSuccess(responseObj.order.number));
             dispatch({ type: RESET_ORDER });
             setOrderModalState(true);
         })
         .catch(error => {
-            dispatch({ type: PLACE_ORDER_ERROR });
+            dispatch(placeOrderError());
             console.error(`Order placing error: ${error}`)
         });
     }

@@ -36,7 +36,7 @@ export const logout = async () =>
     });
 };
 
-export const getUserRequest = async () =>
+export const fetchGetUser = async () =>
 {
     let accessToken = getCookie('accessToken');
     if (!accessToken)

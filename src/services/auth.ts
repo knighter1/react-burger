@@ -1,7 +1,7 @@
-import { loginRequest, getUserRequest, logout } from './api';
+import { fetchGetUser, loginRequest, logout } from './api';
 import {
     signInRequest, signInSuccess, signInError, logoutRequest, logoutSuccess, logoutError } from '../redux/actions/auth';
-import { GET_USER_REQUEST, GET_USER_SUCCESS, GET_USER_ERROR } from '../redux/actions/profile';
+import { getUserRequest, getUserSuccess, getUserError } from '../redux/actions/profile';
 import { getCookie } from '../utils/cookie';
 
 export const signIn = (email: string, password: string, dispatch: Function) =>
@@ -50,9 +50,9 @@ export const signOut = (dispatch: Function, history: any) =>
 
 export const getUser = (dispatch: Function) =>
 {
-    dispatch({ type: GET_USER_REQUEST });
+    dispatch(getUserRequest());
 
-    getUserRequest()
+    fetchGetUser()
     .then(response => {
         if (response.success) {
             return response;
@@ -60,10 +60,10 @@ export const getUser = (dispatch: Function) =>
         return Promise.reject(`Status ${response.status}`);
     })
     .then(responseObj => {
-        dispatch({ type: GET_USER_SUCCESS, ...responseObj });
+        dispatch(getUserSuccess(responseObj.user));
     })
     .catch(error => {
-        dispatch({ type: GET_USER_ERROR });
+        dispatch(getUserError());
         console.error('Get user info error:', error)
     });
 }

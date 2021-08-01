@@ -1,10 +1,7 @@
 import { accessReducer } from './access';
-import {
-        signInRequest, signInSuccess, signInError, logoutRequest, logoutSuccess, logoutError } from '../actions/auth';
+import { signInRequest, signInSuccess, signInError, logoutRequest, logoutSuccess, logoutError } from '../actions/auth';
 import { registerRequest, registerSuccess, registerError } from '../actions/register';
-import {
-    GET_USER_REQUEST, GET_USER_ERROR, GET_USER_SUCCESS,
-    PATCH_USER_REQUEST, PATCH_USER_ERROR, PATCH_USER_SUCCESS } from '../actions/profile';
+import { getUserRequest, getUserSuccess, getUserError, patchUserRequest, patchUserSuccess, patchUserError } from '../actions/profile';
 import { User } from '../../types/IUser';
 
 describe('access reducer', () =>
@@ -43,7 +40,7 @@ describe('access reducer', () =>
     it(`should handle GET_USER_REQUEST`, () =>
     {
         expect(
-            accessReducer({ ...initState, user, isAuth: true }, { type: GET_USER_REQUEST })
+            accessReducer({ ...initState, user, isAuth: true }, getUserRequest())
         ).toEqual({ success: false, user: user, isError: false, isRequest: true, isAuth: true });
     });
 
@@ -59,7 +56,7 @@ describe('access reducer', () =>
     it(`should handle PATCH_USER_REQUEST`, () =>
     {
         expect(
-            accessReducer({ ...initState, user, isAuth: true }, { type: PATCH_USER_REQUEST })
+            accessReducer({ ...initState, user, isAuth: true }, patchUserRequest())
         ).toEqual({ success: false, user: user, isError: false, isRequest: true, isAuth: true });
     });
 
@@ -80,7 +77,7 @@ describe('access reducer', () =>
     it(`should handle GET_USER_ERROR`, () =>
     {
         expect(
-            accessReducer({ ...initState, user: user, isAuth: true }, { type: GET_USER_ERROR })
+            accessReducer({ ...initState, user: user, isAuth: true }, getUserError())
         ).toEqual({ success: false, user: user, isError: true, isRequest: false, isAuth: true });
     });
 
@@ -94,7 +91,7 @@ describe('access reducer', () =>
     it(`should handle PATCH_USER_ERROR`, () =>
     {
         expect(
-            accessReducer({ ...initState, user: user, isAuth: true }, { type: PATCH_USER_ERROR })
+            accessReducer({ ...initState, user: user, isAuth: true }, patchUserError())
         ).toEqual({ success: false, user: user, isError: true, isRequest: false, isAuth: true });
     });
 
@@ -121,14 +118,14 @@ describe('access reducer', () =>
     it(`should handle GET_USER_SUCCESS`, () =>
     {
         expect(
-            accessReducer({ ...initState, isAuth: true }, { type: GET_USER_SUCCESS, user: user })
+            accessReducer({ ...initState, isAuth: true }, getUserSuccess(user))
         ).toEqual({ success: true, user: user, isError: false, isRequest: false, isAuth: true });
     });
 
     it(`should handle PATCH_USER_SUCCESS`, () =>
     {
         expect(
-            accessReducer({ ...initState, user: user, isAuth: true }, { type: PATCH_USER_SUCCESS, user: user })
+            accessReducer({ ...initState, user: user, isAuth: true }, patchUserSuccess(user))
         ).toEqual({ success: true, user: user, isError: false, isRequest: false, isAuth: true });
     });
 

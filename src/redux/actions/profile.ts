@@ -45,11 +45,24 @@ export type TProfileActions =
     | IPatchUserSuccessAction
     | IPatchUserErrorAction;
 
+export const getUserRequest = (): IGetUserRequestAction => ({ type: GET_USER_REQUEST });
+
+export const getUserSuccess = (user: IUser): IGetUserSuccessAction => ({ type: GET_USER_SUCCESS, user: user });
+
+export const getUserError = (): IGetUserErrorAction => ({ type: GET_USER_ERROR });
+
+export const patchUserRequest = (): IPatchUserRequestAction => ({ type: PATCH_USER_REQUEST });
+
+export const patchUserSuccess = (user: IUser): IPatchUserSuccessAction => ({ type: PATCH_USER_SUCCESS, user: user });
+
+export const patchUserError = (): IPatchUserErrorAction => ({ type: PATCH_USER_ERROR });
+
 export function updateUserInfo(email: string, name: string, password: string, onPathSuccess: Function)
 {
     return function(dispatch: Function)
     {
-        dispatch({ type: PATCH_USER_REQUEST });
+        dispatch(patchUserRequest());
+
         const accessToken = getCookie('accessToken');
         const info = {
             method: 'PATCH',
@@ -67,11 +80,11 @@ export function updateUserInfo(email: string, name: string, password: string, on
             return Promise.reject(`Status ${response.status}`);
         })
         .then(responseObj => {
-            dispatch({ type: PATCH_USER_SUCCESS, ...responseObj });
+            dispatch(patchUserSuccess(responseObj.user));
             onPathSuccess();
         })
         .catch(error => {
-            dispatch({ type: PATCH_USER_ERROR });
+            dispatch(patchUserError());
             console.error(`Update user info error: ${error}`)
         });
     }

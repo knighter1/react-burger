@@ -12,7 +12,7 @@ import { IConstructorState } from "../../redux/reducers/constructor";
 import { useHistory } from "react-router-dom";
 import { placeOrder } from "../../redux/actions/order";
 import { setIngredient } from "../../redux/actions/ingredient";
-import { TStore, useSelector } from "../../redux/reducers";
+import { useSelector } from "../../redux/reducers";
 import { IngredientData } from "../../types/IIngredientData";
 
 interface IBuns

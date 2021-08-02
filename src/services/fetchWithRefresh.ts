@@ -1,6 +1,11 @@
 import { getCookie, setCookie } from "../utils/cookie";
 
-const checkResponse = (response: any) => {
+interface IResponse extends Body
+{
+    ok: boolean;
+}
+
+const checkResponse = (response: IResponse) => {
 	return response.ok ? response.json() : response.json().then((err: Error) => Promise.reject(err));
 }
 

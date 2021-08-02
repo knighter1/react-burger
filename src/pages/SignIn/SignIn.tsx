@@ -4,9 +4,8 @@ import './SignIn.css';
 import SignInForm from '../../components/SignInForm/SignInForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
 import { useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { signIn } from '../../redux/actions/auth';
-import { useSelector } from '../../redux/reducers';
+import { useDispatch, useSelector } from '../../redux/reducers';
 
 interface stateType {
     from: { pathname: string }

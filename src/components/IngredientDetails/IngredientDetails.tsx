@@ -4,9 +4,9 @@ import { setIngredient } from '../../redux/actions/ingredient';
 import { IngredientData } from '../../types/IIngredientData';
 import { useDispatch, useSelector } from '../../redux/reducers';
 
-export const IngredientDetails = (): ReactElement => {
+export const IngredientDetails = (): ReactElement | null => {
 
-    const ingredientData: IngredientData = useSelector(store => store.ingredient) as IngredientData;
+    const ingredientData: IngredientData | null = useSelector(store => store.ingredient);
     
     const dispatch = useDispatch();
 
@@ -21,6 +21,9 @@ export const IngredientDetails = (): ReactElement => {
         return () => dispatch(setIngredient(null));
     }
     useEffect(dropIngredient, [dispatch]);
+
+    if (!ingredientData)
+        return null;
 
     return (
         <div className={`${styles.pageContainer} modal-сontent`}>

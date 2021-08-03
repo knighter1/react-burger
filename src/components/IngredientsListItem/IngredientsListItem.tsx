@@ -12,7 +12,7 @@ interface IConstructorElement {
     text: string;
     thumbnail: string;
     price: number;
-    handleClose?: (event: Event) => void;
+    handleClose?: () => void;
 };
 
 interface IIngredientsListItemProps
@@ -37,10 +37,7 @@ const IngredientsListItem = ({ data, index, type, onClickHandler }: IIngredients
             thumbnail: item.image_mobile,
             type: type,
             isLocked: type ? true : false,
-            handleClose: (event: Event) => {
-                event.stopPropagation();
-                dispatch(constructorRemoveItem(index))
-            }
+            handleClose: () => dispatch(constructorRemoveItem(index))
         };
 
         return elementProps;

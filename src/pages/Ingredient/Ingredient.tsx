@@ -1,8 +1,7 @@
-import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { IngredientDetails } from "../../components/IngredientDetails/IngredientDetails";
 import { setIngredient } from "../../redux/actions/ingredient";
-import { useSelector } from "../../redux/reducers";
+import { useDispatch, useSelector } from "../../redux/reducers";
 import { IngredientData } from "../../types/IIngredientData";
 
 interface IngredientId {

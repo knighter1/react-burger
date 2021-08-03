@@ -14,11 +14,11 @@ import NotFound404 from '../../pages/NotFound404/NotFound404';
 import { Modal } from '../Modal/Modal';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 import { OrderInfoDetails } from '../OrderInfoDetails/OrderInfoDetails';
-import { useDispatch } from 'react-redux';
 import { getIngredientsLib } from '../../redux/actions/ingredientsLib';
 import { useEffect } from 'react';
 import OrderDetailPage from '../../pages/OrderDetail/OrderDetail';
 import ProfileOrdersPage from '../../pages/ProfileOrders/ProfileOrders';
+import { useDispatch } from '../../redux/reducers';
 
 interface ILocationState {
     background?: any;

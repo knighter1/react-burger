@@ -1,7 +1,7 @@
 import '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch } from 'react-redux';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { signOut } from '../../redux/actions/auth';
+import { useDispatch } from '../../redux/reducers';
 import styles from './ProfileMenu.module.css';
 
 const ProfileMenu = () =>

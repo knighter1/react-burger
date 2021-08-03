@@ -2,9 +2,9 @@ import { useRef } from 'react';
 import styles from './IngredientsListItem.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { constructorRemoveItem, constructorReorderItem } from '../../redux/actions/constructor';
-import { useDispatch } from 'react-redux';
 import { useDrag, useDrop } from 'react-dnd';
 import { IngredientData } from '../../types/IIngredientData';
+import { useDispatch } from '../../redux/reducers';
 
 interface IConstructorElement {
     type?: 'top' | 'bottom';
@@ -12,7 +12,7 @@ interface IConstructorElement {
     text: string;
     thumbnail: string;
     price: number;
-    handleClose?: any
+    handleClose?: (event: Event) => void;
 };
 
 interface IIngredientsListItemProps

@@ -1,4 +1,4 @@
-import { Action, ActionCreator, applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import { ActionCreator, applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { ingredientsLibReducer } from './ingredientsLib';
 import { constructorReducer } from './constructor';
 import { orderReducer } from './order';
@@ -23,7 +23,6 @@ import { TRegisterActions } from '../actions/register';
 import { TResetPasswordActions } from '../actions/resetPassword';
 import { TFeedWsActions } from '../actions/feedWsActions';
 import { TUserWsActions } from '../actions/userWsActions';
-import { Dispatch } from 'react';
 import { TypedUseSelectorHook, useSelector as selectorHook, useDispatch as dispatchHook } from 'react-redux';
 
 export const rootReducer = combineReducers({
@@ -55,7 +54,7 @@ const enhancer = composeEnhancers(middleWares);
 
 export const store = createStore(rootReducer, enhancer);
 
-export type TStore = ReturnType<typeof store.getState>;
+export type TStore = ReturnType<typeof rootReducer>;
 
 type TApplicationActions = 
     TAuthActions |
@@ -71,11 +70,9 @@ type TApplicationActions =
     TFeedWsActions |
     TUserWsActions;
 
-export type AppThunk<TReturn = void> = ActionCreator<
-    ThunkAction<TReturn, TStore, Action, TApplicationActions>
->;
+export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, TStore, unknown, TApplicationActions> >;
 
-export type AppDispatch = Dispatch<TApplicationActions>;
+export type AppDispatch = typeof store.dispatch;
 
 export const useSelector: TypedUseSelectorHook<TStore> = selectorHook;
 

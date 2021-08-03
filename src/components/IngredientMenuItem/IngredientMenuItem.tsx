@@ -1,11 +1,10 @@
 import styles from './IngredientMenuItem.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch } from 'react-redux';
 import { setIngredient } from '../../redux/actions/ingredient';
 import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
 import { IngredientData } from '../../types/IIngredientData';
-import { useSelector } from '../../redux/reducers';
+import { useDispatch, useSelector } from '../../redux/reducers';
 
 interface IIngredientMenuItemProps
 {

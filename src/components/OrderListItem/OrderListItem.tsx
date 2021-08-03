@@ -2,14 +2,13 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import styles from './OrderListItem.module.css'
 import { orderCostReducer } from '../../redux/reducers/constructor';
 import { formatOrderDate } from '../../redux/reducers/utils';
-import { useDispatch } from 'react-redux';
 import { setOrderDetail } from '../../redux/actions/orderDetails';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { OrderStatus } from '../../types/IOrderData';
 import { IngredientData } from '../../types/IIngredientData';
-import { useSelector } from '../../redux/reducers';
+import { useDispatch, useSelector } from '../../redux/reducers';
 
 interface IOrderListItemProps {
     name: string
@@ -24,7 +23,7 @@ const OrderListItem = ({name, number, _ingredients, date, status }: IOrderListIt
     const MAX_NAME_LENGTH: number = 65;
     
     const [cost, setCost] = useState(0);
-    const [ingredients, setIngredients]: any = useState([]);
+    const [ingredients, setIngredients] = useState<IngredientData[]>([]);
 
     const lib = useSelector(store => store.ingredientsLib.itemsById);
 

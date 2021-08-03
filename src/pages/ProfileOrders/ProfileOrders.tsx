@@ -1,10 +1,9 @@
 import '@ya.praktikum/react-developer-burger-ui-components'
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import OrdersList from '../../components/OrdersList/OrdersList';
 import ProfileMenu from '../../components/ProfileMenu/ProfileMenu';
 import { userWsConnectionStart } from '../../redux/actions/userWsActions';
-import { useSelector } from '../../redux/reducers';
+import { useDispatch, useSelector } from '../../redux/reducers';
 import { IOrdersFeed } from '../../types/IOrderData';
 import { getCookie } from '../../utils/cookie';
 import styles from './ProfileOrders.module.css';

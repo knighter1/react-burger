@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { OrderInfoDetails } from '../../components/OrderInfoDetails/OrderInfoDetails';
 import { getOrderById } from '../../redux/actions/orderDetails';
-import { useSelector } from '../../redux/reducers';
+import { useDispatch, useSelector } from '../../redux/reducers';
 
 interface OrderId {
     id: string;

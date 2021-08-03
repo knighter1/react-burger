@@ -3,9 +3,8 @@ import styles from './Register.module.css'
 import './Register.css';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch } from 'react-redux';
 import { register } from '../../redux/actions/register';
-import { useSelector } from '../../redux/reducers';
+import { useDispatch, useSelector } from '../../redux/reducers';
 
 const RegisterPage = () =>
 {

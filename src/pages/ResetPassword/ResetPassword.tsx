@@ -2,10 +2,9 @@ import styles from './ResetPassword.module.css'
 import './ResetPassword.css';
 import ResetPasswordForm from '../../components/ResetPasswordForm/ResetPasswordForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch } from 'react-redux';
 import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
 import { resetPassword } from '../../redux/actions/resetPassword';
-import { useSelector } from '../../redux/reducers';
+import { useDispatch, useSelector } from '../../redux/reducers';
 
 interface stateType {
     from: { pathname: string }

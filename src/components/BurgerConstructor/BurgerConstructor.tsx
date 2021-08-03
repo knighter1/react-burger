@@ -5,14 +5,13 @@ import IngredientsList from '../IngredientsList/IngredientsList';
 import IngredientsListItem from '../IngredientsListItem/IngredientsListItem';
 import { Modal } from '../Modal/Modal';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
-import { useDispatch } from "react-redux";
 import { constructorAddItem } from "../../redux/actions/constructor";
 import { useDrop } from "react-dnd";
 import { IConstructorState } from "../../redux/reducers/constructor";
 import { useHistory } from "react-router-dom";
 import { placeOrder } from "../../redux/actions/order";
 import { setIngredient } from "../../redux/actions/ingredient";
-import { useSelector } from "../../redux/reducers";
+import { useDispatch, useSelector } from "../../redux/reducers";
 import { IngredientData } from "../../types/IIngredientData";
 
 interface IBuns

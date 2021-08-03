@@ -1,6 +1,7 @@
 import { IUser } from "../../types/IUser";
 import { getCookie } from "../../utils/cookie";
 import { AppDispatch, AppThunk } from "../reducers";
+import { History } from 'history';
 
 export const SIGNIN_REQUEST = 'SIGNIN_REQUEST';
 export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
@@ -116,7 +117,7 @@ const logout = async () =>
     });
 };
 
-export const signOut: AppThunk = (history: any) => (dispatch: AppDispatch) =>
+export const signOut: AppThunk = (history: History) => (dispatch: AppDispatch) =>
 {
     let refreshToken: string | undefined = getCookie('refreshToken');
     if (!refreshToken)

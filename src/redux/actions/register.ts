@@ -1,6 +1,7 @@
 import { IUser } from "../../types/IUser";
 import { setCookie } from "../../utils/cookie";
 import { AppDispatch, AppThunk } from "../reducers";
+import { History } from 'history';
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
@@ -38,7 +39,7 @@ export const registerSuccess = (accessToken: string, refreshToken: string, user:
 
 export const registerError = (): IRegisterErrorAction => ({ type: REGISTER_ERROR });
 
-export const register: AppThunk = (email: string, password: string, name: string, history: any) => (dispatch: AppDispatch) =>
+export const register: AppThunk = (email: string, password: string, name: string, history: History) => (dispatch: AppDispatch) =>
 {
     const END_POINT: string = 'https://norma.nomoreparties.space/api/auth/register';
     

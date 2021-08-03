@@ -1,4 +1,5 @@
 import { AppDispatch, AppThunk } from "../reducers";
+import { History } from 'history';
 
 export const INIT_RESET_PASSWORD_REQUEST = 'INIT_RESET_PASSWORD_REQUEST';
 export const INIT_RESET_PASSWORD_SUCCESS = 'INIT_RESET_PASSWORD_SUCCESS';
@@ -28,7 +29,7 @@ export const initResetPasswordSuccess = (message: string): IInitResetPasswordSuc
 
 export const initResetPasswordError = (): IInitResetPasswordErrorAction => ({ type: INIT_RESET_PASSWORD_ERROR });
 
-export const initResetPassword: AppThunk = (email: string, history: any) => (dispatch: AppDispatch) =>
+export const initResetPassword: AppThunk = (email: string, history: History) => (dispatch: AppDispatch) =>
 {
     const END_POINT: string = 'https://norma.nomoreparties.space/api/password-reset';
     

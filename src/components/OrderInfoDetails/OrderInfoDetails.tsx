@@ -9,7 +9,7 @@ import { ReactElement } from 'react';
 
 export const OrderInfoDetails = (): ReactElement => {
 
-    const orderState: IOrderDetailsState = useSelector(store => store.orderDetails) as IOrderDetailsState;
+    const orderState: IOrderDetailsState = useSelector(store => store.orderDetails);
 
     const orderData: IOrderDetailsData | null = orderState.orderData;
 

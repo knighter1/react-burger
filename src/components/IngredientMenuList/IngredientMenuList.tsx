@@ -19,7 +19,7 @@ export enum IngredientTypes
 
 export const IngredientMenuList: React.FC<IIngredientMenuListProps> = ({changeTypeHandler}): ReactElement =>
 {
-    const ingredients: IngredientData[] = useSelector(store => store.ingredientsLib.items) as IngredientData[];
+    const ingredients: IngredientData[] = useSelector(store => store.ingredientsLib.items);
 
     const bunsList: IngredientData[] = ingredients ? ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.bun]) : [];
     const mainList: IngredientData[] = ingredients ? ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.main]) : [];

@@ -10,9 +10,9 @@ export const wsActionsUser: IWsActions =
 {
     wsInit: USER_WS_CONNECTION_START,
     onOpen: () => userWsConnectionSuccess(),
-    onClose: () => userWsConnectionClosed(),
+    onClose: (payload: string) => userWsConnectionClosed(payload),
     onError: (payload: string) => userWsConnectionError(payload),
-    onMessage: (message: string, dispatch: Function) => userWsGetMessage(message, dispatch)
+    onMessage: (payload: string, dispatch: Function) => userWsGetMessage(payload, dispatch)
 };
 
 export const initialState: IOrderFeedWebSocketState =
@@ -32,7 +32,7 @@ export const userWsReducer = (state: IOrderFeedWebSocketState = initialState, ac
             return { ...state, error: null, wsConnected: true };
 
         case USER_WS_CONNECTION_ERROR:
-            return { ...state, error: action.payload, wsConnected: false };
+            return { ...state, error: action.payload ? action.payload : '', wsConnected: false };
 
         case USER_WS_CONNECTION_CLOSED:
             return { ...state, error: null, wsConnected: false };

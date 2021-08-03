@@ -8,9 +8,9 @@ export const wsActionsFeed: IWsActions =
 {
     wsInit: FEED_WS_CONNECTION_START,
     onOpen: () => feedWsConnectionSuccess(),
-    onClose: () => feedWsConnectionClosed(),
+    onClose: (payload: string) => feedWsConnectionClosed(payload),
     onError: (payload: string) => feedWsConnectionError(payload),
-    onMessage: (message: string) => feedWsGetMessage(message)
+    onMessage: (payload: string, dispatch?: Function) => feedWsGetMessage(payload)
 };
 
 export const initialState: IOrderFeedWebSocketState =

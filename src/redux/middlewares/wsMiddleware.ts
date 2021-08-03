@@ -1,12 +1,21 @@
 import { TStore } from "../reducers";
 
+export interface WebSocketAction {
+    readonly type: string;
+    readonly payload?: string;
+};
+
 export interface IWsActions
 {
     wsInit: string;
-    onOpen: Function,
-    onClose: Function,
-    onError: Function,
-    onMessage: Function
+    onOpen: () => WebSocketAction,
+    onClose: (payload: string) => WebSocketAction,
+    onError: (payload: string) => WebSocketAction,
+    onMessage: (payload: string, dispatch: Function) => WebSocketAction
+}
+
+interface ErrorEvent extends Event {
+    message?: string;
 }
 
 export const socketMiddleware = (wsUrl: string, wsActions: IWsActions): any =>
@@ -15,7 +24,7 @@ export const socketMiddleware = (wsUrl: string, wsActions: IWsActions): any =>
     {
         let socket: WebSocket | null = null;
 
-        return (next: any) => (action: any) =>
+        return (next: Function) => (action: WebSocketAction) =>
         {
             const { dispatch }: any = store;
             const { type, payload } = action;
@@ -30,22 +39,22 @@ export const socketMiddleware = (wsUrl: string, wsActions: IWsActions): any =>
 
             if (socket)
             {
-                socket.onopen = event => {
+                socket.onopen = () => {
                     dispatch(wsActions.onOpen());
                 };
 
-                socket.onerror = event => {
-                    dispatch(wsActions.onError(event));
+                socket.onerror = (event: ErrorEvent) => {
+                    dispatch(wsActions.onError(event.message ? event.message : 'unknown error'));
                 };
 
-                socket.onmessage = event =>
+                socket.onmessage = (event: MessageEvent) =>
                 {
                     const { data } = event;
                     dispatch(wsActions.onMessage(data, dispatch));
                 };
 
-                socket.onclose = event => {
-                    dispatch(wsActions.onClose(event));
+                socket.onclose = (event: CloseEvent) => {
+                    dispatch(wsActions.onClose(event.reason));
                 };
             }
 

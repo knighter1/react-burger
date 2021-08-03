@@ -1,4 +1,4 @@
-import { ReactElement, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import styles from './ModalOverlay.module.css'
 
 interface IModalOverlayProps
@@ -7,7 +7,7 @@ interface IModalOverlayProps
     children: JSX.Element;
 }
 
-export const ModalOverlay = ({ closeHandle, children }: IModalOverlayProps): ReactElement =>
+export const ModalOverlay: FC<IModalOverlayProps> = ({ closeHandle, children }) =>
 {
     useEffect(() => {
         const escapeKeyDownHandler = (event: KeyboardEvent) => {

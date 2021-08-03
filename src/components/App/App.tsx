@@ -15,7 +15,7 @@ import { Modal } from '../Modal/Modal';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 import { OrderInfoDetails } from '../OrderInfoDetails/OrderInfoDetails';
 import { getIngredientsLib } from '../../redux/actions/ingredientsLib';
-import { ReactElement, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { OrderDetailPage } from '../../pages/OrderDetail/OrderDetail';
 import { ProfileOrdersPage } from '../../pages/ProfileOrders/ProfileOrders';
 import { useDispatch } from '../../hooks';
@@ -24,7 +24,7 @@ interface ILocationState {
     background?: any;
 }
 
-const ModalSwitch = (): ReactElement =>
+const ModalSwitch: FC = () =>
 {
     const location = useLocation<ILocationState>();
     const history = useHistory();
@@ -98,7 +98,7 @@ const ModalSwitch = (): ReactElement =>
     );
 }
 
-const App = (): ReactElement =>
+const App: FC = () =>
 {
     const dispatch = useDispatch();
 

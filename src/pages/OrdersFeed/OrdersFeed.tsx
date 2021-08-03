@@ -2,12 +2,12 @@ import styles from './OrdersFeed.module.css';
 import '@ya.praktikum/react-developer-burger-ui-components';
 import { OrdersList } from '../../components/OrdersList/OrdersList';
 import { OrdersStat } from '../../components/OrdersStat/OrdersStat';
-import { ReactElement, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { feedWsConnectionStart } from '../../redux/actions/feedWsActions';
 import { IOrdersFeed } from '../../types/IOrderData';
 import { useDispatch, useSelector } from '../../hooks';
 
-export const OrdersFeedPage = (): ReactElement =>
+export const OrdersFeedPage: FC = () =>
 {
     const dispatch = useDispatch();
 

@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { FC } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { useSelector } from '../../hooks';
 
@@ -8,7 +8,7 @@ interface IProtectedRouteProps {
     children: React.ReactNode;
 }
 
-export const ProtectedRoute = ({ exact, children }: IProtectedRouteProps): ReactElement =>
+export const ProtectedRoute:FC<IProtectedRouteProps> = ({ exact, children }) =>
 {
     const isAuth = useSelector(store => store.access.isAuth);
 

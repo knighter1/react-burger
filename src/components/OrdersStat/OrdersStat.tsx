@@ -1,10 +1,10 @@
 import styles from './OrdersStat.module.css';
 import '@ya.praktikum/react-developer-burger-ui-components';
 import { IOrdersFeed, IOrderData } from '../../types/IOrderData';
-import { ReactElement, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useSelector } from '../../hooks';
 
-export const OrdersStat = (): ReactElement =>
+export const OrdersStat: FC = () =>
 {
     const MAX_ORDERS_COUNT: number = 16;
 

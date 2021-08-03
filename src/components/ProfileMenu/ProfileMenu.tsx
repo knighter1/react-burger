@@ -1,11 +1,11 @@
 import '@ya.praktikum/react-developer-burger-ui-components'
-import { ReactElement } from 'react';
+import { FC } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { signOut } from '../../redux/actions/auth';
 import { useDispatch } from '../../hooks';
 import styles from './ProfileMenu.module.css';
 
-export const ProfileMenu = (): ReactElement =>
+export const ProfileMenu: FC = () =>
 {
     const location = useLocation();
     const dispatch = useDispatch();

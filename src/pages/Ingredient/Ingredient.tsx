@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { IngredientDetails } from "../../components/IngredientDetails/IngredientDetails";
 import { useDispatch, useSelector } from "../../hooks";
@@ -9,7 +9,7 @@ interface IngredientId {
     id: string
 }
 
-export const IngredientPage = (): ReactElement | null =>
+export const IngredientPage: FC = () =>
 {
     const { id } = useParams<IngredientId>();
 

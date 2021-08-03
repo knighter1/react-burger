@@ -5,14 +5,14 @@ import { SignInForm } from '../../components/SignInForm/SignInForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
 import { useLocation } from 'react-router-dom';
 import { signIn } from '../../redux/actions/auth';
-import { ReactElement } from 'react';
+import { FC } from 'react';
 import { useDispatch, useSelector } from '../../hooks';
 
 interface StateType {
     from: { pathname: string }
 }
 
-export const SignInPage = (): ReactElement =>
+export const SignInPage: FC = () =>
 {
     const { state } = useLocation<StateType>();
     const dispatch = useDispatch();

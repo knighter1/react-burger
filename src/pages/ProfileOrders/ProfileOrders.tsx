@@ -1,5 +1,5 @@
 import '@ya.praktikum/react-developer-burger-ui-components'
-import { ReactElement, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { OrdersList } from '../../components/OrdersList/OrdersList';
 import { ProfileMenu } from '../../components/ProfileMenu/ProfileMenu';
 import { userWsConnectionStart } from '../../redux/actions/userWsActions';
@@ -8,7 +8,7 @@ import { IOrdersFeed } from '../../types/IOrderData';
 import { getCookie } from '../../utils/cookie';
 import styles from './ProfileOrders.module.css';
 
-export const ProfileOrdersPage = (): ReactElement =>
+export const ProfileOrdersPage: FC = () =>
 {
     const dispatch = useDispatch();
 

@@ -1,12 +1,12 @@
 import { Logo, EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { FormEvent, ReactElement, useState } from 'react';
+import { FormEvent, FC, useState } from 'react';
 import styles from './RegisterForm.module.css'
 
 interface IRegisterFormProps {
     handler: (email: string, password: string, name: string) => void;
 }
 
-export const RegisterForm = ( { handler }: IRegisterFormProps): ReactElement =>
+export const RegisterForm: FC<IRegisterFormProps> = ( { handler }) =>
 {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

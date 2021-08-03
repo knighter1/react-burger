@@ -1,10 +1,10 @@
 import styles from './IngredientDetails.module.css';
-import { ReactElement, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { setIngredient } from '../../redux/actions/ingredient';
 import { IngredientData } from '../../types/IIngredientData';
 import { useDispatch, useSelector } from '../../hooks';
 
-export const IngredientDetails = (): ReactElement | null => {
+export const IngredientDetails: FC = () => {
 
     const ingredientData: IngredientData | null = useSelector(store => store.ingredient);
     

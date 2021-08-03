@@ -5,13 +5,13 @@ import '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
 import { resetPassword } from '../../redux/actions/resetPassword';
 import { useDispatch, useSelector } from '../../hooks';
-import { ReactElement } from 'react';
+import { FC } from 'react';
 
 interface stateType {
     from: { pathname: string }
 }
 
-export const ResetPasswordPage = (): ReactElement =>
+export const ResetPasswordPage: FC = () =>
 {
     const dispatch = useDispatch();
 

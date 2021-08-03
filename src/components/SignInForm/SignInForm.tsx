@@ -1,12 +1,12 @@
 import { Logo, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { FormEvent, ReactElement, useState } from 'react';
+import { FormEvent, FC, useState } from 'react';
 import styles from './SignInForm.module.css'
 
 interface ISignInFormProps {
     handler: (email: string, password: string) => void;
 }
 
-export const SignInForm = ({ handler }: ISignInFormProps): ReactElement =>
+export const SignInForm: FC<ISignInFormProps> = ({ handler }) =>
 {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

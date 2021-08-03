@@ -5,14 +5,14 @@ import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
 import { IngredientData } from '../../types/IIngredientData';
 import { useDispatch, useSelector } from '../../hooks';
-import { ReactElement } from 'react';
+import { FC } from 'react';
 
 interface IIngredientMenuItemProps
 {
     data: IngredientData
 }
 
-export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps): ReactElement =>
+export const IngredientMenuItem: FC<IIngredientMenuItemProps> = ({ data }) =>
 {
     const dispatch = useDispatch();
 

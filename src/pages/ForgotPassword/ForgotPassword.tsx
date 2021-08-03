@@ -5,9 +5,9 @@ import '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { initResetPassword } from '../../redux/actions/initResetPassword';
 import { useDispatch, useSelector } from '../../hooks';
-import { ReactElement } from 'react';
+import { FC } from 'react';
 
-export const ForgotPasswordPage = (): ReactElement =>
+export const ForgotPasswordPage: FC = () =>
 {
     const dispatch = useDispatch();
 

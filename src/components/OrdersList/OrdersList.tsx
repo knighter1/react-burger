@@ -3,7 +3,7 @@ import '@ya.praktikum/react-developer-burger-ui-components';
 import OrderListItem from '../OrderListItem/OrderListItem';
 import { IOrdersFeed } from '../../types/IOrderData';
 import { useSelector } from '../../hooks';
-import { ReactElement } from 'react';
+import { FC } from 'react';
 
 export interface IOrdersListProps {
     caption?: string;
@@ -11,7 +11,7 @@ export interface IOrdersListProps {
     feed: IOrdersFeed | null;
 }
 
-export const OrdersList = ( { caption, type, feed }: IOrdersListProps ): ReactElement =>
+export const OrdersList: FC<IOrdersListProps> = ( { caption, type, feed }) =>
 {
     const lib = useSelector(store => store.ingredientsLib.items);
 

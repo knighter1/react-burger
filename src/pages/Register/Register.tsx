@@ -5,9 +5,9 @@ import { RegisterForm } from '../../components/RegisterForm/RegisterForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
 import { register } from '../../redux/actions/register';
 import { useDispatch, useSelector } from '../../hooks';
-import { ReactElement } from 'react';
+import { FC } from 'react';
 
-export const RegisterPage = (): ReactElement =>
+export const RegisterPage: FC = () =>
 {
     const dispatch = useDispatch();
 

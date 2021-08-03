@@ -1,12 +1,12 @@
 import { Logo, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { FormEvent, ReactElement, useState } from 'react';
+import { FormEvent, FC, useState } from 'react';
 import styles from './ResetPasswordForm.module.css'
 
 interface IResetPasswordFormProps {
     handler: (password: string, token: string) => void;
 }
 
-export const ResetPasswordForm = ({handler}: IResetPasswordFormProps): ReactElement =>
+export const ResetPasswordForm: FC<IResetPasswordFormProps> = ({ handler }) =>
 {
     const [password, setPassword] = useState('');
     const [token, setToken] = useState('');

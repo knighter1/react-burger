@@ -1,12 +1,12 @@
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './Profile.module.css';
 import './Profile.css';
-import { FormEvent, ReactElement, useEffect, useState } from 'react';
+import { FormEvent, FC, useEffect, useState } from 'react';
 import { ProfileMenu } from '../../components/ProfileMenu/ProfileMenu';
 import { getUser, updateUserInfo } from '../../redux/actions/profile';
 import { useDispatch, useSelector } from '../../hooks';
 
-export const ProfilePage = (): ReactElement =>
+export const ProfilePage: FC = () =>
 {
     const dispatch = useDispatch();
     const [isModified, setIsModified] = useState(false);

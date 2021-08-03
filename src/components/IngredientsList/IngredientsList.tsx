@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { FC, useState } from 'react';
 import styles from './IngredientsList.module.css';
 import IngredientsListItem from '../IngredientsListItem/IngredientsListItem';
 import { Modal } from '../Modal/Modal';
@@ -11,7 +11,7 @@ interface IIngredientsListProps
     onClickHandler: (data: IngredientData) => void;
 }
 
-const IngredientsList = ({ items, onClickHandler }: IIngredientsListProps): ReactElement =>
+const IngredientsList: FC<IIngredientsListProps> = ({ items, onClickHandler }) =>
 {
     const [modalState, setModalState] = useState(false);
 

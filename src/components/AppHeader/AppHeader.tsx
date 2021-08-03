@@ -1,10 +1,10 @@
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { ReactElement } from 'react';
+import { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import HeaderItem from '../HeaderItem/HeaderItem';
 import styles from './AppHeader.module.css';
 
-const AppHeader = (): ReactElement => {
+const AppHeader: FC = () => {
 
     const location = useLocation();
     

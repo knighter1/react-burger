@@ -1,8 +1,8 @@
-import { ReactElement } from "react";
+import { FC } from "react";
 import { Link } from "react-router-dom";
 import styles from './NotFound404.module.css';
 
-export const NotFound404Page = (): ReactElement =>
+export const NotFound404Page: FC = () =>
 {
     return (
         <div className={styles.page}>

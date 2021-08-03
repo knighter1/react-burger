@@ -2,7 +2,7 @@ import styles from './OrdersList.module.css';
 import '@ya.praktikum/react-developer-burger-ui-components';
 import OrderListItem from '../OrderListItem/OrderListItem';
 import { IOrdersFeed } from '../../types/IOrderData';
-import { useSelector } from '../../redux/reducers';
+import { useSelector } from '../../hooks';
 import { ReactElement } from 'react';
 
 export interface IOrdersListProps {

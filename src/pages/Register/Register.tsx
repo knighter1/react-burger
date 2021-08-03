@@ -4,7 +4,7 @@ import './Register.css';
 import { RegisterForm } from '../../components/RegisterForm/RegisterForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
 import { register } from '../../redux/actions/register';
-import { useDispatch, useSelector } from '../../redux/reducers';
+import { useDispatch, useSelector } from '../../hooks';
 import { ReactElement } from 'react';
 
 export const RegisterPage = (): ReactElement =>

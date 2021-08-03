@@ -2,7 +2,7 @@ import styles from './OrdersStat.module.css';
 import '@ya.praktikum/react-developer-burger-ui-components';
 import { IOrdersFeed, IOrderData } from '../../types/IOrderData';
 import { ReactElement, useEffect, useState } from 'react';
-import { useSelector } from '../../redux/reducers';
+import { useSelector } from '../../hooks';
 
 export const OrdersStat = (): ReactElement =>
 {

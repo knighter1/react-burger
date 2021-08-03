@@ -4,7 +4,7 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import { constructorRemoveItem, constructorReorderItem } from '../../redux/actions/constructor';
 import { useDrag, useDrop } from 'react-dnd';
 import { IngredientData } from '../../types/IIngredientData';
-import { useDispatch } from '../../redux/reducers';
+import { useDispatch } from '../../hooks';
 
 interface IConstructorElement {
     type?: 'top' | 'bottom';

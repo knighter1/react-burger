@@ -2,7 +2,7 @@ import styles from './IngredientDetails.module.css';
 import { ReactElement, useEffect } from 'react';
 import { setIngredient } from '../../redux/actions/ingredient';
 import { IngredientData } from '../../types/IIngredientData';
-import { useDispatch, useSelector } from '../../redux/reducers';
+import { useDispatch, useSelector } from '../../hooks';
 
 export const IngredientDetails = (): ReactElement | null => {
 

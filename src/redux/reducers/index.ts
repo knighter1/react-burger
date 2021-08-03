@@ -23,7 +23,6 @@ import { TRegisterActions } from '../actions/register';
 import { TResetPasswordActions } from '../actions/resetPassword';
 import { TFeedWsActions } from '../actions/feedWsActions';
 import { TUserWsActions } from '../actions/userWsActions';
-import { TypedUseSelectorHook, useSelector as selectorHook, useDispatch as dispatchHook } from 'react-redux';
 
 export const rootReducer = combineReducers({
     ingredientsLib: ingredientsLibReducer,
@@ -73,7 +72,3 @@ type TApplicationActions =
 export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, TStore, unknown, TApplicationActions> >;
 
 export type AppDispatch = typeof store.dispatch;
-
-export const useSelector: TypedUseSelectorHook<TStore> = selectorHook;
-
-export const useDispatch = () => dispatchHook<AppDispatch | AppThunk>();

@@ -11,8 +11,8 @@ import { IConstructorState } from "../../redux/reducers/constructor";
 import { useHistory } from "react-router-dom";
 import { placeOrder } from "../../redux/actions/order";
 import { setIngredient } from "../../redux/actions/ingredient";
-import { useDispatch, useSelector } from "../../redux/reducers";
 import { IngredientData } from "../../types/IIngredientData";
+import { useDispatch, useSelector } from "../../hooks";
 
 interface IBuns
 {

@@ -18,7 +18,7 @@ import { getIngredientsLib } from '../../redux/actions/ingredientsLib';
 import { ReactElement, useEffect } from 'react';
 import { OrderDetailPage } from '../../pages/OrderDetail/OrderDetail';
 import { ProfileOrdersPage } from '../../pages/ProfileOrders/ProfileOrders';
-import { useDispatch } from '../../redux/reducers';
+import { useDispatch } from '../../hooks';
 
 interface ILocationState {
     background?: any;

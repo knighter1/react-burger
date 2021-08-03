@@ -3,7 +3,7 @@ import styles from './IngredientMenuList.module.css';
 import { ReactElement, useEffect } from 'react';
 import { useInView } from "react-intersection-observer";
 import { IngredientData } from '../../types/IIngredientData';
-import { useSelector } from '../../redux/reducers';
+import { useSelector } from '../../hooks';
 
 interface IIngredientMenuListProps
 {

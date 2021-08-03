@@ -1,8 +1,8 @@
 import { ReactElement } from "react";
 import { useParams } from "react-router-dom";
 import { IngredientDetails } from "../../components/IngredientDetails/IngredientDetails";
+import { useDispatch, useSelector } from "../../hooks";
 import { setIngredient } from "../../redux/actions/ingredient";
-import { useDispatch, useSelector } from "../../redux/reducers";
 import { IngredientData } from "../../types/IIngredientData";
 
 interface IngredientId {

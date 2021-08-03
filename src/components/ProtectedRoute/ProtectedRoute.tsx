@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { useSelector } from '../../redux/reducers';
+import { useSelector } from '../../hooks';
 
 interface IProtectedRouteProps {
     path: string;

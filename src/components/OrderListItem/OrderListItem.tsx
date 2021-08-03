@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { ReactElement, useEffect, useState } from 'react';
 import { OrderStatus } from '../../types/IOrderData';
 import { IngredientData } from '../../types/IIngredientData';
-import { useDispatch, useSelector } from '../../redux/reducers';
+import { useDispatch, useSelector } from '../../hooks';
 
 interface IOrderListItemProps {
     name: string

@@ -4,7 +4,7 @@ import './Profile.css';
 import { FormEvent, ReactElement, useEffect, useState } from 'react';
 import { ProfileMenu } from '../../components/ProfileMenu/ProfileMenu';
 import { getUser, updateUserInfo } from '../../redux/actions/profile';
-import { useDispatch, useSelector } from '../../redux/reducers';
+import { useDispatch, useSelector } from '../../hooks';
 
 export const ProfilePage = (): ReactElement =>
 {

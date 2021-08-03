@@ -4,7 +4,7 @@ import { setIngredient } from '../../redux/actions/ingredient';
 import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
 import { IngredientData } from '../../types/IIngredientData';
-import { useDispatch, useSelector } from '../../redux/reducers';
+import { useDispatch, useSelector } from '../../hooks';
 import { ReactElement } from 'react';
 
 interface IIngredientMenuItemProps

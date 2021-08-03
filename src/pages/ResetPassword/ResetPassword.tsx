@@ -4,7 +4,7 @@ import { ResetPasswordForm } from '../../components/ResetPasswordForm/ResetPassw
 import '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
 import { resetPassword } from '../../redux/actions/resetPassword';
-import { useDispatch, useSelector } from '../../redux/reducers';
+import { useDispatch, useSelector } from '../../hooks';
 import { ReactElement } from 'react';
 
 interface stateType {

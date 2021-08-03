@@ -5,7 +5,7 @@ import { OrdersStat } from '../../components/OrdersStat/OrdersStat';
 import { ReactElement, useEffect } from 'react';
 import { feedWsConnectionStart } from '../../redux/actions/feedWsActions';
 import { IOrdersFeed } from '../../types/IOrderData';
-import { useDispatch, useSelector } from '../../redux/reducers';
+import { useDispatch, useSelector } from '../../hooks';
 
 export const OrdersFeedPage = (): ReactElement =>
 {

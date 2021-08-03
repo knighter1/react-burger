@@ -4,7 +4,7 @@ import { ForgotPasswordForm } from '../../components/ForgotPasswordForm/ForgotPa
 import '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { initResetPassword } from '../../redux/actions/initResetPassword';
-import { useDispatch, useSelector } from '../../redux/reducers';
+import { useDispatch, useSelector } from '../../hooks';
 import { ReactElement } from 'react';
 
 export const ForgotPasswordPage = (): ReactElement =>

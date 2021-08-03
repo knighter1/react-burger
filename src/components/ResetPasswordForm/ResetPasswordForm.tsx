@@ -3,7 +3,7 @@ import { FormEvent, useState } from 'react';
 import styles from './ResetPasswordForm.module.css'
 
 interface IResetPasswordFormProps {
-    handler: Function
+    handler: (password: string, token: string) => void;
 }
 
 const ResetPasswordForm = ({handler}: IResetPasswordFormProps) =>

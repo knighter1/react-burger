@@ -59,7 +59,7 @@ export const patchUserError = (): IPatchUserErrorAction => ({ type: PATCH_USER_E
 
 const USER_END_POINT = 'https://norma.nomoreparties.space/api/auth/user';
 
-export const updateUserInfo: AppThunk = (email: string, name: string, password: string, onPathSuccess: Function) => (dispatch: AppDispatch) =>
+export const updateUserInfo: AppThunk = (email: string, name: string, password: string, onPatchSuccess: () => void) => (dispatch: AppDispatch) =>
 {
     dispatch(patchUserRequest());
 
@@ -81,7 +81,7 @@ export const updateUserInfo: AppThunk = (email: string, name: string, password: 
     })
     .then(responseObj => {
         dispatch(patchUserSuccess(responseObj.user));
-        onPathSuccess();
+        onPatchSuccess();
     })
     .catch(error => {
         dispatch(patchUserError());

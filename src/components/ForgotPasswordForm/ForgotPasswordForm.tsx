@@ -3,7 +3,7 @@ import { FormEvent, useState } from 'react';
 import styles from './ForgotPasswordForm.module.css'
 
 interface IForgotPasswordFormProps {
-    handler: Function
+    handler: (email: string) => void
 }
 
 const ForgotPasswordForm = ({handler}: IForgotPasswordFormProps) =>

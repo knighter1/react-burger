@@ -3,7 +3,7 @@ import styles from './ModalOverlay.module.css'
 
 interface IModalOverlayProps
 {
-    closeHandle: Function;
+    closeHandle: () => void;
     children: JSX.Element;
 }
 

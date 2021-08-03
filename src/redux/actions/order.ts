@@ -31,7 +31,7 @@ export const placeOrderError = (): IPlaceOrderErrorAction => ({ type: PLACE_ORDE
 
 export const placeOrderSuccess = (orderId: number): IPlaceOrderSuccessAction => ({ type: PLACE_ORDER_SUCCESS, orderId: orderId });
 
-export const placeOrder: AppThunk = (currentItems: IConstructorState, setOrderModalState: Function) => (dispatch: AppDispatch) =>
+export const placeOrder: AppThunk = (currentItems: IConstructorState, setOrderModalState: (state: boolean) => void) => (dispatch: AppDispatch) =>
 {
     const PLACE_ORDER_ENDPOINT = 'https://norma.nomoreparties.space/api/orders';
 

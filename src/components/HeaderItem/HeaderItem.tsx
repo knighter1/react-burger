@@ -7,8 +7,8 @@ interface IHeaderLinkProps {
     type: "primary" | "secondary";
 }
 
-const HeaderItem = ({caption, Icon, type}: IHeaderLinkProps): JSX.Element => {
-    
+const HeaderItem = ({caption, Icon, type}: IHeaderLinkProps): JSX.Element =>
+{    
     const textColor = type === "secondary" ? "text_color_inactive" : "";
     
     return (

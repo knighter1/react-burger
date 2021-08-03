@@ -3,7 +3,7 @@ import { FormEvent, useState } from 'react';
 import styles from './RegisterForm.module.css'
 
 interface IRegisterFormProps {
-    handler: Function
+    handler: (email: string, password: string, name: string) => void;
 }
 
 const RegisterForm = ( { handler }: IRegisterFormProps) =>

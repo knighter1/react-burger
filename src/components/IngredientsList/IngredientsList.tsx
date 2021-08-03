@@ -8,7 +8,7 @@ import { IngredientData } from '../../types/IIngredientData';
 interface IIngredientsListProps
 {
     items: IngredientData[];
-    onClickHandler: Function
+    onClickHandler: (data: IngredientData) => void;
 }
 
 const IngredientsList = ({ items, onClickHandler }: IIngredientsListProps) =>

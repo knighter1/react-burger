@@ -7,7 +7,7 @@ import { useSelector } from '../../redux/reducers';
 
 interface IIngredientMenuListProps
 {
-    changeTypeHandler: Function
+    changeTypeHandler: (ingredintType: string) => void;
 }
 
 export enum IngredientTypes

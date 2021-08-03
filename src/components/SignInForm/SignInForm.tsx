@@ -3,7 +3,7 @@ import { FormEvent, useState } from 'react';
 import styles from './SignInForm.module.css'
 
 interface ISignInFormProps {
-    handler: Function;
+    handler: (email: string, password: string) => void;
 }
 
 const SignInForm = ({ handler }: ISignInFormProps) =>

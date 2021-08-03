@@ -6,7 +6,7 @@ import modalCloseBtnImg from '../../images/modal_close_btn.png';
 const modalRoot: HTMLElement = document.getElementById("modals") as HTMLElement;
 
 export interface IModal {
-    closeHandle: Function,
+    closeHandle: () => void,
     children: JSX.Element
 }
 

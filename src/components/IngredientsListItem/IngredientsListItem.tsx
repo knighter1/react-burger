@@ -20,7 +20,7 @@ interface IIngredientsListItemProps
     data: IngredientData;
     index: number;
     type?: "top" | "bottom";
-    onClickHandler: Function
+    onClickHandler: (data: IngredientData) => void;
 }
 
 const IngredientsListItem = ({ data, index, type, onClickHandler }: IIngredientsListItemProps) =>

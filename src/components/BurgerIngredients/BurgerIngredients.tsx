@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import { IngredientMenuList, IngredientTypes } from '../IngredientMenuList/IngredientMenuList';
 import styles from './BurgerIngredients.module.css';
 
-const BurgerIngredients = () =>
+const BurgerIngredients = (): ReactElement =>
 {
     const [currentType, setCurrentType] = useState(IngredientTypes[IngredientTypes.bun]);
     const types: IngredientTypes[] = [IngredientTypes.bun, IngredientTypes.sauce, IngredientTypes.main];

@@ -1,13 +1,13 @@
 import styles from './OrdersFeed.module.css';
 import '@ya.praktikum/react-developer-burger-ui-components';
-import OrdersList from '../../components/OrdersList/OrdersList';
-import OrdersStat from '../../components/OrdersStat/OrdersStat';
-import { useEffect } from 'react';
+import { OrdersList } from '../../components/OrdersList/OrdersList';
+import { OrdersStat } from '../../components/OrdersStat/OrdersStat';
+import { ReactElement, useEffect } from 'react';
 import { feedWsConnectionStart } from '../../redux/actions/feedWsActions';
 import { IOrdersFeed } from '../../types/IOrderData';
 import { useDispatch, useSelector } from '../../redux/reducers';
 
-const OrdersFeedPage = () =>
+export const OrdersFeedPage = (): ReactElement =>
 {
     const dispatch = useDispatch();
 
@@ -24,5 +24,3 @@ const OrdersFeedPage = () =>
         </div>
     )
 }
-
-export default OrdersFeedPage;

@@ -1,10 +1,10 @@
 import styles from './IngredientDetails.module.css';
-import { useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { setIngredient } from '../../redux/actions/ingredient';
 import { IngredientData } from '../../types/IIngredientData';
 import { useDispatch, useSelector } from '../../redux/reducers';
 
-export const IngredientDetails = (): JSX.Element => {
+export const IngredientDetails = (): ReactElement => {
 
     const ingredientData: IngredientData = useSelector(store => store.ingredient) as IngredientData;
     

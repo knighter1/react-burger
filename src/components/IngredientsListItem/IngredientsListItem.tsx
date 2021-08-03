@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { ReactElement, useRef } from 'react';
 import styles from './IngredientsListItem.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { constructorRemoveItem, constructorReorderItem } from '../../redux/actions/constructor';
@@ -23,7 +23,7 @@ interface IIngredientsListItemProps
     onClickHandler: (data: IngredientData) => void;
 }
 
-const IngredientsListItem = ({ data, index, type, onClickHandler }: IIngredientsListItemProps) =>
+const IngredientsListItem = ({ data, index, type, onClickHandler }: IIngredientsListItemProps): ReactElement =>
 {
     const dispatch = useDispatch();
 

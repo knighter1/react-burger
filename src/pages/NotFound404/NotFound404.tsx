@@ -1,7 +1,8 @@
+import { ReactElement } from "react";
 import { Link } from "react-router-dom";
 import styles from './NotFound404.module.css';
 
-const NotFound404Page = () =>
+export const NotFound404Page = (): ReactElement =>
 {
     return (
         <div className={styles.page}>
@@ -16,5 +17,3 @@ const NotFound404Page = () =>
         </div>
     )
 }
-
-export default NotFound404Page;

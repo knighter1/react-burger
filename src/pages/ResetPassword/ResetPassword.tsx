@@ -1,16 +1,17 @@
 import styles from './ResetPassword.module.css'
 import './ResetPassword.css';
-import ResetPasswordForm from '../../components/ResetPasswordForm/ResetPasswordForm';
+import { ResetPasswordForm } from '../../components/ResetPasswordForm/ResetPasswordForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
 import { resetPassword } from '../../redux/actions/resetPassword';
 import { useDispatch, useSelector } from '../../redux/reducers';
+import { ReactElement } from 'react';
 
 interface stateType {
     from: { pathname: string }
 }
 
-const ResetPasswordPage = () =>
+export const ResetPasswordPage = (): ReactElement =>
 {
     const dispatch = useDispatch();
 
@@ -52,5 +53,3 @@ const ResetPasswordPage = () =>
         </div>
     )
 }
-
-export default ResetPasswordPage;

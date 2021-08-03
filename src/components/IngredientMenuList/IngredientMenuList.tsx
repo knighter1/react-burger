@@ -1,6 +1,6 @@
 import { IngredientMenuItem } from '../IngredientMenuItem/IngredientMenuItem';
 import styles from './IngredientMenuList.module.css';
-import { useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { useInView } from "react-intersection-observer";
 import { IngredientData } from '../../types/IIngredientData';
 import { useSelector } from '../../redux/reducers';
@@ -17,7 +17,7 @@ export enum IngredientTypes
     main = "Начинки" as any
 }
 
-export const IngredientMenuList: React.FC<IIngredientMenuListProps> = ({changeTypeHandler}) =>
+export const IngredientMenuList: React.FC<IIngredientMenuListProps> = ({changeTypeHandler}): ReactElement =>
 {
     const ingredients: IngredientData[] = useSelector(store => store.ingredientsLib.items) as IngredientData[];
 

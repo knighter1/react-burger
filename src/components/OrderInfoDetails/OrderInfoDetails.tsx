@@ -5,8 +5,9 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { orderCostReducer } from '../../redux/reducers/constructor';
 import { IngredientData } from '../../types/IIngredientData';
 import { useSelector } from '../../redux/reducers';
+import { ReactElement } from 'react';
 
-export const OrderInfoDetails = (): JSX.Element => {
+export const OrderInfoDetails = (): ReactElement => {
 
     const orderState: IOrderDetailsState = useSelector(store => store.orderDetails) as IOrderDetailsState;
 

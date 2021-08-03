@@ -1,12 +1,13 @@
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import styles from './Register.module.css'
 import './Register.css';
-import RegisterForm from '../../components/RegisterForm/RegisterForm';
+import { RegisterForm } from '../../components/RegisterForm/RegisterForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
 import { register } from '../../redux/actions/register';
 import { useDispatch, useSelector } from '../../redux/reducers';
+import { ReactElement } from 'react';
 
-const RegisterPage = () =>
+export const RegisterPage = (): ReactElement =>
 {
     const dispatch = useDispatch();
 
@@ -46,5 +47,3 @@ const RegisterPage = () =>
         </div>
     )
 }
-
-export default RegisterPage;

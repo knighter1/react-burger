@@ -5,13 +5,14 @@ import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
 import { IngredientData } from '../../types/IIngredientData';
 import { useDispatch, useSelector } from '../../redux/reducers';
+import { ReactElement } from 'react';
 
 interface IIngredientMenuItemProps
 {
     data: IngredientData
 }
 
-export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps) =>
+export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps): ReactElement =>
 {
     const dispatch = useDispatch();
 

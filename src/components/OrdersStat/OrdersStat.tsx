@@ -1,10 +1,10 @@
 import styles from './OrdersStat.module.css';
 import '@ya.praktikum/react-developer-burger-ui-components';
 import { IOrdersFeed, IOrderData } from '../../types/IOrderData';
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { useSelector } from '../../redux/reducers';
 
-const OrdersStat = () =>
+export const OrdersStat = (): ReactElement =>
 {
     const MAX_ORDERS_COUNT: number = 16;
 
@@ -62,5 +62,3 @@ const OrdersStat = () =>
         </section>   
     )
 }
-
-export default OrdersStat;

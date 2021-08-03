@@ -1,4 +1,5 @@
 
+import { ReactElement } from 'react';
 import styles from './HeaderItem.module.css';
 
 interface IHeaderLinkProps {
@@ -7,7 +8,7 @@ interface IHeaderLinkProps {
     type: "primary" | "secondary";
 }
 
-const HeaderItem = ({caption, Icon, type}: IHeaderLinkProps): JSX.Element =>
+const HeaderItem = ({caption, Icon, type}: IHeaderLinkProps): ReactElement =>
 {    
     const textColor = type === "secondary" ? "text_color_inactive" : "";
     

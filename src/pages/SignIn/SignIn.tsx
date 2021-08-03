@@ -1,19 +1,20 @@
 import { Link, Redirect } from 'react-router-dom';
 import styles from './SignIn.module.css'
 import './SignIn.css';
-import SignInForm from '../../components/SignInForm/SignInForm';
+import { SignInForm } from '../../components/SignInForm/SignInForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
 import { useLocation } from 'react-router-dom';
 import { signIn } from '../../redux/actions/auth';
 import { useDispatch, useSelector } from '../../redux/reducers';
+import { ReactElement } from 'react';
 
-interface stateType {
+interface StateType {
     from: { pathname: string }
 }
 
-const SignInPage = () =>
+export const SignInPage = (): ReactElement =>
 {
-    const { state } = useLocation<stateType>();
+    const { state } = useLocation<StateType>();
     const dispatch = useDispatch();
 
     const isAuth: boolean = useSelector(store => store.access.isAuth);
@@ -54,5 +55,3 @@ const SignInPage = () =>
         </div>
     )
 }
-
-export default SignInPage;

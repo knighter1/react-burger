@@ -1,8 +1,9 @@
 import styles from './OrderDetails.module.css';
 import orderDoneImg from '../../images/order_done.png';
 import { useSelector } from '../../redux/reducers';
+import { ReactElement } from 'react';
 
-export const OrderDetails = (): JSX.Element =>
+export const OrderDetails = (): ReactElement =>
 {
     const orderId: number = useSelector(store => store.order.orderId);
 

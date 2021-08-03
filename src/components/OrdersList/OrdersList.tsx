@@ -3,6 +3,7 @@ import '@ya.praktikum/react-developer-burger-ui-components';
 import OrderListItem from '../OrderListItem/OrderListItem';
 import { IOrdersFeed } from '../../types/IOrderData';
 import { useSelector } from '../../redux/reducers';
+import { ReactElement } from 'react';
 
 export interface IOrdersListProps {
     caption?: string;
@@ -10,7 +11,7 @@ export interface IOrdersListProps {
     feed: IOrdersFeed | null;
 }
 
-const OrdersList = ( { caption, type, feed }: IOrdersListProps ) =>
+export const OrdersList = ( { caption, type, feed }: IOrdersListProps ): ReactElement =>
 {
     const lib = useSelector(store => store.ingredientsLib.items);
 
@@ -33,5 +34,3 @@ const OrdersList = ( { caption, type, feed }: IOrdersListProps ) =>
         </section>   
     )
 }
-
-export default OrdersList;

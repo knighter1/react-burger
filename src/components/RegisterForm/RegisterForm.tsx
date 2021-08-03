@@ -1,12 +1,12 @@
 import { Logo, EmailInput, PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { FormEvent, useState } from 'react';
+import { FormEvent, ReactElement, useState } from 'react';
 import styles from './RegisterForm.module.css'
 
 interface IRegisterFormProps {
     handler: (email: string, password: string, name: string) => void;
 }
 
-const RegisterForm = ( { handler }: IRegisterFormProps) =>
+export const RegisterForm = ( { handler }: IRegisterFormProps): ReactElement =>
 {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -38,5 +38,3 @@ const RegisterForm = ( { handler }: IRegisterFormProps) =>
         </form>
     )
 }
-
-export default RegisterForm;

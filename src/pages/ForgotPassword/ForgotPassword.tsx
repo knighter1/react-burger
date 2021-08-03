@@ -1,12 +1,13 @@
 import styles from './ForgotPassword.module.css'
 import './ForgotPassword.css';
-import ForgotPasswordForm from '../../components/ForgotPasswordForm/ForgotPasswordForm';
+import { ForgotPasswordForm } from '../../components/ForgotPasswordForm/ForgotPasswordForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { initResetPassword } from '../../redux/actions/initResetPassword';
 import { useDispatch, useSelector } from '../../redux/reducers';
+import { ReactElement } from 'react';
 
-const ForgotPasswordPage = () =>
+export const ForgotPasswordPage = (): ReactElement =>
 {
     const dispatch = useDispatch();
 
@@ -46,5 +47,3 @@ const ForgotPasswordPage = () =>
         </div>
     )
 }
-
-export default ForgotPasswordPage;

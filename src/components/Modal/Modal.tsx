@@ -2,6 +2,7 @@ import styles from './Modal.module.css';
 import ReactDOM from 'react-dom';
 import { ModalOverlay } from '../ModalOverlay/ModalOverlay';
 import modalCloseBtnImg from '../../images/modal_close_btn.png';
+import { ReactElement } from 'react';
 
 const modalRoot: HTMLElement = document.getElementById("modals") as HTMLElement;
 
@@ -10,7 +11,7 @@ export interface IModal {
     children: JSX.Element
 }
 
-export const Modal = ({ closeHandle, children }: IModal) =>
+export const Modal = ({ closeHandle, children }: IModal): ReactElement =>
 {
     return ReactDOM.createPortal( 
        (

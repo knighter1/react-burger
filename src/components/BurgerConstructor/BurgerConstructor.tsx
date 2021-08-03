@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactElement } from "react";
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerConstructor.module.css';
 import IngredientsList from '../IngredientsList/IngredientsList';
@@ -20,7 +20,7 @@ interface IBuns
     last?: IngredientData | null;
 }
 
-const BurgerConstructor = () =>
+const BurgerConstructor = (): ReactElement =>
 {
     const [buns, setBuns] =  useState<IBuns>({ first: null, last: null });
 

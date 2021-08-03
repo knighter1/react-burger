@@ -5,7 +5,7 @@ import { formatOrderDate } from '../../redux/reducers/utils';
 import { setOrderDetail } from '../../redux/actions/orderDetails';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { OrderStatus } from '../../types/IOrderData';
 import { IngredientData } from '../../types/IIngredientData';
 import { useDispatch, useSelector } from '../../redux/reducers';
@@ -18,7 +18,7 @@ interface IOrderListItemProps {
     status: OrderStatus;
 }
 
-const OrderListItem = ({name, number, _ingredients, date, status }: IOrderListItemProps) =>
+const OrderListItem = ({name, number, _ingredients, date, status }: IOrderListItemProps): ReactElement | null =>
 {
     const MAX_NAME_LENGTH: number = 65;
     

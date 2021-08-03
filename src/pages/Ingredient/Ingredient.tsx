@@ -1,3 +1,4 @@
+import { ReactElement } from "react";
 import { useParams } from "react-router-dom";
 import { IngredientDetails } from "../../components/IngredientDetails/IngredientDetails";
 import { setIngredient } from "../../redux/actions/ingredient";
@@ -8,7 +9,7 @@ interface IngredientId {
     id: string
 }
 
-const IngredientPage = () =>
+export const IngredientPage = (): ReactElement | null =>
 {
     const { id } = useParams<IngredientId>();
 
@@ -29,5 +30,3 @@ const IngredientPage = () =>
         </div>
     )
 }
-
-export default IngredientPage;

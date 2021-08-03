@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { ReactElement, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { OrderInfoDetails } from '../../components/OrderInfoDetails/OrderInfoDetails';
 import { getOrderById } from '../../redux/actions/orderDetails';
@@ -8,7 +8,7 @@ interface OrderId {
     id: string;
 }
 
-const OrderDetailPage = () =>
+export const OrderDetailPage = (): ReactElement =>
 {
     const lib = useSelector(store => store.ingredientsLib);
 
@@ -26,5 +26,3 @@ const OrderDetailPage = () =>
         </div>     
     )
 }
-
-export default OrderDetailPage;

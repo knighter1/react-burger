@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { useSelector } from '../../redux/reducers';
 
@@ -7,7 +8,7 @@ interface IProtectedRouteProps {
     children: React.ReactNode;
 }
 
-export const ProtectedRoute = ({ exact, children }: IProtectedRouteProps) =>
+export const ProtectedRoute = ({ exact, children }: IProtectedRouteProps): ReactElement =>
 {
     const isAuth = useSelector(store => store.access.isAuth);
 

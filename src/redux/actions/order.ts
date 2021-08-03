@@ -1,3 +1,4 @@
+import { fetchWithRefresh } from "../../services/fetchWithRefresh";
 import { getCookie } from "../../utils/cookie";
 import { AppDispatch, AppThunk } from "../reducers";
 import { IConstructorState } from "../reducers/constructor";
@@ -55,7 +56,7 @@ export const placeOrder: AppThunk = (currentItems: IConstructorState, setOrderMo
 
     setOrderModalState(true);
 
-    fetch(PLACE_ORDER_ENDPOINT, {
+    fetchWithRefresh(PLACE_ORDER_ENDPOINT, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -64,8 +65,8 @@ export const placeOrder: AppThunk = (currentItems: IConstructorState, setOrderMo
         body: JSON.stringify({ingredients: getFullIngredients()})
     })
     .then(response => {
-        if (response.ok) {
-            return response.json();
+        if (response.success) {
+            return response;
         }
         return Promise.reject(`Status ${response.status}`);
     })

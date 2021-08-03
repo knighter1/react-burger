@@ -8,18 +8,22 @@ const OrdersStat = () =>
 {
     const MAX_ORDERS_COUNT: number = 16;
 
-    const [completedOrders, setCompletedOrders]: any = useState([]);
-    const [prcessingOrders, setPrcessingOrders]: any = useState([]);
+    const [completedOrders, setCompletedOrders] = useState<number[]>([]);
+    const [prcessingOrders, setPrcessingOrders] = useState<number[]>([]);
 
     const feed: IOrdersFeed | null = useSelector(store => store.feedWs.feed);
 
     useEffect(() => {
-        const completed = feed?.orders.map((order: IOrderData) => order.status === 'done' ? order.number : null );
-        setCompletedOrders(completed?.slice(0, MAX_ORDERS_COUNT));
         
-        const processing = feed?.orders.map((order: IOrderData) => order.status !== 'done' ? order.number : null );
-        setPrcessingOrders(processing?.slice(0, MAX_ORDERS_COUNT));
-    }, [feed?.orders]);
+        if (!feed)
+            return;
+
+        const completed = feed.orders.filter((order: IOrderData) => order.status === 'done' ).map((order: IOrderData) => order.number);
+        completed && setCompletedOrders(completed.slice(0, MAX_ORDERS_COUNT));
+        
+        const processing = feed.orders.filter((order: IOrderData) => order.status !== 'done').map((order: IOrderData) => order.number);
+        processing && setPrcessingOrders(processing.slice(0, MAX_ORDERS_COUNT));
+    }, [feed]);
 
     return (
         <section className={`${styles.section}  ml-10`}>
@@ -29,7 +33,7 @@ const OrdersStat = () =>
                     <div className='text text_type_main-medium'>Готовы:</div>
                     <div className={styles.statOrderList}>
                         
-                        { completedOrders?.map((orderId: string, index: number) => (
+                        { completedOrders?.map((orderId: number, index: number) => (
                             <div key={index} className={`text text_type_digits-default mt-2 ${styles.completedOrder}`}>{orderId}</div>
                         )) }
                     </div>
@@ -37,7 +41,7 @@ const OrdersStat = () =>
                 <div className={styles.statOperCol}>
                     <div className='text text_type_main-medium'>В работе:</div>
                     <div className={styles.statOrderList}>
-                        { prcessingOrders?.map((orderId: string, index: number) => (
+                        { prcessingOrders?.map((orderId: number, index: number) => (
                             <div key={index} className={`text text_type_digits-default mt-2`}>{orderId}</div>
                         )) }
                     </div>

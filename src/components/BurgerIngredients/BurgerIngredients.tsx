@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import { IngredientMenuList, IngredientTypes } from '../IngredientMenuList/IngredientMenuList';
+import { IngredientMenuList, INGREDIENTS_NAMES, IngredientTypes } from '../IngredientMenuList/IngredientMenuList';
 import styles from './BurgerIngredients.module.css';
 
 const BurgerIngredients: FC = () =>
@@ -24,7 +24,7 @@ const BurgerIngredients: FC = () =>
                         const state: boolean = currentType === IngredientTypes[type];
                         return (
                             <Tab key={type} value={IngredientTypes[type]} active={state} onClick={handler}>
-                                {type}
+                                {INGREDIENTS_NAMES[type]}
                             </Tab>
                         )
                     })

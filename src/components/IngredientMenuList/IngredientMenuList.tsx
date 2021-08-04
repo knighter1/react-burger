@@ -12,10 +12,12 @@ interface IIngredientMenuListProps
 
 export enum IngredientTypes
 {
-    bun = "Булки" as any,
-    sauce = "Соусы" as any,
-    main = "Начинки" as any
+    bun,
+    sauce,
+    main
 }
+
+export const INGREDIENTS_NAMES: string[] = ["Булки", "Соусы", "Начинки"];
 
 export const IngredientMenuList: FC<IIngredientMenuListProps> = ({changeTypeHandler}) =>
 {
@@ -52,7 +54,7 @@ export const IngredientMenuList: FC<IIngredientMenuListProps> = ({changeTypeHand
 
         return (
             <div key={IngredientTypes[type]} className={styles.categoryBlock} ref={elementRef}>
-                <span id={`menu_${IngredientTypes[type]}`} className={`${styles.listCategory} text text_type_main-medium pt-2`}>{type}</span>
+                <span id={`menu_${IngredientTypes[type]}`} className={`${styles.listCategory} text text_type_main-medium pt-2`}>{INGREDIENTS_NAMES[type]}</span>
                 {
                     data.map(element => <IngredientMenuItem key={element._id} data={element} />)
                 }

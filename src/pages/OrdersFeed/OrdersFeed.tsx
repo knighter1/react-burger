@@ -4,14 +4,13 @@ import { OrdersList } from '../../components/OrdersList/OrdersList';
 import { OrdersStat } from '../../components/OrdersStat/OrdersStat';
 import { FC, useEffect } from 'react';
 import { feedWsConnectionStart } from '../../redux/actions/feedWsActions';
-import { IOrdersFeed } from '../../types/IOrderData';
 import { useDispatch, useSelector } from '../../hooks';
 
 export const OrdersFeedPage: FC = () =>
 {
     const dispatch = useDispatch();
 
-    const feed: IOrdersFeed | null = useSelector(store => store.feedWs.feed);
+    const feed = useSelector(store => store.feedWs.feed);
 
     useEffect(() => {
         dispatch(feedWsConnectionStart());

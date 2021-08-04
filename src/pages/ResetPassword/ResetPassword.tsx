@@ -21,7 +21,7 @@ export const ResetPasswordPage: FC = () =>
         dispatch(resetPassword(password, token, history));
     }
 
-    const isAuth: boolean = useSelector(store => store.access.isAuth);
+    const isAuth = useSelector(store => store.access.isAuth);
 
     const { state } = useLocation<stateType>();
 

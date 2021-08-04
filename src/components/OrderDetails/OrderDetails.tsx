@@ -5,7 +5,7 @@ import { FC } from 'react';
 
 export const OrderDetails: FC = () =>
 {
-    const orderId: number = useSelector(store => store.order.orderId);
+    const orderId = useSelector(store => store.order.orderId);
 
     let content;
     if (orderId)

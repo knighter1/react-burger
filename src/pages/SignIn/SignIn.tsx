@@ -17,7 +17,7 @@ export const SignInPage: FC = () =>
     const { state } = useLocation<StateType>();
     const dispatch = useDispatch();
 
-    const isAuth: boolean = useSelector(store => store.access.isAuth);
+    const isAuth = useSelector(store => store.access.isAuth);
 
     if (isAuth) {
         return (

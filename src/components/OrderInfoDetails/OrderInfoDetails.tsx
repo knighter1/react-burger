@@ -1,5 +1,5 @@
 import styles from './OrderInfoDetails.module.css';
-import { IOrderDetailsData, IOrderDetailsState } from '../../redux/reducers/orderDetails';
+import { IOrderDetailsData } from '../../redux/reducers/orderDetails';
 import { formatOrderDate } from '../../redux/reducers/utils';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { orderCostReducer } from '../../redux/reducers/constructor';
@@ -9,7 +9,7 @@ import { FC } from 'react';
 
 export const OrderInfoDetails: FC = () =>
 {
-    const orderState: IOrderDetailsState = useSelector(store => store.orderDetails);
+    const orderState = useSelector(store => store.orderDetails);
 
     const orderData: IOrderDetailsData | null = orderState.orderData;
 

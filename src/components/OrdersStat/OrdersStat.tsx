@@ -1,6 +1,6 @@
 import styles from './OrdersStat.module.css';
 import '@ya.praktikum/react-developer-burger-ui-components';
-import { IOrdersFeed, IOrderData } from '../../types/IOrderData';
+import { IOrderData } from '../../types/IOrderData';
 import { FC, useEffect, useState } from 'react';
 import { useSelector } from '../../hooks';
 
@@ -11,7 +11,7 @@ export const OrdersStat: FC = () =>
     const [completedOrders, setCompletedOrders] = useState<number[]>([]);
     const [prcessingOrders, setPrcessingOrders] = useState<number[]>([]);
 
-    const feed: IOrdersFeed | null = useSelector(store => store.feedWs.feed);
+    const feed = useSelector(store => store.feedWs.feed);
 
     useEffect(() => {
         

@@ -7,7 +7,6 @@ import { Modal } from '../Modal/Modal';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
 import { constructorAddItem } from "../../redux/actions/constructor";
 import { useDrop } from "react-dnd";
-import { IConstructorState } from "../../redux/reducers/constructor";
 import { useHistory } from "react-router-dom";
 import { placeOrder } from "../../redux/actions/order";
 import { setIngredient } from "../../redux/actions/ingredient";
@@ -24,7 +23,7 @@ const BurgerConstructor: FC = () =>
 {
     const [buns, setBuns] =  useState<IBuns>({ first: null, last: null });
 
-    const currentItems: IConstructorState = useSelector(store => store.constructor)
+    const currentItems = useSelector(store => store.constructor)
 
     const dispatch = useDispatch();
 

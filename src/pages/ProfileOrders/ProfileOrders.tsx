@@ -4,7 +4,6 @@ import { OrdersList } from '../../components/OrdersList/OrdersList';
 import { ProfileMenu } from '../../components/ProfileMenu/ProfileMenu';
 import { userWsConnectionStart } from '../../redux/actions/userWsActions';
 import { useDispatch, useSelector } from '../../hooks';
-import { IOrdersFeed } from '../../types/IOrderData';
 import { getCookie } from '../../utils/cookie';
 import styles from './ProfileOrders.module.css';
 
@@ -12,7 +11,7 @@ export const ProfileOrdersPage: FC = () =>
 {
     const dispatch = useDispatch();
 
-    const feed: IOrdersFeed | null = useSelector(store => store.userWs.feed);
+    const feed = useSelector(store => store.userWs.feed);
 
     useEffect(() =>
     {

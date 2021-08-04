@@ -17,7 +17,7 @@ export const RegisterPage: FC = () =>
         dispatch(register(email, password, name, history));   
     }
 
-    const isAuth: boolean = useSelector(store => store.access.isAuth);
+    const isAuth = useSelector(store => store.access.isAuth);
 
     if (isAuth) {
         return (

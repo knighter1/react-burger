@@ -15,7 +15,7 @@ export const IngredientPage: FC = () =>
 
     const dispatch = useDispatch();
 
-    const ingredientsLib: IngredientData[] = useSelector(store => store.ingredientsLib.items);
+    const ingredientsLib = useSelector(store => store.ingredientsLib.items);
 
     const ingredient: IngredientData | undefined = ingredientsLib.find((item: IngredientData) => item._id === id);
 

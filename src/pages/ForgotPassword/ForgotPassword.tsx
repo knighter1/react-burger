@@ -17,7 +17,7 @@ export const ForgotPasswordPage: FC = () =>
         dispatch(initResetPassword(email, history));
     }
 
-    const isAuth: boolean = useSelector(store => store.access.isAuth);
+    const isAuth = useSelector(store => store.access.isAuth);
 
     if (isAuth) {
         return (

@@ -1,6 +1,6 @@
 import { IngredientMenuItem } from '../IngredientMenuItem/IngredientMenuItem';
 import styles from './IngredientMenuList.module.css';
-import { FC, useEffect } from 'react';
+import { FC, LegacyRef, useEffect } from 'react';
 import { useInView } from "react-intersection-observer";
 import { IngredientData } from '../../types/IIngredientData';
 import { useSelector } from '../../hooks';
@@ -47,7 +47,7 @@ export const IngredientMenuList: FC<IIngredientMenuListProps> = ({changeTypeHand
         }
     }, [inViewBuns, inViewMain, inViewSauces, changeTypeHandler]);
 
-    const renderCategory = (type: IngredientTypes, data: IngredientData[], elementRef: any) =>
+    const renderCategory = (type: IngredientTypes, data: IngredientData[], elementRef: LegacyRef<HTMLDivElement>) =>
     {
         if (!data.length)
             return null;

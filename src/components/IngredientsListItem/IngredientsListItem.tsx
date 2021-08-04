@@ -23,6 +23,12 @@ interface IIngredientsListItemProps
     onClickHandler: (data: IngredientData) => void;
 }
 
+interface DragableItem
+{
+    data: IngredientData;
+    prevIndex: number;
+}
+
 const IngredientsListItem: FC<IIngredientsListItemProps> = ({ data, index, type, onClickHandler }) =>
 {
     const dispatch = useDispatch();
@@ -43,7 +49,8 @@ const IngredientsListItem: FC<IIngredientsListItemProps> = ({ data, index, type,
         return elementProps;
     }
 
-    const [{isDrag}, dragRef] = useDrag({
+    const [{isDrag}, dragRef] = useDrag(
+    {
         type: !type ? "reorder" : "",
         item: { data: data, prevIndex: index },
         collect: monitor => ({
@@ -51,9 +58,10 @@ const IngredientsListItem: FC<IIngredientsListItemProps> = ({ data, index, type,
         })
     });
 
-    const [, dropRef] = useDrop({
+    const [, dropRef] = useDrop(
+    {
         accept: "reorder",
-        drop(item: any) {
+        drop(item: DragableItem) {
             dispatch(constructorReorderItem(item.prevIndex, index))
         },
     });

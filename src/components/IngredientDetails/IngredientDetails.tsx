@@ -17,10 +17,10 @@ export const IngredientDetails: FC = () => {
         </ul>
     )
 
-    const dropIngredient: any = () => {
-        return () => dispatch(setIngredient(null));
-    }
-    useEffect(dropIngredient, [dispatch]);
+    useEffect(() =>
+    {
+        return (() => { dispatch(setIngredient(null)) })
+    }, [dispatch]);
 
     if (!ingredientData)
         return null;

@@ -1,4 +1,4 @@
-import { TStore } from "../reducers";
+import { MiddlewareAPI } from "redux";
 
 export interface WebSocketAction {
     readonly type: string;
@@ -18,15 +18,15 @@ interface ErrorEvent extends Event {
     message?: string;
 }
 
-export const socketMiddleware = (wsUrl: string, wsActions: IWsActions): any =>
+export const socketMiddleware = (wsUrl: string, wsActions: IWsActions) =>
 {
-    return (store: TStore) =>
+    return (store: MiddlewareAPI) =>
     {
         let socket: WebSocket | null = null;
 
         return (next: Function) => (action: WebSocketAction) =>
         {
-            const { dispatch }: any = store;
+            const { dispatch } = store;
             const { type, payload } = action;
 
             if (type === wsActions.wsInit) {

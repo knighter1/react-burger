@@ -1,11 +1,11 @@
 import styles from './OrderDetails.module.css';
 import orderDoneImg from '../../images/order_done.png';
-import { useSelector } from 'react-redux';
-import { IStore } from '../../redux/reducers';
+import { useSelector } from '../../hooks';
+import { FC } from 'react';
 
-export const OrderDetails = (): JSX.Element =>
+export const OrderDetails: FC = () =>
 {
-    const orderId: number = useSelector((store: IStore) => store.order.orderId);
+    const orderId = useSelector(store => store.order.orderId);
 
     let content;
     if (orderId)

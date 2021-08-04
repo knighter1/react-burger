@@ -1,45 +1,40 @@
 import { feedWsReducer, initialState } from './feedWsReducer';
-import { FEED_WS_CONNECTION_START, FEED_WS_CONNECTION_CLOSED, FEED_WS_CONNECTION_ERROR, FEED_WS_CONNECTION_SUCCESS, FEED_WS_GET_MESSAGE } from '../actions/feedWsActions';
+import { feedWsConnectionSuccess, feedWsConnectionError, feedWsConnectionClosed, feedWsGetMessage, feedWsConnectionStart } from '../actions/feedWsActions';
 
 describe('orders feed websocket reducer', () =>
 {
-    it('should return the initial state', () =>
-    {
-        expect(feedWsReducer(undefined, {})).toEqual({ wsConnected: false, error: null, feed: null });
-    });
-
     it('should handle FEED_WS_CONNECTION_START', () =>
     {
         expect(
-            feedWsReducer(initialState, { type: FEED_WS_CONNECTION_START })
+            feedWsReducer(initialState, feedWsConnectionStart())
         ).toEqual(initialState);
     });
 
     it('should handle FEED_WS_CONNECTION_SUCCESS', () =>
     {
         expect(
-            feedWsReducer(initialState, { type: FEED_WS_CONNECTION_SUCCESS })
+            feedWsReducer(initialState, feedWsConnectionSuccess())
         ).toEqual({ wsConnected: true, error: null, feed: null });
     });
 
     it('should handle FEED_WS_CONNECTION_CLOSED', () =>
     {
         expect(
-            feedWsReducer({ ...initialState, wsConnected: true }, { type: FEED_WS_CONNECTION_CLOSED })
+            feedWsReducer({ ...initialState, wsConnected: true }, feedWsConnectionClosed())
         ).toEqual({ wsConnected: false, error: null, feed: null });
     });
 
     it('should handle FEED_WS_CONNECTION_ERROR', () =>
     {
         expect(
-            feedWsReducer({ ...initialState, wsConnected: true }, { type: FEED_WS_CONNECTION_ERROR, payload: 'error' })
+            feedWsReducer({ ...initialState, wsConnected: true }, feedWsConnectionError('error'))
         ).toEqual({ wsConnected: false, error: 'error', feed: null });
     });
 
-    it('should handle FEED_WS_CONNECTION_ERROR', () =>
+    it('should handle FEED_WS_CONNECTION_MESSAGE', () =>
     {
         expect(
-            feedWsReducer({ ...initialState, wsConnected: true }, { type: FEED_WS_GET_MESSAGE, payload: '{"success":true,"orders":[],"total":1255,"totalToday":36}' })
+            feedWsReducer({ ...initialState, wsConnected: true }, feedWsGetMessage('{"success":true,"orders":[],"total":1255,"totalToday":36}'))
         ).toEqual({ wsConnected: true, error: null, feed: { success: true, orders: [], total: 1255, totalToday: 36 }});
     });
 }) 

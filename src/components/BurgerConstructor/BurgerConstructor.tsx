@@ -1,19 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './BurgerConstructor.module.css';
 import IngredientsList from '../IngredientsList/IngredientsList';
 import IngredientsListItem from '../IngredientsListItem/IngredientsListItem';
 import { Modal } from '../Modal/Modal';
 import { OrderDetails } from '../OrderDetails/OrderDetails';
-import { useDispatch, useSelector } from "react-redux";
-import { ADD_ITEM } from "../../redux/actions/constructor";
+import { constructorAddItem } from "../../redux/actions/constructor";
 import { useDrop } from "react-dnd";
-import { IConstructorState } from "../../redux/reducers/constructor";
 import { useHistory } from "react-router-dom";
 import { placeOrder } from "../../redux/actions/order";
-import { SET_INGREDIENT } from "../../redux/actions/ingredient";
-import { IStore } from "../../redux/reducers";
+import { setIngredient } from "../../redux/actions/ingredient";
 import { IngredientData } from "../../types/IIngredientData";
+import { useDispatch, useSelector } from "../../hooks";
 
 interface IBuns
 {
@@ -21,11 +19,11 @@ interface IBuns
     last?: IngredientData | null;
 }
 
-const BurgerConstructor = () =>
+const BurgerConstructor: FC = () =>
 {
     const [buns, setBuns] =  useState<IBuns>({ first: null, last: null });
 
-    const currentItems: IConstructorState = useSelector((store: IStore) => store.constructor);
+    const currentItems = useSelector(store => store.constructor)
 
     const dispatch = useDispatch();
 
@@ -49,7 +47,7 @@ const BurgerConstructor = () =>
 
     const [orderModalState, setOrderModalState] = useState(false);
 
-    const isAuth = useSelector((store: IStore) => store.access.isAuth);
+    const isAuth = useSelector(store => store.access.isAuth);
 
     const history = useHistory();
 
@@ -69,14 +67,14 @@ const BurgerConstructor = () =>
 
     const [, dropTarget] = useDrop({
         accept: "ingredients",
-        drop(ingredientData) {
-            dispatch({ type: ADD_ITEM, item: ingredientData });
+        drop(ingredientData: IngredientData) {
+            dispatch(constructorAddItem(ingredientData));
         },
     });
 
     const onIngredientClick = (data: IngredientData) =>
     {
-        dispatch({ type: SET_INGREDIENT, ingredientData: data });
+        dispatch(setIngredient(data));
     }
 
     const ingredientClickHandler = (data: IngredientData) => onIngredientClick(data);

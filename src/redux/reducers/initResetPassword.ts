@@ -1,4 +1,4 @@
-import { INIT_RESET_PASSWORD_REQUEST, INIT_RESET_PASSWORD_ERROR, INIT_RESET_PASSWORD_SUCCESS } from '../actions/initResetPassword';
+import { INIT_RESET_PASSWORD_REQUEST, INIT_RESET_PASSWORD_ERROR, INIT_RESET_PASSWORD_SUCCESS, TInitResetPasswordActions } from '../actions/initResetPassword';
 
 export interface IInitResetPasswordState
 {
@@ -18,7 +18,7 @@ export const initState: IInitResetPasswordState =
     isRequest: false
 }
 
-export const initResetPasswordReducer = (state = initState, action: any): IInitResetPasswordState =>
+export const initResetPasswordReducer = (state = initState, action: TInitResetPasswordActions): IInitResetPasswordState =>
 {
     switch (action.type)
     {
@@ -26,7 +26,7 @@ export const initResetPasswordReducer = (state = initState, action: any): IInitR
             return { ...state, isError: false, isRequest: true };
 
         case INIT_RESET_PASSWORD_SUCCESS:
-            return { success: action.success, message: action.message, isError: false, isRequest: false };
+            return { success: true, message: action.message, isError: false, isRequest: false };
 
         case INIT_RESET_PASSWORD_ERROR:
             return { success: false, message: '', isError: true, isRequest: false };

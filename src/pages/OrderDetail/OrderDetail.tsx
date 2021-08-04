@@ -1,17 +1,20 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { OrderInfoDetails } from '../../components/OrderInfoDetails/OrderInfoDetails';
 import { getOrderById } from '../../redux/actions/orderDetails';
-import { IStore } from '../../redux/reducers';
+import { useDispatch, useSelector } from '../../hooks';
 
-const OrderDetailPage = () =>
+interface OrderId {
+    id: string;
+}
+
+export const OrderDetailPage: FC = () =>
 {
-    const lib = useSelector((store: IStore) => store.ingredientsLib);
+    const lib = useSelector(store => store.ingredientsLib);
 
     const dispatch = useDispatch();
 
-    const { id }: any = useParams();
+    const { id } = useParams<OrderId>();
 
     useEffect(() => {
         lib && lib.items.length && dispatch(getOrderById(id, lib));
@@ -23,5 +26,3 @@ const OrderDetailPage = () =>
         </div>     
     )
 }
-
-export default OrderDetailPage;

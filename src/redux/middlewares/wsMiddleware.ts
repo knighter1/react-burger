@@ -1,23 +1,32 @@
-import { IStore } from "../reducers";
+import { MiddlewareAPI } from "redux";
+
+export interface WebSocketAction {
+    readonly type: string;
+    readonly payload?: string;
+};
 
 export interface IWsActions
 {
     wsInit: string;
-    onOpen: string,
-    onClose: string,
-    onError: string,
-    onMessage: string
+    onOpen: () => WebSocketAction,
+    onClose: (payload: string) => WebSocketAction,
+    onError: (payload: string) => WebSocketAction,
+    onMessage: (payload: string, dispatch: Function) => WebSocketAction
 }
 
-export const socketMiddleware = (wsUrl: string, wsActions: IWsActions): any =>
+interface ErrorEvent extends Event {
+    message?: string;
+}
+
+export const socketMiddleware = (wsUrl: string, wsActions: IWsActions) =>
 {
-    return (store: IStore) =>
+    return (store: MiddlewareAPI) =>
     {
         let socket: WebSocket | null = null;
 
-        return (next: any) => (action: any) =>
+        return (next: Function) => (action: WebSocketAction) =>
         {
-            const { dispatch }: any = store;
+            const { dispatch } = store;
             const { type, payload } = action;
 
             if (type === wsActions.wsInit) {
@@ -30,22 +39,22 @@ export const socketMiddleware = (wsUrl: string, wsActions: IWsActions): any =>
 
             if (socket)
             {
-                socket.onopen = event => {
-                    dispatch({ type: wsActions.onOpen, payload: event });
+                socket.onopen = () => {
+                    dispatch(wsActions.onOpen());
                 };
 
-                socket.onerror = event => {
-                    dispatch({ type: wsActions.onError, payload: event });
+                socket.onerror = (event: ErrorEvent) => {
+                    dispatch(wsActions.onError(event.message ? event.message : 'unknown error'));
                 };
 
-                socket.onmessage = event =>
+                socket.onmessage = (event: MessageEvent) =>
                 {
                     const { data } = event;
-                    dispatch({ type: wsActions.onMessage, payload: data, dispatch: dispatch });
+                    dispatch(wsActions.onMessage(data, dispatch));
                 };
 
-                socket.onclose = event => {
-                    dispatch({ type: wsActions.onClose, payload: event });
+                socket.onclose = (event: CloseEvent) => {
+                    dispatch(wsActions.onClose(event.reason));
                 };
             }
 

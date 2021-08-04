@@ -1,18 +1,28 @@
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
-import { ingredientsLibReducer, IIngredientsLibState } from './ingredientsLib';
-import { constructorReducer, IConstructorState } from './constructor';
-import { IOrderState, orderReducer } from './order';
+import { ActionCreator, applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import { ingredientsLibReducer } from './ingredientsLib';
+import { constructorReducer } from './constructor';
+import { orderReducer } from './order';
 import { ingredientReducer } from './ingredient';
-import { IInitResetPasswordState, initResetPasswordReducer } from './initResetPassword';
-import { IResetPasswordState, resetPasswordReducer } from './resetPassword';
-import { accessReducer, IAccessState } from './access';
-import { IOrderDetailsState, orderDetailsReducer } from './orderDetails';
+import { initResetPasswordReducer } from './initResetPassword';
+import { resetPasswordReducer } from './resetPassword';
+import { accessReducer } from './access';
+import { orderDetailsReducer } from './orderDetails';
 import { feedWsReducer, ORDERS_FEED_ENDPOINT, wsActionsFeed } from './feedWsReducer';
-import { IOrderFeedWebSocketState } from '../../types/IOrderData';
-import thunk from 'redux-thunk';
+import thunk, { ThunkAction } from 'redux-thunk';
 import { socketMiddleware } from '../middlewares/wsMiddleware';
 import { ORDERS_USER_ENDPOINT, userWsReducer, wsActionsUser } from './userWsReducer';
-import { IngredientData } from '../../types/IIngredientData';
+import { TAuthActions } from '../actions/auth';
+import { TConstructorActions } from '../actions/constructor';
+import { ISetIngredientAction } from '../actions/ingredient';
+import { TGetIngredientsLibActions } from '../actions/ingredientsLib';
+import { TInitResetPasswordActions } from '../actions/initResetPassword';
+import { TPlaceOrderActions } from '../actions/order';
+import { TOrderDetailsActions } from '../actions/orderDetails';
+import { TProfileActions } from '../actions/profile';
+import { TRegisterActions } from '../actions/register';
+import { TResetPasswordActions } from '../actions/resetPassword';
+import { TFeedWsActions } from '../actions/feedWsActions';
+import { TUserWsActions } from '../actions/userWsActions';
 
 export const rootReducer = combineReducers({
     ingredientsLib: ingredientsLibReducer,
@@ -41,17 +51,24 @@ const wsUser = socketMiddleware(ORDERS_USER_ENDPOINT, wsActionsUser);
 const middleWares = applyMiddleware(thunk, wsFeed, wsUser);
 const enhancer = composeEnhancers(middleWares);
 
-export interface IStore {
-    ingredientsLib: IIngredientsLibState,
-    constructor: IConstructorState,
-    ingredient: IngredientData | null,
-    order: IOrderState,
-    orderDetails: IOrderDetailsState,
-    initResetPassword: IInitResetPasswordState,
-    resetPassword: IResetPasswordState,
-    access: IAccessState,
-    feedWs: IOrderFeedWebSocketState,
-    userWs: IOrderFeedWebSocketState
-}
-
 export const store = createStore(rootReducer, enhancer);
+
+export type TStore = ReturnType<typeof rootReducer>;
+
+type TApplicationActions = 
+    TAuthActions |
+    TConstructorActions |
+    ISetIngredientAction |
+    TGetIngredientsLibActions |
+    TInitResetPasswordActions |
+    TPlaceOrderActions |
+    TOrderDetailsActions |
+    TProfileActions |
+    TRegisterActions |
+    TResetPasswordActions |
+    TFeedWsActions |
+    TUserWsActions;
+
+export type AppThunk<TReturn = void> = ActionCreator<ThunkAction<TReturn, TStore, unknown, TApplicationActions> >;
+
+export type AppDispatch = typeof store.dispatch;

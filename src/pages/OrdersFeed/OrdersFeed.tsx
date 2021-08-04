@@ -1,21 +1,19 @@
 import styles from './OrdersFeed.module.css';
 import '@ya.praktikum/react-developer-burger-ui-components';
-import OrdersList from '../../components/OrdersList/OrdersList';
-import OrdersStat from '../../components/OrdersStat/OrdersStat';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { FEED_WS_CONNECTION_START } from '../../redux/actions/feedWsActions';
-import { IStore } from '../../redux/reducers';
-import { IOrdersFeed } from '../../types/IOrderData';
+import { OrdersList } from '../../components/OrdersList/OrdersList';
+import { OrdersStat } from '../../components/OrdersStat/OrdersStat';
+import { FC, useEffect } from 'react';
+import { feedWsConnectionStart } from '../../redux/actions/feedWsActions';
+import { useDispatch, useSelector } from '../../hooks';
 
-const OrdersFeedPage = () =>
+export const OrdersFeedPage: FC = () =>
 {
     const dispatch = useDispatch();
 
-    const feed: IOrdersFeed | null = useSelector((store: IStore) => store.feedWs.feed);
+    const feed = useSelector(store => store.feedWs.feed);
 
     useEffect(() => {
-        dispatch({ type: FEED_WS_CONNECTION_START });
+        dispatch(feedWsConnectionStart());
     }, [dispatch]);
 
     return (
@@ -25,5 +23,3 @@ const OrdersFeedPage = () =>
         </div>
     )
 }
-
-export default OrdersFeedPage;

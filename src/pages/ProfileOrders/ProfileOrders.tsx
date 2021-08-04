@@ -1,23 +1,25 @@
 import '@ya.praktikum/react-developer-burger-ui-components'
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import OrdersList from '../../components/OrdersList/OrdersList';
-import ProfileMenu from '../../components/ProfileMenu/ProfileMenu';
-import { USER_WS_CONNECTION_START } from '../../redux/actions/userWsActions';
-import { IStore } from '../../redux/reducers';
-import { IOrdersFeed } from '../../types/IOrderData';
+import { FC, useEffect } from 'react';
+import { OrdersList } from '../../components/OrdersList/OrdersList';
+import { ProfileMenu } from '../../components/ProfileMenu/ProfileMenu';
+import { userWsConnectionStart } from '../../redux/actions/userWsActions';
+import { useDispatch, useSelector } from '../../hooks';
 import { getCookie } from '../../utils/cookie';
 import styles from './ProfileOrders.module.css';
 
-const ProfileOrdersPage = () =>
+export const ProfileOrdersPage: FC = () =>
 {
     const dispatch = useDispatch();
 
-    const feed: IOrdersFeed | null = useSelector((store: IStore) => store.userWs.feed);
+    const feed = useSelector(store => store.userWs.feed);
 
-    useEffect(() => {
-        const accessToken = getCookie('accessToken')?.substr(7);
-        dispatch({ type: USER_WS_CONNECTION_START, payload: accessToken });
+    useEffect(() =>
+    {
+        let accessToken: string | undefined = getCookie('accessToken')?.substr(7);
+        if (!accessToken)
+            accessToken = '';
+
+        dispatch(userWsConnectionStart(accessToken));
     }, [dispatch]);
 
     return (
@@ -29,5 +31,3 @@ const ProfileOrdersPage = () =>
         </div>
     )
 }
-
-export default ProfileOrdersPage;

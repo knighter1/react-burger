@@ -1,20 +1,28 @@
 import styles from './OrderInfoDetails.module.css';
-import { useSelector } from 'react-redux';
-import { IOrderDetailsState } from '../../redux/reducers/orderDetails';
+import { IOrderDetailsData } from '../../redux/reducers/orderDetails';
 import { formatOrderDate } from '../../redux/reducers/utils';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { orderCostReducer } from '../../redux/reducers/constructor';
-import { IStore } from '../../redux/reducers';
 import { IngredientData } from '../../types/IIngredientData';
+import { useSelector } from '../../hooks';
+import { FC } from 'react';
 
-export const OrderInfoDetails = (): JSX.Element => {
+export const OrderInfoDetails: FC = () =>
+{
+    const orderState = useSelector(store => store.orderDetails);
 
-    const orderData: IOrderDetailsState = useSelector((store: IStore) => store.orderDetails) as IOrderDetailsState;
+    const orderData: IOrderDetailsData | null = orderState.orderData;
 
-    const inProgressStatus = orderData.status === 'in_progress';
-    const statusClassName = !inProgressStatus ? styles.completed : '';
+    let cost;
+    let inProgressStatus;
+    let statusClassName;
 
-    const cost: number = orderCostReducer(orderData.ingredients.slice(1, orderData.ingredients.length), orderData.ingredients[0]);
+    if (orderData)
+    {
+        cost = orderCostReducer(orderData.ingredients.slice(1, orderData.ingredients.length), orderData.ingredients[0]);
+        inProgressStatus = orderData.status === 'pending';
+        statusClassName = !inProgressStatus ? styles.completed : '';
+    }
 
     const getItemCont = (item: IngredientData, index: number) => {
         
@@ -42,10 +50,10 @@ export const OrderInfoDetails = (): JSX.Element => {
     return (
         <div className={`${styles.page} modal-сontent`}>
             <div className={`text text_type_digits-default mb-5 ${styles.center}`}>
-                #{orderData.number}
+                #{orderData?.number}
             </div>
             <div className={`text text_type_main-medium mb-2`}>
-                {orderData.name}
+                {orderData?.name}
             </div>
             <div className={`text text_type_main-default mb-6 ${statusClassName}`}>
                 {inProgressStatus ? 'В работе' : 'Выполнен'}
@@ -54,11 +62,11 @@ export const OrderInfoDetails = (): JSX.Element => {
                 Состав:
             </div>
             <div className={`mt-5 mb-3 ${styles.list}`}>
-                {orderData.ingredients.map((item, index) => getItemCont(item, index))}
+                {orderData?.ingredients.map((item, index) => getItemCont(item, index))}
             </div>
             <div className={`mt-10 ${styles.bottom}`}>
                 <div className={`text text_type_main-default text_color_inactive`}>
-                    {formatOrderDate(orderData.date)}
+                    {formatOrderDate(orderData?.date ? orderData.date : null)}
                 </div>
                 <div className={styles.priceCont}>
                     <span className={`${styles.cost} text text_type_digits-default`}>{cost}</span>

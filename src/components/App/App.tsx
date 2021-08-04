@@ -1,28 +1,33 @@
 import styles from './App.module.css';
 import { BrowserRouter as Router, Route, Switch, useHistory, useLocation } from 'react-router-dom';
 import AppHeader from '../AppHeader/AppHeader';
-import ConstructorPage from '../../pages/Constructor/Constructor';
-import SignInPage from '../../pages/SignIn/SignIn';
-import RegisterPage from '../../pages/Register/Register';
-import ForgotPasswordPage from '../../pages/ForgotPassword/ForgotPassword';
-import ResetPasswordPage from '../../pages/ResetPassword/ResetPassword';
-import OrdersFeedPage from '../../pages/OrdersFeed/OrdersFeed';
-import ProfilePage from '../../pages/Profile/Profile';
+import { ConstructorPage } from '../../pages/Constructor/Constructor';
+import { SignInPage } from '../../pages/SignIn/SignIn';
+import { RegisterPage } from '../../pages/Register/Register';
+import { ForgotPasswordPage } from '../../pages/ForgotPassword/ForgotPassword';
+import { ResetPasswordPage } from '../../pages/ResetPassword/ResetPassword';
+import { OrdersFeedPage } from '../../pages/OrdersFeed/OrdersFeed';
+import { ProfilePage } from '../../pages/Profile/Profile';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
-import IngredientPage from '../../pages/Ingredient/Ingredient';
-import NotFound404 from '../../pages/NotFound404/NotFound404';
+import { IngredientPage } from '../../pages/Ingredient/Ingredient';
+import { NotFound404Page } from '../../pages/NotFound404/NotFound404';
 import { Modal } from '../Modal/Modal';
 import { IngredientDetails } from '../IngredientDetails/IngredientDetails';
 import { OrderInfoDetails } from '../OrderInfoDetails/OrderInfoDetails';
-import { useDispatch } from 'react-redux';
 import { getIngredientsLib } from '../../redux/actions/ingredientsLib';
-import { useEffect } from 'react';
-import OrderDetailPage from '../../pages/OrderDetail/OrderDetail';
-import ProfileOrdersPage from '../../pages/ProfileOrders/ProfileOrders';
+import { FC, useEffect } from 'react';
+import { OrderDetailPage } from '../../pages/OrderDetail/OrderDetail';
+import { ProfileOrdersPage } from '../../pages/ProfileOrders/ProfileOrders';
+import { useDispatch } from '../../hooks';
+import { Location } from 'history';
 
-const ModalSwitch = () => {
+interface ILocationState {
+    background?: Location;
+}
 
-    const location: any = useLocation();
+const ModalSwitch: FC = () =>
+{
+    const location = useLocation<ILocationState>();
     const history = useHistory();
 
     const background = history.action === "PUSH" && location.state && location.state.background;
@@ -65,7 +70,7 @@ const ModalSwitch = () => {
                     <OrderDetailPage />
                 </ProtectedRoute>
                 <Route>
-                    <NotFound404 />
+                    <NotFound404Page />
                 </Route>
             </Switch>
             
@@ -94,8 +99,8 @@ const ModalSwitch = () => {
     );
 }
 
-const App = () => {
-
+const App: FC = () =>
+{
     const dispatch = useDispatch();
 
     useEffect(() => {

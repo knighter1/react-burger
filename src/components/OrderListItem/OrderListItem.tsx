@@ -2,14 +2,13 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import styles from './OrderListItem.module.css'
 import { orderCostReducer } from '../../redux/reducers/constructor';
 import { formatOrderDate } from '../../redux/reducers/utils';
-import { useDispatch, useSelector } from 'react-redux';
-import { SET_ORDER_DETAIL } from '../../redux/actions/orderDetails';
+import { setOrderDetail } from '../../redux/actions/orderDetails';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { IStore } from '../../redux/reducers';
+import { FC, useEffect, useState } from 'react';
 import { OrderStatus } from '../../types/IOrderData';
 import { IngredientData } from '../../types/IIngredientData';
+import { useDispatch, useSelector } from '../../hooks';
 
 interface IOrderListItemProps {
     name: string
@@ -19,14 +18,14 @@ interface IOrderListItemProps {
     status: OrderStatus;
 }
 
-const OrderListItem = ({name, number, _ingredients, date, status }: IOrderListItemProps) =>
+const OrderListItem: FC<IOrderListItemProps> = ({name, number, _ingredients, date, status }: IOrderListItemProps) =>
 {
     const MAX_NAME_LENGTH: number = 65;
     
     const [cost, setCost] = useState(0);
-    const [ingredients, setIngredients]: any = useState([]);
+    const [ingredients, setIngredients] = useState<IngredientData[]>([]);
 
-    const lib = useSelector((store: IStore) => store.ingredientsLib.itemsById);
+    const lib = useSelector(store => store.ingredientsLib.itemsById);
 
     useEffect(() => {
         const orderIngredients: IngredientData[] = _ingredients.filter(item => item !== null && item !== undefined).map(id => lib?.get(id)) as IngredientData[];
@@ -63,7 +62,7 @@ const OrderListItem = ({name, number, _ingredients, date, status }: IOrderListIt
     const location = useLocation();
 
     const orderSelect = () => {
-        dispatch({ type: SET_ORDER_DETAIL, orderData: {name, number, ingredients, date } });
+        dispatch(setOrderDetail({name, number, ingredients, date, status }));
     }
 
     if (!ingredients || !ingredients.length)

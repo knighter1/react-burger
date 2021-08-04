@@ -2,15 +2,16 @@ import styles from './Modal.module.css';
 import ReactDOM from 'react-dom';
 import { ModalOverlay } from '../ModalOverlay/ModalOverlay';
 import modalCloseBtnImg from '../../images/modal_close_btn.png';
+import { FC } from 'react';
 
 const modalRoot: HTMLElement = document.getElementById("modals") as HTMLElement;
 
 export interface IModal {
-    closeHandle: Function,
+    closeHandle: () => void,
     children: JSX.Element
 }
 
-export const Modal = ({ closeHandle, children }: IModal) =>
+export const Modal: FC<IModal> = ({ closeHandle, children }: IModal) =>
 {
     return ReactDOM.createPortal( 
        (

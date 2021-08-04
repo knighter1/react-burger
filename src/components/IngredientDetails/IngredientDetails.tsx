@@ -1,13 +1,11 @@
 import styles from './IngredientDetails.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { SET_INGREDIENT } from '../../redux/actions/ingredient';
-import { IStore } from '../../redux/reducers';
-import { IngredientData } from '../../types/IIngredientData';
+import { FC, useEffect } from 'react';
+import { setIngredient } from '../../redux/actions/ingredient';
+import { useDispatch, useSelector } from '../../hooks';
 
-export const IngredientDetails = (): JSX.Element => {
+export const IngredientDetails: FC = () => {
 
-    const ingredientData: IngredientData = useSelector((store: IStore) => store.ingredient) as IngredientData;
+    const ingredientData = useSelector(store => store.ingredient);
     
     const dispatch = useDispatch();
 
@@ -18,10 +16,13 @@ export const IngredientDetails = (): JSX.Element => {
         </ul>
     )
 
-    const dropIngredient: any = () => {
-        return () => dispatch({ type: SET_INGREDIENT, ingredientData: null });
-    }
-    useEffect(dropIngredient, [dispatch]);
+    useEffect(() =>
+    {
+        return (() => { dispatch(setIngredient(null)) })
+    }, [dispatch]);
+
+    if (!ingredientData)
+        return null;
 
     return (
         <div className={`${styles.pageContainer} modal-сontent`}>

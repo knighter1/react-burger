@@ -1,19 +1,17 @@
 import { PasswordInput, Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import styles from './Profile.module.css';
 import './Profile.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { FormEvent, useEffect, useState } from 'react';
-import ProfileMenu from '../../components/ProfileMenu/ProfileMenu';
-import { updateUserInfo } from '../../redux/actions/profile';
-import { IStore } from '../../redux/reducers';
-import { getUser } from '../../services/auth';
+import { FormEvent, FC, useEffect, useState } from 'react';
+import { ProfileMenu } from '../../components/ProfileMenu/ProfileMenu';
+import { getUser, updateUserInfo } from '../../redux/actions/profile';
+import { useDispatch, useSelector } from '../../hooks';
 
-const ProfilePage = () =>
+export const ProfilePage: FC = () =>
 {
     const dispatch = useDispatch();
     const [isModified, setIsModified] = useState(false);
 
-    const access = useSelector((store: IStore) => store.access);
+    const access = useSelector(store => store.access);
     let initUser = access.user;
 
     const [name, setName] = useState(initUser ? initUser.name : '');
@@ -54,7 +52,7 @@ const ProfilePage = () =>
     useEffect(() =>
     {
         if (initUser === null || initUser === undefined)
-            getUser(dispatch);
+            dispatch(getUser());
     }, [initUser, dispatch]);
 
     // заполнение полей
@@ -98,5 +96,3 @@ const ProfilePage = () =>
         </div>
     )
 }
-
-export default ProfilePage;

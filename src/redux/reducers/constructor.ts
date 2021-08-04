@@ -1,5 +1,5 @@
 import { IngredientData } from '../../types/IIngredientData';
-import { ADD_ITEM, REMOVE_ITEM, REORDER_ITEM, RESET_ORDER } from '../actions/constructor';
+import { ADD_ITEM, REMOVE_ITEM, REORDER_ITEM, RESET_ORDER, TConstructorActions } from '../actions/constructor';
 
 export interface IConstructorState {
     items: IngredientData[];
@@ -27,7 +27,7 @@ export const orderCostReducer = (items: IngredientData[], bun: IngredientData | 
     return costValue;
 }
 
-export const constructorReducer = (state: IConstructorState = constructorInitState, action: any) =>
+export const constructorReducer = (state: IConstructorState = constructorInitState, action: TConstructorActions): IConstructorState =>
 {
     switch (action.type)
     {
@@ -61,9 +61,7 @@ export const constructorReducer = (state: IConstructorState = constructorInitSta
         }
 
         case RESET_ORDER:
-        {
             return { items: [], bun: null, cost: 0 };
-        }
 
         default:
             return state;

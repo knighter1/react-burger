@@ -1,10 +1,10 @@
-import { useRef } from 'react';
+import { FC, useRef } from 'react';
 import styles from './IngredientsListItem.module.css';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { REMOVE_ITEM, REORDER_ITEM } from '../../redux/actions/constructor';
-import { useDispatch } from 'react-redux';
+import { constructorRemoveItem, constructorReorderItem } from '../../redux/actions/constructor';
 import { useDrag, useDrop } from 'react-dnd';
 import { IngredientData } from '../../types/IIngredientData';
+import { useDispatch } from '../../hooks';
 
 interface IConstructorElement {
     type?: 'top' | 'bottom';
@@ -12,7 +12,7 @@ interface IConstructorElement {
     text: string;
     thumbnail: string;
     price: number;
-    handleClose?: any
+    handleClose?: () => void;
 };
 
 interface IIngredientsListItemProps
@@ -20,10 +20,16 @@ interface IIngredientsListItemProps
     data: IngredientData;
     index: number;
     type?: "top" | "bottom";
-    onClickHandler: Function
+    onClickHandler: (data: IngredientData) => void;
 }
 
-const IngredientsListItem = ({ data, index, type, onClickHandler }: IIngredientsListItemProps) =>
+interface DragableItem
+{
+    data: IngredientData;
+    prevIndex: number;
+}
+
+const IngredientsListItem: FC<IIngredientsListItemProps> = ({ data, index, type, onClickHandler }) =>
 {
     const dispatch = useDispatch();
 
@@ -37,16 +43,14 @@ const IngredientsListItem = ({ data, index, type, onClickHandler }: IIngredients
             thumbnail: item.image_mobile,
             type: type,
             isLocked: type ? true : false,
-            handleClose: (event: Event) => {
-                event.stopPropagation();
-                dispatch({ type: REMOVE_ITEM, index: index })
-            }
+            handleClose: () => dispatch(constructorRemoveItem(index))
         };
 
         return elementProps;
     }
 
-    const [{isDrag}, dragRef] = useDrag({
+    const [{isDrag}, dragRef] = useDrag(
+    {
         type: !type ? "reorder" : "",
         item: { data: data, prevIndex: index },
         collect: monitor => ({
@@ -54,10 +58,11 @@ const IngredientsListItem = ({ data, index, type, onClickHandler }: IIngredients
         })
     });
 
-    const [, dropRef] = useDrop({
+    const [, dropRef] = useDrop(
+    {
         accept: "reorder",
-        drop(item: any) {
-            dispatch({ type: REORDER_ITEM, newIndex: index, prevIndex: item.prevIndex });
+        drop(item: DragableItem) {
+            dispatch(constructorReorderItem(item.prevIndex, index))
         },
     });
 

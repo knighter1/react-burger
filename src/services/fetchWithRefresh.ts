@@ -1,7 +1,12 @@
 import { getCookie, setCookie } from "../utils/cookie";
 
-const checkResponse = (res: any) => {
-	return res.ok ? res.json() : res.json().then((err: Error) => Promise.reject(err));
+interface IResponse extends Body
+{
+    ok: boolean;
+}
+
+const checkResponse = (response: IResponse) => {
+	return response.ok ? response.json() : response.json().then((err: Error) => Promise.reject(err));
 }
 
 export const refreshToken = () =>

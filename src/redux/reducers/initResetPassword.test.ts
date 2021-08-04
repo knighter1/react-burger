@@ -1,31 +1,26 @@
 import { initResetPasswordReducer, initState } from './initResetPassword';
-import { INIT_RESET_PASSWORD_REQUEST, INIT_RESET_PASSWORD_ERROR, INIT_RESET_PASSWORD_SUCCESS } from '../actions/initResetPassword';
+import { initResetPasswordRequest, initResetPasswordSuccess, initResetPasswordError } from '../actions/initResetPassword';
 
 describe('init reset password reducer', () =>
 {
-    it('should return the initial state', () =>
-    {
-        expect(initResetPasswordReducer(undefined, {})).toEqual({ success: false, message: '', isError: false, isRequest: false });
-    });
-
-    it('should handle INIT_RESET_PASSWORD_REQUEST', () =>
+     it('should handle INIT_RESET_PASSWORD_REQUEST', () =>
     {
         expect(
-            initResetPasswordReducer(initState, { type: INIT_RESET_PASSWORD_REQUEST })
+            initResetPasswordReducer(initState, initResetPasswordRequest())
         ).toEqual( { success: false, message: '', isError: false, isRequest: true } );
     });
 
     it('should handle INIT_RESET_PASSWORD_ERROR', () =>
     {
         expect(
-            initResetPasswordReducer(initState, { type: INIT_RESET_PASSWORD_ERROR })
+            initResetPasswordReducer(initState, initResetPasswordError())
         ).toEqual( { success: false, message: '', isError: true, isRequest: false } );
     });
 
     it('should handle INIT_RESET_PASSWORD_SUCCESS', () =>
     {
         expect(
-            initResetPasswordReducer(initState, { type: INIT_RESET_PASSWORD_SUCCESS, message: 'message', success: true })
+            initResetPasswordReducer(initState, initResetPasswordSuccess('message'))
         ).toEqual( { success: true, message: 'message', isError: false, isRequest: false } );
     });
 }) 

@@ -1,26 +1,27 @@
 import { IngredientMenuItem } from '../IngredientMenuItem/IngredientMenuItem';
 import styles from './IngredientMenuList.module.css';
-import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { FC, LegacyRef, useEffect } from 'react';
 import { useInView } from "react-intersection-observer";
-import { IStore } from '../../redux/reducers';
 import { IngredientData } from '../../types/IIngredientData';
+import { useSelector } from '../../hooks';
 
 interface IIngredientMenuListProps
 {
-    changeTypeHandler: Function
+    changeTypeHandler: (ingredintType: string) => void;
 }
 
 export enum IngredientTypes
 {
-    bun = "Булки" as any,
-    sauce = "Соусы" as any,
-    main = "Начинки" as any
+    bun,
+    sauce,
+    main
 }
 
-export const IngredientMenuList: React.FC<IIngredientMenuListProps> = ({changeTypeHandler}) =>
+export const INGREDIENTS_NAMES: string[] = ["Булки", "Соусы", "Начинки"];
+
+export const IngredientMenuList: FC<IIngredientMenuListProps> = ({changeTypeHandler}) =>
 {
-    const ingredients: IngredientData[] = useSelector((store: IStore) => store.ingredientsLib.items) as IngredientData[];
+    const ingredients = useSelector(store => store.ingredientsLib.items);
 
     const bunsList: IngredientData[] = ingredients ? ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.bun]) : [];
     const mainList: IngredientData[] = ingredients ? ingredients.filter(element => element.type === IngredientTypes[IngredientTypes.main]) : [];
@@ -46,14 +47,14 @@ export const IngredientMenuList: React.FC<IIngredientMenuListProps> = ({changeTy
         }
     }, [inViewBuns, inViewMain, inViewSauces, changeTypeHandler]);
 
-    const renderCategory = (type: IngredientTypes, data: IngredientData[], elementRef: any) =>
+    const renderCategory = (type: IngredientTypes, data: IngredientData[], elementRef: LegacyRef<HTMLDivElement>) =>
     {
         if (!data.length)
             return null;
 
         return (
             <div key={IngredientTypes[type]} className={styles.categoryBlock} ref={elementRef}>
-                <span id={`menu_${IngredientTypes[type]}`} className={`${styles.listCategory} text text_type_main-medium pt-2`}>{type}</span>
+                <span id={`menu_${IngredientTypes[type]}`} className={`${styles.listCategory} text text_type_main-medium pt-2`}>{INGREDIENTS_NAMES[type]}</span>
                 {
                     data.map(element => <IngredientMenuItem key={element._id} data={element} />)
                 }

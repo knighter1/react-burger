@@ -1,24 +1,24 @@
 import styles from './IngredientMenuItem.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { SET_INGREDIENT } from '../../redux/actions/ingredient';
+import { setIngredient } from '../../redux/actions/ingredient';
 import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
-import { IStore } from '../../redux/reducers';
 import { IngredientData } from '../../types/IIngredientData';
+import { useDispatch, useSelector } from '../../hooks';
+import { FC } from 'react';
 
 interface IIngredientMenuItemProps
 {
     data: IngredientData
 }
 
-export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps) =>
+export const IngredientMenuItem: FC<IIngredientMenuItemProps> = ({ data }) =>
 {
     const dispatch = useDispatch();
 
     const onItemClick = () =>
     {
-        dispatch({ type: SET_INGREDIENT, ingredientData: data });
+        dispatch(setIngredient(data));
     }
 
     const [{isDrag}, dragRef] = useDrag({
@@ -31,7 +31,7 @@ export const IngredientMenuItem = ({ data }: IIngredientMenuItemProps) =>
 
     const className = `${styles.menuItem} mt-6 mb-8 ml-4 mr-2 ${isDrag ? styles.isDrag : ''}`;
 
-    const count = useSelector((store: IStore) => {
+    const count = useSelector(store => {
         
         const items: IngredientData[] = store.constructor.items
         let countResult: number = items ? items.filter(item => item._id === data._id).length : 0;

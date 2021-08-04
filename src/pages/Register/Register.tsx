@@ -1,13 +1,13 @@
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import styles from './Register.module.css'
 import './Register.css';
-import RegisterForm from '../../components/RegisterForm/RegisterForm';
+import { RegisterForm } from '../../components/RegisterForm/RegisterForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../redux/actions/register';
-import { IStore } from '../../redux/reducers';
+import { useDispatch, useSelector } from '../../hooks';
+import { FC } from 'react';
 
-const RegisterPage = () =>
+export const RegisterPage: FC = () =>
 {
     const dispatch = useDispatch();
 
@@ -17,7 +17,7 @@ const RegisterPage = () =>
         dispatch(register(email, password, name, history));   
     }
 
-    const isAuth: boolean = useSelector((store: IStore) => store.access.isAuth);
+    const isAuth = useSelector(store => store.access.isAuth);
 
     if (isAuth) {
         return (
@@ -47,5 +47,3 @@ const RegisterPage = () =>
         </div>
     )
 }
-
-export default RegisterPage;

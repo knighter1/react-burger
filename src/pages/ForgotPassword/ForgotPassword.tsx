@@ -1,13 +1,13 @@
 import styles from './ForgotPassword.module.css'
 import './ForgotPassword.css';
-import ForgotPasswordForm from '../../components/ForgotPasswordForm/ForgotPasswordForm';
+import { ForgotPasswordForm } from '../../components/ForgotPasswordForm/ForgotPasswordForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import { initResetPassword } from '../../redux/actions/initResetPassword';
-import { IStore } from '../../redux/reducers';
+import { useDispatch, useSelector } from '../../hooks';
+import { FC } from 'react';
 
-const ForgotPasswordPage = () =>
+export const ForgotPasswordPage: FC = () =>
 {
     const dispatch = useDispatch();
 
@@ -17,7 +17,7 @@ const ForgotPasswordPage = () =>
         dispatch(initResetPassword(email, history));
     }
 
-    const isAuth: boolean = useSelector((store: IStore) => store.access.isAuth);
+    const isAuth = useSelector(store => store.access.isAuth);
 
     if (isAuth) {
         return (
@@ -47,5 +47,3 @@ const ForgotPasswordPage = () =>
         </div>
     )
 }
-
-export default ForgotPasswordPage;

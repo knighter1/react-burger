@@ -1,12 +1,12 @@
 import { Logo, EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { FormEvent, useState } from 'react';
+import { FormEvent, FC, useState } from 'react';
 import styles from './ForgotPasswordForm.module.css'
 
 interface IForgotPasswordFormProps {
-    handler: Function
+    handler: (email: string) => void
 }
 
-const ForgotPasswordForm = ({handler}: IForgotPasswordFormProps) =>
+export const ForgotPasswordForm: FC<IForgotPasswordFormProps> = ({ handler }) =>
 {
     const [email, setEmail] = useState('');
 
@@ -30,5 +30,3 @@ const ForgotPasswordForm = ({handler}: IForgotPasswordFormProps) =>
         </form>
     )
 }
-
-export default ForgotPasswordForm;

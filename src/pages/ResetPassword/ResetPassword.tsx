@@ -1,17 +1,17 @@
 import styles from './ResetPassword.module.css'
 import './ResetPassword.css';
-import ResetPasswordForm from '../../components/ResetPasswordForm/ResetPasswordForm';
+import { ResetPasswordForm } from '../../components/ResetPasswordForm/ResetPasswordForm';
 import '@ya.praktikum/react-developer-burger-ui-components'
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
 import { resetPassword } from '../../redux/actions/resetPassword';
-import { IStore } from '../../redux/reducers';
+import { useDispatch, useSelector } from '../../hooks';
+import { FC } from 'react';
 
 interface stateType {
     from: { pathname: string }
 }
 
-const ResetPasswordPage = () =>
+export const ResetPasswordPage: FC = () =>
 {
     const dispatch = useDispatch();
 
@@ -21,7 +21,7 @@ const ResetPasswordPage = () =>
         dispatch(resetPassword(password, token, history));
     }
 
-    const isAuth: boolean = useSelector((store: IStore) => store.access.isAuth);
+    const isAuth = useSelector(store => store.access.isAuth);
 
     const { state } = useLocation<stateType>();
 
@@ -53,5 +53,3 @@ const ResetPasswordPage = () =>
         </div>
     )
 }
-
-export default ResetPasswordPage;

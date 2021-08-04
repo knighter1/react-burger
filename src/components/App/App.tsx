@@ -19,9 +19,10 @@ import { FC, useEffect } from 'react';
 import { OrderDetailPage } from '../../pages/OrderDetail/OrderDetail';
 import { ProfileOrdersPage } from '../../pages/ProfileOrders/ProfileOrders';
 import { useDispatch } from '../../hooks';
+import { Location } from 'history';
 
 interface ILocationState {
-    background?: any;
+    background?: Location;
 }
 
 const ModalSwitch: FC = () =>
